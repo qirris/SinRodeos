@@ -8,7 +8,7 @@ web, presentada como aplicación de escritorio (ventana propia e icono en el men
 
 ## Tecnología
 
-HTML + CSS + JavaScript puro sin dependencias, con un servidor Node de módulos nativos. La redacción la hace la API gratuita de Gemini; la clave se guarda en un `.env` local y el servidor es el único que la usa.
+HTML + CSS + JavaScript puro sin dependencias, con un servidor Node de módulos nativos. La redacción la hace una IA externa; la clave se guarda en un `.env` local y el servidor es el único que la usa.
 
 ## Usuarios
 

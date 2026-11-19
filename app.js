@@ -103,7 +103,7 @@ async function mejorar() {
   }
 
   establecerCargando(true);
-  mostrarMensaje("Mejorando el texto con Gemini…");
+  mostrarMensaje("Mejorando el texto con IA…");
   elementos.avisoConfiguracion.hidden = true;
 
   try {

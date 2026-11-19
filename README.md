@@ -4,7 +4,6 @@
 
 ![Node.js 18+](https://img.shields.io/badge/Node.js-18%2B-339933?style=flat-square)
 ![Sin dependencias](https://img.shields.io/badge/dependencias-cero-2440e0?style=flat-square)
-![Gemini gratuito](https://img.shields.io/badge/IA-Gemini%20gratis-4285F4?style=flat-square)
 ![Licencia MIT](https://img.shields.io/badge/licencia-MIT-111827?style=flat-square)
 
 Herramienta que convierte una petición escrita deprisa, desordenada o con faltas en un **prompt claro, bien presentado y profesional en español**, sin cambiar nada de lo que pediste.
@@ -18,7 +17,7 @@ Pensé: si el problema está en el mensaje de entrada, arreglo el mensaje de ent
 ## Cómo funciona
 
 1. Escribes tu texto tal cual, sin preocuparte por el orden ni la ortografía.
-2. Gemini lo reescribe con una regla fija: **no añadir, no quitar, no cambiar, todo en español y bien presentado en Markdown**.
+2. Un servicio de IA lo reescribe con una regla fija: **no añadir, no quitar, no cambiar, todo en español y bien presentado en Markdown**.
 3. La herramienta compara tus ideas con el resultado y te dice cuántas siguen ahí. Es una comprobación aproximada: sirve para avisarte, no para decidir por ti.
 4. Copias el resultado y lo pegas en la IA que uses.
 
@@ -35,7 +34,7 @@ sin cambiar nada de lo que he pedido ni añadir cosas
 devuélvemelo en español
 ```
 
-**Salida generada por Gemini**
+**Salida generada por la IA**
 
 ```markdown
 # Solución para proyectos con IA
@@ -72,7 +71,7 @@ Y abres `http://localhost:8000`.
 
 ### La clave, solo una vez
 
-1. Entra en <https://aistudio.google.com/apikey> e inicia sesión con tu cuenta de Google.
+1. Crea una cuenta en la plataforma de IA que prefieras (puedes usar Google AI Studio o similar).
 2. Pulsa **Crear clave de API** y cópiala.
 3. Abre el archivo `.env` de la carpeta del proyecto y pega la clave aquí:
 
@@ -82,7 +81,7 @@ GEMINI_API_KEY=tu_clave_aquí
 
 4. Guardas el archivo y vuelves a pulsar **Convertir en prompt**. No hace falta reiniciar nada.
 
-`.env` está en `.gitignore`: **la clave nunca se sube a GitHub ni aparece en el navegador**. El servidor la guarda y es quien habla con Gemini. Si la subes por accidente, revócala en Google AI Studio y crea otra.
+`.env` está en `.gitignore`: **la clave nunca se sube a GitHub ni aparece en el navegador**. El servidor la guarda y es quien habla con la IA. Si la subes por accidente, revócala en la plataforma de IA y crea otra.
 
 El modelo por defecto es `gemini-3.5-flash-lite`. Si algún día no está disponible, cambia en `.env` la línea `GEMINI_MODELO` por `gemini-3.8-flash`.
 
@@ -101,7 +100,7 @@ Si abres la app en Edge o Chrome, puedes usar **Instalar aplicación** desde el 
 
 ## Privacidad y límites, sin adornos
 
-- El texto **se envía a Gemini (Google)** para que lo reescriba. Ya no es todo local: antes se usaba Ollama en el ordenador, ahora no.
+- El texto **se envía a un servicio de IA en la nube** para que lo reescriba.
 - La clave se queda en tu ordenador. El navegador nunca la recibe.
 - La capa gratuita tiene límite de peticiones y Google indica en sus condiciones que puede usar el contenido para mejorar sus productos. **No pegues información sensible.**
 - Necesitas conexión a internet.

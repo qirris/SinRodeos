@@ -77,20 +77,11 @@ body {
   gap: 14px;
 }
 
-.marca__simbolo {
+.marca__logo {
   width: 48px;
   height: 48px;
-  flex: none;
-  display: grid;
-  place-items: center;
-  background: var(--tinta);
-  color: #ffffff;
-  border-radius: 13px;
-}
-
-.marca__simbolo svg {
-  width: 27px;
-  height: 27px;
+  object-fit: contain;
+  border-radius: 12px;
 }
 
 .marca h1 {

@@ -119,15 +119,15 @@ function traducirError(estado) {
     return "Esa clave no tiene acceso al modelo gratuito. Comprueba que la copiaste completa.";
   }
   if (estado === 404) {
-    return "El modelo configurado no está disponible. Cambia GEMINI_MODELO en .env por gemini-3.8-flash.";
+    return "El modelo configurado no está disponible. Cambia el modelo en .env.";
   }
   if (estado === 429) {
-    return "Has llegado al límite gratuito de Gemini. Espera un momento y vuelve a intentarlo.";
+    return "Has llegado al límite gratuito. Espera un momento y vuelve a intentarlo.";
   }
   if (estado >= 500) {
-    return "Gemini está teniendo problemas ahora mismo. Prueba de nuevo en unos segundos.";
+    return "El servicio de IA está teniendo problemas ahora mismo. Prueba de nuevo en unos segundos.";
   }
-  return "Gemini respondió con un error inesperado. Prueba de nuevo.";
+  return "La IA respondió con un error inesperado. Prueba de nuevo.";
 }
 
 function llamarGemini(clave, modelo, texto) {
@@ -161,7 +161,7 @@ function llamarGemini(clave, modelo, texto) {
           rechazar({
             estado: 502,
             codigo: "respuesta_invalida",
-            error: "Gemini devolvió una respuesta que no se pudo leer. Prueba de nuevo."
+            error: "La IA devolvió una respuesta que no se pudo leer. Prueba de nuevo."
           });
           return;
         }
@@ -176,7 +176,7 @@ function llamarGemini(clave, modelo, texto) {
             rechazar({
               estado: 502,
               codigo: "respuesta_vacia",
-              error: "Gemini devolvió una respuesta vacía. Prueba de nuevo."
+              error: "La IA devolvió una respuesta vacía. Prueba de nuevo."
             });
             return;
           }
@@ -197,7 +197,7 @@ function llamarGemini(clave, modelo, texto) {
       rechazar({
         estado: 502,
         codigo: "red",
-        error: `No se pudo conectar con Gemini. Revisa tu conexión a internet. (${error.code || error.message})`
+        error: `No se pudo conectar con la IA. Revisa tu conexión a internet. (${error.code || error.message})`
       });
     });
 
@@ -214,7 +214,7 @@ async function atenderMejorar(peticion, respuesta) {
     if (!clave || clave === "TU_CLAVE_AQUI") {
       responderJson(respuesta, 500, {
         codigo: "sin_clave",
-        error: "Falta la clave de Gemini. Abre el archivo .env y pega tu clave en GEMINI_API_KEY."
+        error: "Falta la clave de la IA. Abre el archivo .env y pega tu clave en GEMINI_API_KEY."
       });
       return;
     }
@@ -270,7 +270,7 @@ servidor.listen(PUERTO, () => {
   console.log(`Sin Rodeos funcionando en http://localhost:${PUERTO}`);
   console.log(
     tieneClave
-      ? "Clave de Gemini encontrada en .env."
-      : "Falta la clave de Gemini: pégala en el archivo .env (GEMINI_API_KEY)."
+      ? "Clave de la IA encontrada en .env."
+      : "Falta la clave de la IA: pégala en el archivo .env (GEMINI_API_KEY)."
   );
 });
