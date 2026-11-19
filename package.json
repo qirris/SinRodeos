@@ -1,0 +1,19 @@
+{
+  "name": "sinrodeos",
+  "version": "1.0.0",
+  "description": "Convierte texto en bruto en prompts claros en español sin cambiar nada de lo pedido.",
+  "type": "module",
+  "scripts": {
+    "start": "node servidor.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "prompt",
+    "ia",
+    "ollama",
+    "español",
+    "local"
+  ],
+  "license": "MIT",
+  "author": "qirris"
+}

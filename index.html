@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sin Rodeos — Tu texto, sin cambiar nada</title>
+  <meta name="description" content="Convierte tus peticiones en bruto en prompts claros y profesionales en español, sin cambiar nada de lo que pediste. Funciona en local y con Ollama.">
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header class="cabecera">
+    <div class="marca">
+      <span class="marca__simbolo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="5" width="11" height="14" rx="2"></rect>
+          <path d="M17 8.5h4m0 0-2.5-2.5M21 8.5 18.5 11"></path>
+          <path d="M17 15.5h4m0 0-2.5-2.5m2.5 2.5-2.5 2.5"></path>
+        </svg>
+      </span>
+      <div>
+        <h1>Sin Rodeos</h1>
+        <p>Tu texto, sin cambiar nada. Solo mejor escrito.</p>
+      </div>
+    </div>
+    <a class="enlace" href="https://github.com/qirris/SinRodeos" target="_blank" rel="noopener">
+      Ver en GitHub
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M7 17 17 7M9 7h8v8"></path>
+      </svg>
+    </a>
+  </header>
+
+  <main class="principal">
+    <div class="promesa" role="note" aria-label="Principios del producto">
+      <span>No inventa</span>
+      <span>No quita</span>
+      <span>No cambia</span>
+    </div>
+
+    <div class="columnas">
+      <section class="panel" aria-labelledby="titulo-entrada">
+        <div class="panel__cabecera">
+          <h2 id="titulo-entrada">Tu texto</h2>
+          <span class="etiqueta" id="contadorEntrada">0 caracteres</span>
+        </div>
+        <label class="sr-only" for="textoEntrada">Escribe aquí lo que quieres pedir</label>
+        <textarea id="textoEntrada" spellcheck="false" placeholder="Escribe aquí lo que quieres pedir, aunque salga desordenado o con faltas..."></textarea>
+        <div class="barra-entrada">
+          <button id="botonEjemplo" class="boton boton--texto" type="button">Probar ejemplo</button>
+          <button id="botonLimpiar" class="boton boton--texto" type="button">Limpiar</button>
+        </div>
+      </section>
+
+      <div class="puente" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 12h15m0 0-5-5m5 5-5 5"></path>
+        </svg>
+      </div>
+
+      <section class="panel panel--salida" id="panelSalida" aria-labelledby="titulo-salida">
+        <div class="barra-progreso" aria-hidden="true"></div>
+        <div class="panel__cabecera">
+          <h2 id="titulo-salida">Prompt listo</h2>
+          <span class="etiqueta" id="indicadorConservacion" hidden></span>
+        </div>
+        <label class="sr-only" for="textoSalida">Prompt generado</label>
+        <textarea id="textoSalida" readonly placeholder="Aquí aparecerá tu prompt mejorado..."></textarea>
+        <div class="barra-salida">
+          <button id="botonCopiar" class="boton boton--secundario" type="button">
+            Copiar prompt
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="9" y="9" width="11" height="11" rx="2"></rect>
+              <path d="M5 15V5a2 2 0 0 1 2-2h8"></path>
+            </svg>
+          </button>
+          <span class="pista" id="estado" role="status" aria-live="polite">El resultado aparecerá aquí.</span>
+        </div>
+      </section>
+    </div>
+
+    <section class="controles" aria-labelledby="titulo-opciones">
+      <h2 id="titulo-opciones" class="sr-only">Opciones de generación</h2>
+
+      <fieldset class="modos">
+        <legend>Modo</legend>
+        <div class="segmentado">
+          <input type="radio" name="modo" id="modoEstricto" value="estricto" checked>
+          <label for="modoEstricto">Estricto, sin IA</label>
+          <input type="radio" name="modo" id="modoIA" value="ia">
+          <label for="modoIA">Con IA local</label>
+        </div>
+      </fieldset>
+
+      <div class="opcion-ia" id="opcionModelo" hidden>
+        <label for="modeloOllama">Modelo Ollama</label>
+        <select id="modeloOllama">
+          <option value="qwen3:8b">qwen3:8b</option>
+        </select>
+        <span class="estado-ollama" id="estadoOllama">Comprobando…</span>
+      </div>
+
+      <label class="interruptor">
+        <input type="checkbox" id="incluirReglas" checked>
+        <span>Añadir reglas de precisión</span>
+      </label>
+
+      <button id="botonMejorar" class="boton boton--primario" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"></path>
+          <path d="M18.5 16.5 19 18l1.5.5L19 19l-.5 1.5L18 19l-1.5-.5L18 18l.5-1.5Z"></path>
+        </svg>
+        <span id="etiquetaMejorar">Convertir en prompt</span>
+        <kbd>Ctrl</kbd><kbd>Enter</kbd>
+      </button>
+    </section>
+
+    <section class="historial" aria-labelledby="titulo-historial">
+      <div class="historial__cabecera">
+        <h2 id="titulo-historial">Historial reciente</h2>
+        <button id="botonBorrarHistorial" class="boton boton--texto" type="button">Borrar historial</button>
+      </div>
+      <ol id="listaHistorial" class="historial__lista"></ol>
+      <p id="historialVacio" class="vacio">Todavía no hay prompts guardados en este navegador.</p>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p>Hecho para escribir sin rodeos. Todo se procesa en tu ordenador.</p>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
