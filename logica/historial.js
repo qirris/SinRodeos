@@ -19,6 +19,7 @@ export function guardarEnHistorial(entrada) {
       id: Date.now(),
       texto: entrada.texto || "",
       prompt: entrada.prompt || "",
+      estilo: entrada.estilo || "preciso",
       fecha: new Date().toISOString()
     };
     localStorage.setItem(CLAVE, JSON.stringify([nueva, ...actual].slice(0, LIMITE)));

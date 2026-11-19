@@ -13,14 +13,16 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 2. Estado actual
 
-- 2026-11-19: aplicación terminada y funcionando con Gemini.Última verificación: 2026-11-19.
+- 2026-11-19: aplicación terminada y funcionando con IA en la nube. Última verificación: 2026-11-19.
 - 2026-11-19: clave del usuario ya pegada en `.env` (longitud detectada: 53 caracteres). **Nunca abrir ni mostrar la clave**; comprobar solo su presencia.
 - 2026-11-19: llamada real a `POST /api/mejorar` verificada con estado 200 y prompt generado.
-- 2026-11-19: `npm test` → 11/11 en verde; detector de diseño → `[]`.
+- 2026-11-19: `npm test` → 13/13 en verde; detector de diseño → `[]`.
+- 2026-11-19: cuatro estilos de prompt disponibles (Preciso, Directo, Analítico y Creativo) con selector en la interfaz.
+- 2026-11-19: iconos regenerados desde `logo.webp` con Edge headless (color claro verificado: mismo promedio RGB que el logo original).
 - 2026-11-19: endpoints estáticos verificados (`/`, manifest, icono y service worker → 200 con MIME correcto).
 - 2026-11-19: acceso directo creado en el menú Inicio de Windows, apuntando a `abrir.bat` con `icono.ico`.
 - 2026-11-19: cambios de esta evolución commiteados y pusheados a `main` (`dd3c588` y `84ac086`); `.env` está ignorado por git (`git check-ignore -v .env` → `.gitignore:4:.env`).
-- 2026-11-19: metadatos de GitHub actualizados: descripción con Gemini gratuito, asistencia de IA y app de escritorio; topics `gemini` y `pwa` añadidos y `ollama` eliminado.
+- 2026-11-19: metadatos de GitHub actualizados: descripción sin marca de proveedor y topics `espanol`, `prompt`, `inteligencia-artificial`, `proyecto-personal` y `productividad`.
 - 2026-11-19: pendiente de que el usuario revise visualmente la interfaz; el agente generó capturas pero no pudo verlas (este modelo no admite entrada de imágenes).
 
 ## 3. Tecnologías y arquitectura
@@ -92,6 +94,9 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - 2026-11-19: creados `logica/instrucciones.js` y `logica/gemini.js`; eliminado `logica/ollama.js`.
 - 2026-11-19: añadidos PWA, iconos generados sin dependencias, `abrir.bat` y acceso directo en el menú Inicio.
 - 2026-11-19: reescritas las pruebas y actualizados `package.json` (v1.1.0), `README.md` y `PRODUCT.md`.
+- 2026-11-19: integrado `logo.webp` como identidad en cabecera, favicon, PWA, iconos y acceso directo; eliminados los textos de marca de proveedor que quedaban en `index.html`, `PRODUCT.md` y `package.json`.
+- 2026-11-19: añadidos cuatro estilos de prompt (Preciso, Directo, Analítico, Creativo) propagados por interfaz, servidor, instrucciones, historial y pruebas.
+- 2026-11-19: reescrito `scripts/generar-iconos.js` para convertir `logo.webp` con Edge/Chrome headless sin dependencias; renovada la caché del service worker.
 
 ## 7. Decisiones tomadas
 
@@ -104,16 +109,20 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - Se mantiene el servidor local porque es necesario para ocultar la clave API (2026-11-19).
 - No configurar arranque automático con Windows: solo acceso directo en el menú Inicio, salvo petición expresa (2026-11-19).
 - Nombre de producto: **Sin Rodeos** (2026-11-19).
+- Cuatro estilos de prompt — Preciso, Directo, Analítico y Creativo — como única personalización visible; el modelo sigue fijo (2026-11-19).
+- `logo.webp` es la única fuente de iconos; se convierte a PNG/ICO con el navegador del sistema para no añadir dependencias (2026-11-19).
 - Indicador de progreso finito, no una animación en bucle, para evitar movimiento innecesario (2026-11-19).
 - Declarar la asistencia de IA de forma visible y usar una voz cercana y real (2026-11-19).
 
 ## 8. Pruebas verificadas
 
-- 2026-11-19: `npm test` → 11 pruebas, 11 superadas, 0 fallos.
+- 2026-11-19: `npm test` → 13 pruebas, 13 superadas, 0 fallos (incluye los cuatro estilos).
 - 2026-11-19: detector de diseño (`impeccable detect --json index.html estilos.css app.js`) → `[]` (sin hallazgos). Se quitó el borde lateral del aviso que había marcado como patrón detectado.
 - 2026-11-19: `curl` a `/`, `/manifest.webmanifest`, `/icono-512.png` y `/service-worker.js` → 200 con tipos MIME correctos.
 - 2026-11-19: llamada directa a Gemini con `gemini-3.5-flash-lite` → estado 200 y prompt correcto.
-- 2026-11-19: `POST /api/mejorar` → estado 200 y prompt real (`# Solución para proyectos con IA...`).
+- 2026-11-19: `POST /api/mejorar` con `estilo: "directo"` → estado 200 y prompt real de cinco líneas.
+- 2026-11-19: endpoints `/`, `/logo.webp`, `/icono.ico`, `/icono-192.png`, manifest y service worker → 200 con MIME correcto.
+- 2026-11-19: color promedio de `logo.webp` y `icono-512.png` idéntico `[248, 247, 254]` → el icono ya no es el cuadrado negro anterior.
 - 2026-11-19: `git check-ignore -v .env` → `.gitignore:4:.env`; `.env` no aparece en `git status --short`.
 - 2026-11-19: revisión del índice de git antes del commit: solo marcadores `TU_CLAVE_AQUI` / `tu_clave_aquí`, ninguna clave real.
 - 2026-11-19: `git push origin main` → `ea67812..84ac086`; `git status --short` final → limpio.
@@ -127,13 +136,16 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - **Resuelto**: el detector de diseño marcó `border-left: 4px solid #d97706` en `.aviso`; se sustituyó por borde completo más suave.
 - **Resuelto**: `Invoke-RestMethod` de PowerShell y `curl` con JSON escapado daban 500/400 por codificación del cuerpo; la verificación con `fetch` de Node confirmó el endpoint real.
 - **Resuelto**: `gh repo edit` no admite `--delete-topic`; el flag correcto es `--remove-topic`. Metadatos corregidos y verificados.
+- **Resuelto**: los prompts salían casi literales y poco profesionales; se cambió el sistema a "experto en Ingeniería de Prompts" con reformulación obligatoria y estructura profesional.
+- **Resuelto**: el icono visible era el antiguo cuadrado negro generado por código; ahora todos los iconos salen de `logo.webp`.
+- **Resuelto**: quedaron menciones al proveedor en textos públicos (`index.html`, `PRODUCT.md`, `package.json`); neutralizadas.
 - Capturas de escritorio y móvil generadas en la carpeta temporal de OpenCode, pero no inspeccionadas visualmente por el agente. Revisión visual pendiente por parte del usuario.
 
 ## 10. Próximos pasos
 
-1. Decir al usuario que la app está lista, que la clave ya fue detectada, dónde abrirla y ofrecer añadir arranque automático con Windows si lo quiere.
-2. Esperar a que el usuario confirme que abre bien desde el menú Inicio y que la interfaz le resulta cómoda.
-3. Si el usuario lo pide: ajustar estilos o añadir arranque automático; no hacerlo sin permiso.
+1. Decir al usuario que los cuatro estilos y el logo ya están integrados y verificados.
+2. Pedir que abra la app desde el menú Inicio y confirme que el icono es el suyo y que el selector funciona.
+3. Si lo pide: ajustar estilos o añadir arranque automático; no hacerlo sin permiso.
 
 ## 11. Historial de actualizaciones
 
@@ -141,4 +153,5 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - 2026-11-19 — Aplicación completa, pruebas en verde, documentación y publicación en GitHub.
 - 2026-11-19 — Ajuste de contenido: todo en español, historia personal y declaración de asistencia de IA.
 - 2026-11-19 — Evolución a Gemini gratuito, modo solo IA, app de escritorio, clave en `.env` y verificación real del endpoint.
-- 2026-11-19 — Commits `dd3c588` y `84ac086` pusheados; metadatos de GitHub actualizados y repo limpio.
+- 2026-11-19 — Integración de logo propio, eliminación de marcas de proveedor (Gemini/Google) en textos públicos, limpieza de metadatos de GitHub y consolidación del proyecto "puto profesional". 11/11 pruebas superadas. Repo limpio. Estado: estable.
+- 2026-11-19 — Cuatro estilos de prompt, iconos regenerados desde `logo.webp`, textos públicos neutralizados y 13/13 pruebas en verde.

@@ -6,7 +6,7 @@ import https from "node:https";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { INSTRUCCIONES_SISTEMA } from "./logica/instrucciones.js";
+import { ESTILOS, obtenerInstrucciones } from "./logica/instrucciones.js";
 
 const RAIZ = path.dirname(fileURLToPath(import.meta.url));
 const ARCHIVO_ENTORNO = path.join(RAIZ, ".env");
@@ -21,6 +21,7 @@ const TIPOS_MIME = {
   ".json": "application/json; charset=utf-8",
   ".webmanifest": "application/manifest+json",
   ".svg": "image/svg+xml",
+  ".webp": "image/webp",
   ".png": "image/png",
   ".ico": "image/x-icon",
   ".md": "text/markdown; charset=utf-8"
@@ -130,9 +131,9 @@ function traducirError(estado) {
   return "La IA respondió con un error inesperado. Prueba de nuevo.";
 }
 
-function llamarGemini(clave, modelo, texto) {
+function llamarGemini(clave, modelo, texto, estilo) {
   const cuerpo = JSON.stringify({
-    system_instruction: { parts: [{ text: INSTRUCCIONES_SISTEMA }] },
+    system_instruction: { parts: [{ text: obtenerInstrucciones(estilo) }] },
     contents: [{ role: "user", parts: [{ text: texto }] }],
     generationConfig: { temperature: 0.2, maxOutputTokens: 2048 }
   });
@@ -234,8 +235,9 @@ async function atenderMejorar(peticion, respuesta) {
       return;
     }
 
+    const estilo = Object.hasOwn(ESTILOS, datos?.estilo) ? datos.estilo : "preciso";
     const modelo = (entorno.GEMINI_MODELO || MODELO_PREDETERMINADO).trim();
-    const prompt = await llamarGemini(clave, modelo, texto);
+    const prompt = await llamarGemini(clave, modelo, texto, estilo);
     responderJson(respuesta, 200, { prompt });
   } catch (error) {
     responderJson(respuesta, Number(error?.estado) || 502, {

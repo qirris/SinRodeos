@@ -40,7 +40,7 @@
     </div>
 
     <div class="aviso" id="avisoConfiguracion" role="alert" hidden>
-      <strong>Falta la clave de Gemini.</strong>
+      <strong>Falta la clave del servicio de IA.</strong>
       Abre el archivo <code>.env</code> que está en la carpeta de Sin Rodeos y pega tu clave en
       <code>GEMINI_API_KEY=</code>. Guardas el archivo y vuelves a pulsar el botón. No hace falta reiniciar.
     </div>
@@ -89,7 +89,16 @@
     <section class="controles" aria-labelledby="titulo-opciones">
       <div class="controles__texto">
         <h2 id="titulo-opciones">Prompt con IA</h2>
-        <p>Gemini se encarga de la redacción. Nosotros comprobamos que no falte ninguna de tus ideas.</p>
+        <p>La redacción la hace un servicio de IA. Nosotros comprobamos que no falte ninguna de tus ideas.</p>
+      </div>
+      <div class="campo-estilo">
+        <label for="selectorEstilo">Estilo del prompt</label>
+        <select id="selectorEstilo" name="estilo">
+          <option value="preciso" selected>Preciso</option>
+          <option value="directo">Directo</option>
+          <option value="analitico">Analítico</option>
+          <option value="creativo">Creativo</option>
+        </select>
       </div>
       <button id="botonMejorar" class="boton boton--primario" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

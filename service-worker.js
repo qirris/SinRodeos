@@ -1,7 +1,7 @@
 // Guarda solo la interfaz para que la app abra rápido.
 // Las peticiones a /api/ nunca se guardan: siempre tienen que llegar al servidor.
 
-const NOMBRE_CACHÉ = "sinrodeos-v1";
+const NOMBRE_CACHÉ = "sinrodeos-v2";
 const ARCHIVOS = [
   "/",
   "/index.html",
@@ -11,7 +11,10 @@ const ARCHIVOS = [
   "/logica/mejorador.js",
   "/logica/historial.js",
   "/manifest.webmanifest",
-  "/icono.svg"
+  "/logo.webp",
+  "/icono-192.png",
+  "/icono-512.png",
+  "/icono.ico"
 ];
 
 self.addEventListener("install", evento => {

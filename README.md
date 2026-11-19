@@ -17,11 +17,20 @@ Pensé: si el problema está en el mensaje de entrada, arreglo el mensaje de ent
 ## Cómo funciona
 
 1. Escribes tu texto tal cual, sin preocuparte por el orden ni la ortografía.
-2. Un servicio de IA lo reescribe con una regla fija: **no añadir, no quitar, no cambiar, todo en español y bien presentado en Markdown**.
+2. Un servicio de IA lo reescribe con una regla fija: **no añadir, no quitar, no cambiar, todo en español y bien presentado en Markdown**, con el estilo que elijas.
 3. La herramienta compara tus ideas con el resultado y te dice cuántas siguen ahí. Es una comprobación aproximada: sirve para avisarte, no para decidir por ti.
 4. Copias el resultado y lo pegas en la IA que uses.
 
-No hay selector de modos: siempre se usa la IA, que es la que deja el prompt bien escrito. La parte estricta solo se usa por dentro para vigilar que no falte nada, nunca para mostrarte un prompt plano en su lugar.
+Siempre se usa la IA, que es la que deja el prompt bien escrito. La parte estricta solo se usa por dentro para vigilar que no falte nada, nunca para mostrarte un prompt plano en su lugar.
+
+## Estilos del prompt
+
+El selector **Estilo del prompt** cambia solo la forma de presentar lo que pediste, nunca el contenido:
+
+- **Preciso** (por defecto): estructura profesional con Objetivo, Contexto, Restricciones y Formato de salida.
+- **Directo:** máximo seis líneas, solo la instrucción ejecutable, sin explicaciones.
+- **Analítico:** incluye un razonamiento paso a paso antes de la instrucción final.
+- **Creativo:** plantea el encargo como un brief abierto; las sugerencias aparecen marcadas como tales.
 
 ## Ejemplo real
 

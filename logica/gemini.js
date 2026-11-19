@@ -20,14 +20,14 @@ export function limpiarRespuesta(texto) {
   return resultado.trim();
 }
 
-export async function mejorarConGemini(texto) {
+export async function mejorarConGemini(texto, estilo = "preciso") {
   let respuesta;
 
   try {
     respuesta = await fetch(RUTA_MEJORAR, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ texto })
+      body: JSON.stringify({ texto, estilo })
     });
   } catch {
     throw new Error("No se pudo conectar con el servidor local. Comprueba que la aplicación esté abierta.");
@@ -43,7 +43,7 @@ export async function mejorarConGemini(texto) {
 
   const prompt = limpiarRespuesta(datos.prompt);
   if (!prompt) {
-    throw new Error("Gemini devolvió una respuesta vacía. Prueba de nuevo.");
+    throw new Error("La IA devolvió una respuesta vacía. Prueba de nuevo.");
   }
 
   return prompt;

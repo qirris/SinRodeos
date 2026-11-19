@@ -20,10 +20,14 @@
 
 ## Pendientes
 
-- [x] Revisar metadatos de GitHub (descripción y topics): quitar `ollama`, reflejar Gemini gratuito y app de escritorio.
-- [x] Ejecutar `npm test` final y comprobar `git check-ignore -v .env` y `git status --short`.
-- [x] Hacer commit en español y `git push` a `main` (`dd3c588` y `84ac086`).
-- [ ] Confirmar con el usuario que la app abre correctamente desde el menú Inicio y que la interfaz le resulta cómoda.
+- [x] Revisar metadatos de GitHub (descripción y topics): quitar `gemini`, `pwa`, añadir `productividad`.
+- [x] Ejecutar el plan de pulido: logo, neutralización de textos, metadatos y verificación.
+- [x] Commit en español y `git push`.
+- [x] Integrar cuatro estilos de prompt y selector en la interfaz.
+- [x] Regenerar todos los iconos desde `logo.webp` y renovar la caché del service worker.
+- [x] Neutralizar los textos de marca que quedaban en `index.html`, `PRODUCT.md` y `package.json`.
+- [x] Verificar endpoint con estilo, MIME de iconos, color del logo y 13/13 pruebas.
+- [ ] Confirmar con el usuario que la app abre correctamente desde el menú Inicio y que el icono es el suyo.
 
 ## Bajo petición del usuario
 

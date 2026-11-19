@@ -390,6 +390,44 @@ textarea::-webkit-scrollbar-thumb:hover {
   font-size: 0.88rem;
 }
 
+.campo-estilo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.campo-estilo label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--secundario);
+}
+
+.campo-estilo select {
+  appearance: none;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  background-color: var(--fondo);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23556174' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 11px center;
+  background-size: 14px;
+  color: var(--tinta);
+  font: inherit;
+  font-size: 0.91rem;
+  font-weight: 600;
+  padding: 10px 36px 10px 12px;
+  cursor: pointer;
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.campo-estilo select:focus {
+  outline: none;
+  border-color: var(--acento);
+  box-shadow: 0 0 0 3px var(--acento-suave);
+}
+
 .boton {
   display: inline-flex;
   align-items: center;
@@ -581,6 +619,11 @@ textarea::-webkit-scrollbar-thumb:hover {
   .promesa span {
     padding: 7px 10px;
     font-size: 0.72rem;
+  }
+
+  .campo-estilo,
+  .campo-estilo select {
+    width: 100%;
   }
 
   .boton--primario {

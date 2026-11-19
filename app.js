@@ -10,6 +10,7 @@ const elementos = {
   contadorEntrada: document.getElementById("contadorEntrada"),
   indicadorConservacion: document.getElementById("indicadorConservacion"),
   avisoConfiguracion: document.getElementById("avisoConfiguracion"),
+  selectorEstilo: document.getElementById("selectorEstilo"),
   estado: document.getElementById("estado"),
   panelSalida: document.getElementById("panelSalida"),
   botonMejorar: document.getElementById("botonMejorar"),
@@ -82,6 +83,7 @@ function renderizarHistorial() {
     boton.addEventListener("click", () => {
       elementos.textoEntrada.value = entrada.texto;
       elementos.textoSalida.value = entrada.prompt;
+      elementos.selectorEstilo.value = entrada.estilo || "preciso";
       actualizarContador();
       actualizarIndicador(null);
       mostrarMensaje("Entrada del historial restaurada.");
@@ -107,12 +109,13 @@ async function mejorar() {
   elementos.avisoConfiguracion.hidden = true;
 
   try {
-    const prompt = await mejorarConGemini(texto);
+    const estilo = elementos.selectorEstilo.value;
+    const prompt = await mejorarConGemini(texto, estilo);
     const conservacion = verificarConservacion(texto, prompt);
 
     elementos.textoSalida.value = prompt;
     actualizarIndicador(conservacion);
-    guardarEnHistorial({ texto, prompt });
+    guardarEnHistorial({ texto, prompt, estilo });
     renderizarHistorial();
 
     const completo = conservacion.porcentaje === 100;
