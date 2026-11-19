@@ -6,9 +6,9 @@
 
 Herramienta que convierte una petición escrita deprisa, desordenada o con faltas en un **prompt profesional en español**, sin cambiar nada de lo que pediste.
 
-## Estilos de Prompt
+## Versatilidad: 4 Estilos de Prompt
 
-Ahora puedes elegir cómo quieres que la IA estructure tu petición:
+No todos los proyectos necesitan el mismo tipo de prompt. Selecciona el estilo que mejor se adapte a tu necesidad:
 
 *   **Preciso:** Estructura técnica detallada (Objetivo, Contexto, Restricciones). Ideal para tareas complejas.
 *   **Directo:** Instrucciones breves y ejecutables. Perfecto para tareas rápidas.
