@@ -1,7 +1,7 @@
 // Cableado de la interfaz. La lógica de negocio vive en logica/.
 
-import { mejorarEstricto } from "./logica/mejorador.js";
-import { listarModelos, mejorarConOllama, MODELO_PREDETERMINADO } from "./logica/ollama.js";
+import { mejorarConGemini } from "./logica/gemini.js";
+import { verificarConservacion } from "./logica/mejorador.js";
 import { obtenerHistorial, guardarEnHistorial, borrarHistorial } from "./logica/historial.js";
 
 const elementos = {
@@ -9,14 +9,9 @@ const elementos = {
   textoSalida: document.getElementById("textoSalida"),
   contadorEntrada: document.getElementById("contadorEntrada"),
   indicadorConservacion: document.getElementById("indicadorConservacion"),
+  avisoConfiguracion: document.getElementById("avisoConfiguracion"),
   estado: document.getElementById("estado"),
   panelSalida: document.getElementById("panelSalida"),
-  modoEstricto: document.getElementById("modoEstricto"),
-  modoIA: document.getElementById("modoIA"),
-  opcionModelo: document.getElementById("opcionModelo"),
-  modeloOllama: document.getElementById("modeloOllama"),
-  estadoOllama: document.getElementById("estadoOllama"),
-  incluirReglas: document.getElementById("incluirReglas"),
   botonMejorar: document.getElementById("botonMejorar"),
   etiquetaMejorar: document.getElementById("etiquetaMejorar"),
   botonCopiar: document.getElementById("botonCopiar"),
@@ -27,7 +22,7 @@ const elementos = {
   historialVacio: document.getElementById("historialVacio")
 };
 
-const EJEMPLO = `cuando estoy trabajando con la ia en mis proyectos no me hace caso y lo hace mal
+const EJEMPLO = `cuando trabajo con la ia en mis proyectos no me hace caso y lo hace mal
 quiero que me pases un prompt ya puesto con lo que yo pido
 sin cambiar nada de lo que he pedido ni añadir cosas
 solo que esté mejor escrito y sea más claro
@@ -49,41 +44,13 @@ function actualizarIndicador(conservacion) {
     return;
   }
 
+  const completo = conservacion.porcentaje === 100;
   elementos.indicadorConservacion.hidden = false;
-  elementos.indicadorConservacion.textContent =
-    `${conservacion.conservadas}/${conservacion.total} ideas conservadas`;
+  elementos.indicadorConservacion.textContent = completo
+    ? `${conservacion.conservadas}/${conservacion.total} ideas conservadas`
+    : `${conservacion.conservadas}/${conservacion.total} ideas · revisa el resultado`;
   elementos.indicadorConservacion.className =
-    `etiqueta ${conservacion.porcentaje === 100 ? "etiqueta--bien" : "etiqueta--mal"}`;
-}
-
-function sincronizarModo() {
-  elementos.opcionModelo.hidden = !elementos.modoIA.checked;
-}
-
-async function comprobarOllama() {
-  try {
-    const modelos = await listarModelos();
-    const disponibles = modelos.length ? modelos : [MODELO_PREDETERMINADO];
-
-    elementos.modeloOllama.replaceChildren(
-      ...disponibles.map(nombre => {
-        const opcion = document.createElement("option");
-        opcion.value = nombre;
-        opcion.textContent = nombre;
-        return opcion;
-      })
-    );
-
-    if (disponibles.includes(MODELO_PREDETERMINADO)) {
-      elementos.modeloOllama.value = MODELO_PREDETERMINADO;
-    }
-
-    elementos.estadoOllama.textContent = `Ollama en línea · ${modelos.length} modelo(s)`;
-    elementos.estadoOllama.className = "estado-ollama disponible";
-  } catch (error) {
-    elementos.estadoOllama.textContent = "Ollama apagado · usa el modo estricto";
-    elementos.estadoOllama.className = "estado-ollama no-disponible";
-  }
+    `etiqueta ${completo ? "etiqueta--bien" : "etiqueta--aviso"}`;
 }
 
 function establecerCargando(cargando) {
@@ -103,15 +70,15 @@ function renderizarHistorial() {
     boton.type = "button";
     boton.className = "entrada-historial";
 
-    const modo = document.createElement("span");
-    modo.className = "entrada-historial__modo";
-    modo.textContent = entrada.modo === "ia" ? "IA local" : "Estricto";
+    const etiqueta = document.createElement("span");
+    etiqueta.className = "entrada-historial__etiqueta";
+    etiqueta.textContent = "Prompt con IA";
 
     const resumen = document.createElement("span");
     resumen.className = "entrada-historial__resumen";
     resumen.textContent = entrada.texto.replace(/\s+/g, " ").trim().slice(0, 110);
 
-    boton.append(modo, resumen);
+    boton.append(etiqueta, resumen);
     boton.addEventListener("click", () => {
       elementos.textoEntrada.value = entrada.texto;
       elementos.textoSalida.value = entrada.prompt;
@@ -135,39 +102,30 @@ async function mejorar() {
     return;
   }
 
-  const usaIA = elementos.modoIA.checked;
   establecerCargando(true);
-  mostrarMensaje("Mejorando el texto…");
+  mostrarMensaje("Mejorando el texto con Gemini…");
+  elementos.avisoConfiguracion.hidden = true;
 
   try {
-    let prompt;
-    let conservacion = null;
-
-    if (usaIA) {
-      prompt = await mejorarConOllama(texto, {
-        modelo: elementos.modeloOllama.value,
-        incluirReglas: elementos.incluirReglas.checked
-      });
-    } else {
-      const resultado = mejorarEstricto(texto, {
-        incluirReglas: elementos.incluirReglas.checked
-      });
-      prompt = resultado.prompt;
-      conservacion = resultado.conservacion;
-    }
+    const prompt = await mejorarConGemini(texto);
+    const conservacion = verificarConservacion(texto, prompt);
 
     elementos.textoSalida.value = prompt;
     actualizarIndicador(conservacion);
-    guardarEnHistorial({ texto, prompt, modo: usaIA ? "ia" : "estricto" });
+    guardarEnHistorial({ texto, prompt });
     renderizarHistorial();
 
+    const completo = conservacion.porcentaje === 100;
     mostrarMensaje(
-      usaIA
-        ? "Prompt generado con IA local. Revisa que conserve todo."
-        : "Prompt listo: todas tus ideas siguen aquí.",
-      "exito"
+      completo
+        ? "Prompt listo y revisado. Cópialo cuando quieras."
+        : "Prompt listo. Revisa las ideas marcadas antes de copiar.",
+      completo ? "exito" : "normal"
     );
   } catch (error) {
+    if (error.codigo === "sin_clave") {
+      elementos.avisoConfiguracion.hidden = false;
+    }
     mostrarMensaje(error.message || "No se pudo generar el prompt.", "error");
   } finally {
     establecerCargando(false);
@@ -223,8 +181,6 @@ elementos.botonBorrarHistorial.addEventListener("click", () => {
   renderizarHistorial();
   mostrarMensaje("Historial borrado de este navegador.");
 });
-elementos.modoEstricto.addEventListener("change", sincronizarModo);
-elementos.modoIA.addEventListener("change", sincronizarModo);
 document.addEventListener("keydown", evento => {
   if ((evento.ctrlKey || evento.metaKey) && evento.key === "Enter") {
     evento.preventDefault();
@@ -232,7 +188,11 @@ document.addEventListener("keydown", evento => {
   }
 });
 
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+  });
+}
+
 actualizarContador();
 renderizarHistorial();
-sincronizarModo();
-comprobarOllama();

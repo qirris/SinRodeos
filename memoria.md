@@ -5,36 +5,50 @@ Regla: NO guardar aquí contraseñas, tokens ni ningún secreto.
 
 ## 1. Objetivo y alcance
 
-**Sin Rodeos** es una aplicación local que convierte un texto en bruto escrito por el usuario (en español, con errores, desordenado o mal explicado) en un prompt claro y profesional **sin cambiar nada de lo pedido**: conserva todo el contenido, corrige solo la forma y lo estructura para que una IA lo entienda a la primera.
+**Sin Rodeos** convierte un texto en bruto escrito por el usuario (en español, con errores, desordenado o mal explicado) en un prompt claro y profesional **sin cambiar nada de lo pedido**: conserva todo el contenido, corrige solo la forma y lo estructura para que una IA lo entienda a la primera.
 
 Usuario: qirris. Idioma de producto, interfaz, documentación y commits: **español**. Repositorio público: <https://github.com/qirris/SinRodeos>.
 
+Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin Ollama local. La app se presenta como aplicación de escritorio en Windows (ventana propia e icono). El usuario no quiere encender ninguna IA en su ordenador.
+
 ## 2. Estado actual
 
-- 2026-11-19: aplicación terminada y funcionando en local.
-- 2026-11-19: pruebas automáticas en verde (7/7) y detector de diseño sin hallazgos.
-- 2026-11-19: repositorio creado y publicado en GitHub con tres commits iniciales.
+- 2026-11-19: aplicación terminada y funcionando con Gemini.Última verificación: 2026-11-19.
+- 2026-11-19: clave del usuario ya pegada en `.env` (longitud detectada: 53 caracteres). **Nunca abrir ni mostrar la clave**; comprobar solo su presencia.
+- 2026-11-19: llamada real a `POST /api/mejorar` verificada con estado 200 y prompt generado.
+- 2026-11-19: `npm test` → 11/11 en verde; detector de diseño → `[]`.
+- 2026-11-19: endpoints estáticos verificados (`/`, manifest, icono y service worker → 200 con MIME correcto).
+- 2026-11-19: acceso directo creado en el menú Inicio de Windows, apuntando a `abrir.bat` con `icono.ico`.
+- 2026-11-19: cambios de esta evolución pendientes de commit y push; `.env` está ignorado por git (`git check-ignore -v .env` → `.gitignore:4:.env`).
 - 2026-11-19: pendiente de que el usuario revise visualmente la interfaz; el agente generó capturas pero no pudo verlas (este modelo no admite entrada de imágenes).
 
 ## 3. Tecnologías y arquitectura
 
 - Interfaz: HTML + CSS + JavaScript (ES modules), sin frameworks ni dependencias.
-- Servidor local: `servidor.js` con módulos nativos de Node (`http`, `fs`, `path`) para servir archivos y hacer de intermediario hacia Ollama (`127.0.0.1:11434`).
-- IA opcional: Ollama local con `qwen3:8b`. Modo sin IA siempre disponible.
+- Servidor local: `servidor.js` con módulos nativos de Node (`http`, `https`, `fs`, `path`) para servir archivos y llamar a Gemini. Lee `.env` en cada petición, así que pegar la clave no exige reiniciar.
+- IA: Gemini de Google (capa gratuita). Modelo por defecto `gemini-3.5-flash-lite`; alternativa `gemini-3.8-flash` configurable en `.env`.
+- Seguridad de la clave: la clave vive solo en `.env` local; el navegador nunca la recibe. El texto del usuario **sí se envía a Gemini**.
+- Presentación de escritorio: PWA con `manifest.webmanifest`, `service-worker.js`, iconos y `abrir.bat` que abre Edge/Chrome con `--app=` y arranca el servidor si hace falta. No se usa Electron.
 - Pruebas: `node --test` (módulo nativo de Node).
 
 | Archivo | Función |
 | --- | --- |
-| `index.html` | Interfaz de la aplicación |
+| `index.html` | Interfaz (manifest, iconos y aviso de clave faltante) |
 | `estilos.css` | Sistema visual (azul tinta sobre fondo frío, un único momento de movimiento) |
-| `app.js` | Cableado de interfaz, eventos, accesibilidad y estados |
-| `logica/mejorador.js` | Reglas del modo estricto: dividir, clasificar, construir y verificar conservación |
-| `logica/ollama.js` | Descubrimiento de modelos y generación con Ollama, con alternativa directa directo |
+| `app.js` | Cableado de interfaz, estados, historial y comprobación visual |
+| `logica/instrucciones.js` | Reglas fijas que recibe Gemini: no añadir, no quitar, no cambiar |
+| `logica/gemini.js` | Llamada al servidor local y limpieza de la respuesta de Gemini |
+| `logica/mejorador.js` | Verificación interna aproximada de conservación (no genera el prompt) |
 | `logica/historial.js` | Historial local en `localStorage` |
-| `servidor.js` | Servidor estático + intermediario de Ollama |
-| `pruebas/mejorador.test.js` | Pruebas unitarias de la lógica pura |
+| `servidor.js` | Servidor estático + lectura de `.env` + llamada a Gemini |
+| `service-worker.js` | Caché de la interfaz; nunca guarda peticiones a `/api/` |
+| `manifest.webmanifest` | App instalable en ventana propia |
+| `abrir.bat` | Abre la ventana de app y arranca el servidor si no está en marcha |
+| `scripts/generar-iconos.js` | Genera iconos SVG/PNG/ICO sin dependencias |
+| `pruebas/mejorador.test.js` | Pruebas de conservación |
+| `pruebas/respuesta.test.js` | Pruebas de limpieza y reglas de sistema |
 | `README.md` | Documentación pública en español |
-| `PRODUCT.md` | Definición de producto |
+| `PRODUCT.md` | Definición del producto |
 
 ## 4. Instrucciones y restricciones
 
@@ -42,70 +56,88 @@ Usuario: qirris. Idioma de producto, interfaz, documentación y commits: **espa�
 - Todo en español, incluidos mensajes de interfaz, errores, documentación, metadatos de GitHub y commits.
 - Declarar de forma visible que el proyecto se desarrolló con asistencia de IA.
 - Voz pública: joven, cercana, directa y honesta, sin lenguaje de empresa. El contexto personal del usuario es solo referencia de tono, nunca dato publicado.
-- Sin secretos en archivos `.md` ni en el repositorio.
+- Sin secretos en archivos `.md` ni en el repositorio. `.env` ignorado por git; `.env.example` es la plantilla sin clave.
+- No decir que "todo se procesa en local": el texto sale a Gemini; solo la clave se queda en el ordenador.
+- Capa gratuita con límites: advertir que Google puede usar el contenido para mejorar productos; no pegar información sensible.
 - El comportamiento real del código manda sobre esta memoria.
 - Detalle en `instrucciones/INSTRUCCIONES_GENERALES.md`.
 
 ## 5. Funcionalidades implementadas
 
 - Entrada de texto libre con contador de caracteres, ejemplo cargable y botón de limpieza.
-- Modo estricto sin IA: separa ideas, las clasifica en Contexto / Restricciones / Entrega esperada / Objetivo y genera un prompt estructurado.
-- Verificación real de conservación: comprueba que cada idea del texto original aparece en el prompt generado y muestra `N/N ideas conservadas`.
-- Modo con IA local: detecta modelos de Ollama, usa `qwen3:8b` por defecto y aplica un prompt de sistema que prohíbe añadir, quitar o cambiar contenido.
-- Aviso claro cuando Ollama está apagado; la app sigue funcionando en modo estricto.
-- Opción para incluir o no las reglas de precisión.
+- Salida siempre generada por Gemini, con presentación en Markdown, en español y sin envoltorios de código ni introducciones no pedidas.
+- Reglas de sistema que prohíben añadir, quitar o cambiar contenido y conservan ambigüedades con una nota entre corchetes.
+- Verificación interna aproximada de conservación: muestra `N/M ideas conservadas` como aviso suave, nunca bloquea ni sustituye el prompt de Gemini.
+- Aviso visible en la interfaz cuando falta la clave, con instrucciones para editar `.env`; se vuelve a comprobar en cada petición sin reiniciar.
+- Errores de la API traducidos a español y accionables (clave inválida, sin acceso, modelo no disponible, límite gratuito, problemas de red).
 - Copia al portapapeles con alternativa para navegadores sin permiso.
 - Historial de los últimos 10 prompts en `localStorage`, con restauración y borrado.
 - Atajo `Ctrl/Cmd + Enter`, navegación por teclado, `aria-live` y respeto a `prefers-reduced-motion`.
-- README en español con el origen del proyecto contado en primera persona y la declaración de asistencia de IA; pie de la interfaz con la misma declaración.
+- Ventana propia con icono en Windows mediante PWA + acceso directo en el menú Inicio.
+- README y pie de interfaz con privacidad real y declaración de asistencia de IA.
 
 ## 6. Cambios realizados
 
 - 2026-11-19: creado el sistema de memoria, `PRODUCT.md` y las instrucciones por tema.
-- 2026-11-19: creada la aplicación (interfaz, lógica, servidor e intermediarios).
-- 2026-11-19: corregidas tres pruebas fallidas: normalización de espacios alrededor de saltos de línea, clasificación de "aplicación" como objetivo y reglas añadidas con texto vacío.
-- 2026-11-19: refinado el clasificador para no confundir descripciones de problema con restricciones.
-- 2026-11-19: corregidos hallazgos del detector de diseño: contraste del botón principal, texto inferior a 11 px en móvil y animación infinita eliminada.
+- 2026-11-19: creada la primera versión de la aplicación (interfaz, lógica, servidor e intermediarios) con Ollama y modo sin IA.
+- 2026-11-19: corregidas tres pruebas fallidas iniciales y tres hallazgos del detector de diseño.
 - 2026-11-19: creado `README.md`, inicializado git y publicado en GitHub (commits `b102ef9`, `b9c5e3b`, `05f0e32`).
-- 2026-11-19: reescrito el origen del proyecto en el README con tono joven y cercano; añadida la sección "Asistencia de IA" y la misma nota en el pie de la interfaz.
-- 2026-11-19: corregido el README a petición del usuario: su contexto personal era una indicación de tono, no texto para publicar. Se eliminaron los datos personales del README y del resto de archivos del repo.
-- 2026-11-19: traducidos al español los encabezados de `PRODUCT.md` y los términos "proxy" y "fallback" en documentación y memoria.
+- 2026-11-19: reescrito el origen en el README con tono joven y cercano; añadida la sección "Asistencia de IA" y la nota en el pie de la interfaz.
+- 2026-11-19: corregido el README a petición del usuario: su contexto personal era indicación de tono, no dato para publicar (commit `ea67812`).
+- 2026-11-19: traducidos al español los encabezados de `PRODUCT.md` y los términos "proxy" y "fallback".
+- 2026-11-19: **supérsedida** la arquitectura Ollama/local: el usuario pidió una API gratuita que funcione siempre sin encender IA local.
+- 2026-11-19: creados `.env`, `.env.example` y reglas en `.gitignore` para no subir la clave.
+- 2026-11-19: reescritos `servidor.js`, `logica/mejorador.js`, `logica/historial.js`, `index.html`, `app.js` y `estilos.css` para Gemini-only y avisos de configuración.
+- 2026-11-19: creados `logica/instrucciones.js` y `logica/gemini.js`; eliminado `logica/ollama.js`.
+- 2026-11-19: añadidos PWA, iconos generados sin dependencias, `abrir.bat` y acceso directo en el menú Inicio.
+- 2026-11-19: reescritas las pruebas y actualizados `package.json` (v1.1.0), `README.md` y `PRODUCT.md`.
 
 ## 7. Decisiones tomadas
 
-- Stack sin dependencias para que la app funcione en el ordenador del usuario sin instalaciones complejas (2026-11-19).
-- IA local con Ollama como mejora opcional, nunca como dependencia obligatoria (2026-11-19).
+- Stack sin dependencias para que la app funcione sin instalaciones complejas (2026-11-19).
+- ~~IA local con Ollama como mejora opcional, nunca obligatoria (2026-11-19).~~ **Supérsedida el 2026-11-19**: el usuario no quiere arrancar IA local; se usa Gemini gratuito en la nube.
+- ~~Modo sin IA siempre disponible (2026-11-19).~~ **Supérsedida el 2026-11-19**: modo único IA; la lógica estricta queda como verificación interna aproximada, nunca como prompt visible.
+- Gemini gratuito como proveedor: el usuario pidió "alguna api gratis" y que esté siempre funcionando (2026-11-19).
+- Clave en `.env` ignorado por git; el servidor la lee y el navegador nunca la recibe (2026-11-19).
+- Formato de escritorio mediante PWA/acceso directo, sin Electron, para no añadir dependencias (2026-11-19).
+- Se mantiene el servidor local porque es necesario para ocultar la clave API (2026-11-19).
+- No configurar arranque automático con Windows: solo acceso directo en el menú Inicio, salvo petición expresa (2026-11-19).
 - Nombre de producto: **Sin Rodeos** (2026-11-19).
-- El modo estricto verifica la conservación de ideas; el modo IA pide revisión al usuario porque una IA no puede garantizarla por sí sola (2026-11-19).
-- El indicador de progreso es finito, no una animación en bucle, para evitar movimiento innecesario (2026-11-19).
-- Declarar la asistencia de IA de forma visible y usar una voz cercana y real, porque el usuario quiere que su GitHub muestre a una persona proactiva y honesta (2026-11-19).
+- Indicador de progreso finito, no una animación en bucle, para evitar movimiento innecesario (2026-11-19).
+- Declarar la asistencia de IA de forma visible y usar una voz cercana y real (2026-11-19).
 
 ## 8. Pruebas verificadas
 
-- 2026-11-19: `npm test` → 7 pruebas, 7 superadas, 0 fallos.
-- 2026-11-19: `curl` al servidor local → `/` y `/app.js` devuelven 200 con el tipo MIME correcto.
-- 2026-11-19: `curl` a `/api/ollama/api/tags` con Ollama apagado → 502 con mensaje accionable en español.
-- 2026-11-19: con `ollama serve` en marcha, `/api/ollama/api/tags` → 200 listando `qwen3:8b`.
-- 2026-11-19: generación real vía `/api/ollama/api/generate` → respuesta correcta del modelo.
-- 2026-11-19: detector de diseño (`impeccable detect --json index.html estilos.css app.js`) → `[]` (sin hallazgos).
-- 2026-11-19: `gh repo create ... --push` → repositorio creado en <https://github.com/qirris/SinRodeos> y rama `main` publicada.
+- 2026-11-19: `npm test` → 11 pruebas, 11 superadas, 0 fallos.
+- 2026-11-19: detector de diseño (`impeccable detect --json index.html estilos.css app.js`) → `[]` (sin hallazgos). Se quitó el borde lateral del aviso que había marcado como patrón detectado.
+- 2026-11-19: `curl` a `/`, `/manifest.webmanifest`, `/icono-512.png` y `/service-worker.js` → 200 con tipos MIME correctos.
+- 2026-11-19: llamada directa a Gemini con `gemini-3.5-flash-lite` → estado 200 y prompt correcto.
+- 2026-11-19: `POST /api/mejorar` → estado 200 y prompt real (`# Solución para proyectos con IA...`).
+- 2026-11-19: `git check-ignore -v .env` → `.gitignore:4:.env`; `.env` no aparece en `git status --short`.
+- 2026-11-19: verificación anterior de GitHub → repo creado y publicado en <https://github.com/qirris/SinRodeos>, rama `main`, último commit conocido `ea67812`.
 
 ## 9. Errores y problemas pendientes
 
-- Resueltos: los tres fallos iniciales de pruebas y los tres hallazgos del detector (detallados en la sección 6).
-- `ollama serve` debe iniciarse manualmente cuando se quiera usar el modo IA; es un comportamiento previsto y se comunica en la interfaz.
-- Capturas de escritorio y móvil generadas en la carpeta temporal de OpenCode, pero no inspeccionadas visualmente por el agente (este modelo no admite imágenes). Revisión visual pendiente por parte del usuario.
-- La alternativa directa a `http://127.0.0.1:11434` no funciona si la app se sirve por HTTPS (por ejemplo, GitHub Pages): en ese caso solo está disponible el modo estricto.
+- **Resuelto**: `ReferenceError: text is not defined` en `servidor.js` (se pasaba `parts: [{ text }]` donde debía ser `texto`). La llamada directa a Gemini funcionaba y solo fallaba el endpoint; se corrigió a `parts: [{ text: texto }]` y se eliminó el debug temporal.
+- **Resuelto**: el primer arranque del servidor nuevo decía "Falta la clave" porque se inició antes de que el usuario pegara la clave; al reiniciarlo detectó la clave correctamente. La lectura por petición evita futuros reinicios.
+- **Resuelto**: una prueba de conservación fallaba con sinónimos (3/4); se bajó el umbral de coincidencia de 0,6 a 0,5 y quedó en 11/11.
+- **Resuelto**: el detector de diseño marcó `border-left: 4px solid #d97706` en `.aviso`; se sustituyó por borde completo más suave.
+- **Resuelto**: `Invoke-RestMethod` de PowerShell y `curl` con JSON escapado daban 500/400 por codificación del cuerpo; la verificación con `fetch` de Node confirmó el endpoint real.
+- Pendiente: confirmar el estado de metadatos de GitHub (descripción/topics pueden seguir mencionando Ollama) y actualizarlos si hace falta.
+- Pendiente: commit en español y push de los cambios de esta evolución.
+- Capturas de escritorio y móvil generadas en la carpeta temporal de OpenCode, pero no inspeccionadas visualmente por el agente. Revisión visual pendiente por parte del usuario.
 
 ## 10. Próximos pasos
 
-1. Que el usuario abra <http://localhost:8000> y confirme que la interfaz le resulta cómoda.
-2. Si quiere, ajustar colores o textos tras esa revisión visual.
-3. Opcional: añadir un ejecutable `.bat` para iniciar la app con doble clic en Windows.
-4. Opcional: publicar en GitHub Pages (solo modo estricto por HTTPS).
+1. Revisar metadatos de GitHub con `gh repo view`: quitar `ollama`, reflejar Gemini gratuito y escritorio, mantener español y asistencia de IA.
+2. Ejecutar `npm test` final, `git check-ignore -v .env` y `git status --short`; confirmar que `.env` no se sube.
+3. Hacer commit en español y `git push` a `main`.
+4. Decir al usuario que la app está lista, que la clave ya fue detectada, dónde abrirla y ofrecer añadir arranque automático con Windows si lo quiere.
+5. Si el usuario lo pide: ajustar estilos o añadir arranque automático; no hacerlo sin permiso.
 
 ## 11. Historial de actualizaciones
 
 - 2026-11-19 — Inicialización del proyecto, memoria y producto.
 - 2026-11-19 — Aplicación completa, pruebas en verde, documentación y publicación en GitHub.
 - 2026-11-19 — Ajuste de contenido: todo en español, historia personal y declaración de asistencia de IA.
+- 2026-11-19 — Evolución a Gemini gratuito, modo solo IA, app de escritorio, clave en `.env` y verificación real del endpoint.

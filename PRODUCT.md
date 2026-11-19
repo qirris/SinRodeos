@@ -4,11 +4,11 @@
 
 ## Plataforma
 
-web
+web, presentada como aplicación de escritorio (ventana propia e icono en el menú Inicio).
 
 ## Tecnología
 
-Delegado por el usuario: se eligió HTML + CSS + JavaScript puro sin dependencias, con un servidor Node de módulos nativos para servir la app y conectar con Ollama local. Motivo: funcionar en su ordenador sin instalaciones complejas y publicarse en GitHub como proyecto limpio.
+HTML + CSS + JavaScript puro sin dependencias, con un servidor Node de módulos nativos. La redacción la hace la API gratuita de Gemini; la clave se guarda en un `.env` local y el servidor es el único que la usa.
 
 ## Usuarios
 
@@ -16,42 +16,45 @@ qirris. Usa la IA para hacer proyectos y necesita que entienda exactamente lo qu
 
 ## Propósito del producto
 
-Convertir una petición en bruto en un prompt preciso, estructurado y profesional, conservando literalmente todo lo pedido. El éxito es que la IA receptora cumpla la petición sin que el usuario tenga que reescribirla ni discutir con ella.
+Convertir una petición en bruto en un prompt preciso, bien presentado y profesional, conservando literalmente todo lo pedido. El éxito es que la IA receptora cumpla la petición sin que el usuario tenga que reescribirla ni discutir con ella.
 
 ## Posicionamiento
 
-La única mejora permitida es de forma, nunca de fondo: la herramienta está diseñada para **no inventar, no omitir y no cambiar nada** de la intención original, y lo hace en local, sin enviar el texto a servidores de terceros.
+La única mejora permitida es de forma, nunca de fondo: **no inventar, no omitir y no cambiar nada** de la intención original. A diferencia de la primera versión, la redacción la hace siempre Gemini para que el resultado se vea bien; la conservación se vigila por dentro con una comprobación aproximada que avisa, pero no sustituye ni bloquea.
 
 ## Contexto de uso
 
-Se ejecuta en el ordenador del usuario desde el navegador. Puede funcionar sin conexión y sin IA (estructuración determinista) o con Ollama local (`qwen3:8b`) para una redacción más natural. El resultado se copia al portapapeles para pegarlo en cualquier IA. El repositorio público en GitHub sirve además como escaparate de trabajo para empresas.
+Se abre como una app de escritorio en Windows (acceso directo en el menú Inicio, `abrir.bat` o PWA instalable) y también en el navegador en `http://localhost:8000`. Requiere Node.js, una clave gratuita de Gemini guardada en `.env` y conexión a internet. El resultado se copia al portapapeles para pegarlo en cualquier IA. El repositorio público sirve además como escaparate de trabajo.
 
 ## Funcionalidades y restricciones
 
 - Entrada: texto libre en español, con errores ortográficos y estructura informal.
-- Salida: prompt reescrito y estructurado, en español, listo para copiar.
-- Regla dura: conservar todo el contenido original; corregir solo ortografía, puntuación y claridad.
-- Ollama es opcional: si no está disponible, debe funcionar el modo sin IA.
-- Sin dependencias externas ni llamadas a servicios de pago.
+- Salida: prompt reescrito por Gemini en Markdown, en español y listo para copiar.
+- Regla dura: conservar todo el contenido original; corregir solo ortografía, puntuación, redacción y orden.
+- Modo único: solo IA. No hay selector de modos ni de modelo en la interfaz.
+- La comprobación de conservación es aproximada y se muestra como aviso suave, nunca como error bloqueante.
+- La clave API vive en `.env`, ignorado por git; nunca se envía al navegador ni se guarda en la memoria del proyecto.
+- Sin dependencias externas en la aplicación.
 - Idioma de todo el producto, la documentación y los commits: español.
 - Debe indicarse de forma visible que el proyecto se desarrolló con asistencia de IA.
 
 ## Compromisos de marca
 
-Nombre: **Sin Rodeos**. Voz: directa, clara, joven, cercana, sin rodeos y sin promesas infladas; alguien que está aprendiendo y construyendo en público. El repositorio debe verse cuidado y profesional en GitHub, y debe ser honesto sobre la asistencia de IA recibida.
+Nombre: **Sin Rodeos**. Voz: directa, clara, joven, cercana, sin rodeos y sin promesas infladas; alguien que está aprendiendo y construyendo en público. El repositorio debe verse cuidado y profesional en GitHub, y debe ser honesto sobre la asistencia de IA y sobre el hecho de que el texto sale a internet.
 
 ## Evidencia disponible
 
-- Entorno real verificado el 2026-11-19: git, gh (qirris), node, npm, python y Ollama con `qwen3:8b`.
+- Entorno real verificado el 2026-11-19: git, gh (qirris), node y npm.
+- Llamada real a Gemini verificada el 2026-11-19 con el modelo `gemini-3.5-flash-lite`: estado 200 y prompt generado correctamente.
 - No hay capturas, testimonios ni métricas: no inventarlos.
 
 ## Principios del producto
 
 1. Conservación literal del contenido por encima de la elegancia.
-2. Claridad estructural: que una IA entienda a la primera.
+2. Claridad estructural: que una IA entienda a la primera, con buena presentación.
 3. Español en cada palabra visible y en cada decisión del producto.
-4. Privacidad: el texto del usuario no sale de su ordenador.
-5. Funciona siempre, con o sin IA local.
+4. La clave no sale del ordenador; el texto sí va a Gemini, y eso se dice abiertamente.
+5. Funciona siempre que haya conexión y clave, sin arrancar IA local.
 6. Transparencia: decir abiertamente que hubo asistencia de IA.
 
 ## Accesibilidad e inclusión

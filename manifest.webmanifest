@@ -1,0 +1,25 @@
+{
+  "name": "Sin Rodeos — prompts claros en español",
+  "short_name": "Sin Rodeos",
+  "description": "Convierte tus peticiones en bruto en prompts claros sin cambiar nada de lo pedido.",
+  "lang": "es",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#eef1f5",
+  "theme_color": "#111827",
+  "icons": [
+    {
+      "src": "/icono-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icono-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

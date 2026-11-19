@@ -9,6 +9,7 @@
   --acento-oscuro: #1b31b8;
   --acento-suave: rgba(36, 64, 224, 0.14);
   --exito: #0f766e;
+  --aviso: #92400e;
   --error: #b42318;
   --sombra: 0 10px 30px rgba(17, 24, 39, 0.06);
   --radio: 16px;
@@ -88,8 +89,8 @@ body {
 }
 
 .marca__simbolo svg {
-  width: 25px;
-  height: 25px;
+  width: 27px;
+  height: 27px;
 }
 
 .marca h1 {
@@ -168,6 +169,28 @@ body {
   background: var(--acento);
 }
 
+.aviso {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+  padding: 13px 16px;
+  background: #fff7ed;
+  border: 1px solid #edbd7b;
+  border-radius: 11px;
+  color: #7c2d12;
+  font-size: 0.9rem;
+}
+
+.aviso code {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.86rem;
+  background: rgba(124, 45, 18, 0.08);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+
 .columnas {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 52px minmax(0, 1fr);
@@ -215,9 +238,9 @@ body {
   background: rgba(15, 118, 110, 0.1);
 }
 
-.etiqueta--mal {
-  color: var(--error);
-  background: rgba(180, 35, 24, 0.09);
+.etiqueta--aviso {
+  color: var(--aviso);
+  background: rgba(217, 119, 6, 0.12);
 }
 
 textarea {
@@ -348,11 +371,12 @@ textarea::-webkit-scrollbar-thumb:hover {
   to { transform: scaleX(0.85); }
 }
 
-/* Controles */
+/* Acción */
 
 .controles {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: 18px 26px;
   margin-top: 20px;
@@ -363,97 +387,16 @@ textarea::-webkit-scrollbar-thumb:hover {
   box-shadow: var(--sombra);
 }
 
-.modos {
-  border: 0;
-  padding: 0;
+.controles__texto h2 {
+  margin: 0 0 3px;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.controles__texto p {
   margin: 0;
-}
-
-.modos legend,
-.opcion-ia label {
-  display: block;
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
   color: var(--secundario);
-  margin-bottom: 7px;
-}
-
-.segmentado {
-  display: inline-flex;
-  gap: 3px;
-  padding: 3px;
-  background: var(--fondo);
-  border: 1px solid var(--borde);
-  border-radius: 11px;
-}
-
-.segmentado input {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-}
-
-.segmentado label {
-  padding: 8px 14px;
-  border-radius: 8px;
   font-size: 0.88rem;
-  color: var(--secundario);
-  cursor: pointer;
-  transition: background 0.16s ease, color 0.16s ease;
-}
-
-.segmentado input:checked + label {
-  background: var(--superficie);
-  color: var(--tinta);
-  font-weight: 650;
-  box-shadow: 0 2px 7px rgba(17, 24, 39, 0.09);
-}
-
-.segmentado input:focus-visible + label {
-  outline: 3px solid var(--acento-suave);
-  outline-offset: 2px;
-}
-
-.opcion-ia select {
-  min-width: 150px;
-  padding: 8px 10px;
-  border: 1px solid var(--borde);
-  border-radius: 9px;
-  background: var(--superficie);
-  color: var(--tinta);
-  font: inherit;
-  font-size: 0.88rem;
-}
-
-.estado-ollama {
-  display: block;
-  margin-top: 5px;
-  font-size: 0.75rem;
-  color: var(--secundario);
-}
-
-.estado-ollama.disponible {
-  color: var(--exito);
-}
-
-.estado-ollama.no-disponible {
-  color: var(--error);
-}
-
-.interruptor {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
-
-.interruptor input {
-  width: 17px;
-  height: 17px;
-  accent-color: var(--acento);
 }
 
 .boton {
@@ -574,8 +517,8 @@ textarea::-webkit-scrollbar-thumb:hover {
   transform: translateY(-1px);
 }
 
-.entrada-historial__modo {
-  font-size: 0.7rem;
+.entrada-historial__etiqueta {
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;

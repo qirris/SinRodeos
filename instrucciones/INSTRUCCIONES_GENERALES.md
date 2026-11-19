@@ -19,11 +19,14 @@
 - Todo en español: interfaz, documentación, mensajes, commits y respuestas.
 - El propósito del producto es mejorar la forma sin tocar el fondo: **no añadir, no quitar, no cambiar** lo que el usuario pidió.
 - El repositorio debe estar en el GitHub de `qirris`, con commits significativos y un README cuidado.
-- Sin secretos en archivos del proyecto.
-- Preferir soluciones sin dependencias y que funcionen en local.
+- Sin secretos en archivos del proyecto: la clave va en `.env`, ignorado por git; no abrirla ni mostrarla.
+- Preferir soluciones sin dependencias. Se mantiene el servidor local solo porque oculta la clave API.
+- La IA debe funcionar siempre sin que el usuario encienda nada en su ordenador: se usa Gemini gratuito, no Ollama.
+- Interfaz con aspecto de aplicación de escritorio: ventana propia e icono, sin Electron.
 - **Todo el repo en español**: interfaz, documentación, nombres, descripciones y metadatos de GitHub, comentarios y mensajes de commits. Las palabras técnicas aceptadas en español (prompt, README, commit) están bien; el resto se traduce.
 - **Declarar siempre la asistencia de IA**: el README y la interfaz deben decir de forma visible que el proyecto se desarrolló con asistencia de IA, sin ocultarla ni exagerarla.
 - **Voz pública**: joven, cercana, directa y honesta, sin lenguaje de empresa ni humo. El contexto personal del usuario sirve solo como referencia para el tono: **no se publica como dato**.
+- Ser honesto con la privacidad: el texto se envía a Gemini; la clave no sale del ordenador; la capa gratuita tiene límites.
 
 ## Convención de archivos
 

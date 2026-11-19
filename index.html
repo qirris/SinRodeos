@@ -4,17 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sin Rodeos — Tu texto, sin cambiar nada</title>
-  <meta name="description" content="Convierte tus peticiones en bruto en prompts claros y profesionales en español, sin cambiar nada de lo que pediste. Funciona en local y con Ollama.">
+  <meta name="description" content="Convierte tus peticiones en bruto en prompts claros y profesionales en español con IA gratuita, sin cambiar nada de lo que pediste.">
+  <meta name="theme-color" content="#111827">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Sin Rodeos">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icono.svg" type="image/svg+xml">
+  <link rel="icon" href="icono.ico" sizes="any">
+  <link rel="apple-touch-icon" href="icono-192.png">
   <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
   <header class="cabecera">
     <div class="marca">
       <span class="marca__simbolo" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="5" width="11" height="14" rx="2"></rect>
-          <path d="M17 8.5h4m0 0-2.5-2.5M21 8.5 18.5 11"></path>
-          <path d="M17 15.5h4m0 0-2.5-2.5m2.5 2.5-2.5 2.5"></path>
+        <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 25h30m0 0-7-6m7 6-7 6"></path>
+          <path d="M49 40H19m0 0 7-6m-7 6 7 6"></path>
         </svg>
       </span>
       <div>
@@ -32,9 +38,16 @@
 
   <main class="principal">
     <div class="promesa" role="note" aria-label="Principios del producto">
+      <span>Con IA</span>
       <span>No inventa</span>
       <span>No quita</span>
       <span>No cambia</span>
+    </div>
+
+    <div class="aviso" id="avisoConfiguracion" role="alert" hidden>
+      <strong>Falta la clave de Gemini.</strong>
+      Abre el archivo <code>.env</code> que está en la carpeta de Sin Rodeos y pega tu clave en
+      <code>GEMINI_API_KEY=</code>. Guardas el archivo y vuelves a pulsar el botón. No hace falta reiniciar.
     </div>
 
     <div class="columnas">
@@ -79,31 +92,10 @@
     </div>
 
     <section class="controles" aria-labelledby="titulo-opciones">
-      <h2 id="titulo-opciones" class="sr-only">Opciones de generación</h2>
-
-      <fieldset class="modos">
-        <legend>Modo</legend>
-        <div class="segmentado">
-          <input type="radio" name="modo" id="modoEstricto" value="estricto" checked>
-          <label for="modoEstricto">Estricto, sin IA</label>
-          <input type="radio" name="modo" id="modoIA" value="ia">
-          <label for="modoIA">Con IA local</label>
-        </div>
-      </fieldset>
-
-      <div class="opcion-ia" id="opcionModelo" hidden>
-        <label for="modeloOllama">Modelo Ollama</label>
-        <select id="modeloOllama">
-          <option value="qwen3:8b">qwen3:8b</option>
-        </select>
-        <span class="estado-ollama" id="estadoOllama">Comprobando…</span>
+      <div class="controles__texto">
+        <h2 id="titulo-opciones">Prompt con IA</h2>
+        <p>Gemini se encarga de la redacción. Nosotros comprobamos que no falte ninguna de tus ideas.</p>
       </div>
-
-      <label class="interruptor">
-        <input type="checkbox" id="incluirReglas" checked>
-        <span>Añadir reglas de precisión</span>
-      </label>
-
       <button id="botonMejorar" class="boton boton--primario" type="button">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"></path>
@@ -125,7 +117,7 @@
   </main>
 
   <footer class="pie">
-    <p>Hecho para escribir sin rodeos. Todo se procesa en tu ordenador. Desarrollo asistido por IA.</p>
+    <p>La redacción la hace Gemini (Google). Tu clave se queda en tu ordenador. Desarrollo asistido por IA.</p>
   </footer>
 
   <script type="module" src="app.js"></script>
