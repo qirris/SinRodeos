@@ -64,11 +64,11 @@ Necesitas **Node.js 18 o superior**. No hay dependencias que instalar con `npm i
 Si prefieres usar el navegador normal:
 
 ```powershell
-cd C:\Users\zakaria\Documents\NEGOCIOS\SinRodeos
+cd [RUTA_DEL_PROYECTO]
 npm start
 ```
 
-Y abres <http://localhost:8000>.
+Y abres `http://localhost:8000`.
 
 ### La clave, solo una vez
 
