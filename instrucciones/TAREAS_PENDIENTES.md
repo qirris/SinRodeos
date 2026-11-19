@@ -27,7 +27,11 @@
 - [x] Regenerar todos los iconos desde `logo.webp` y renovar la caché del service worker.
 - [x] Neutralizar los textos de marca que quedaban en `index.html`, `PRODUCT.md` y `package.json`.
 - [x] Verificar endpoint con estilo, MIME de iconos, color del logo y 13/13 pruebas.
-- [ ] Confirmar con el usuario que la app abre correctamente desde el menú Inicio y que el icono es el suyo.
+- [x] Diagnosticar "no me carga la nueva / logo negro": servidor sano, causa = caché antigua del service worker y del icono de Windows.
+- [x] Limpiar cachés y service workers al abrir (`app.js` + `service-worker.js` v3), abrir con `?v=3` y usar `icono-app.ico` en el acceso directo.
+- [x] Verificar en Edge headless fondo oscuro, logo cargado, selector, 0 service workers y 0 cachés; 13/13 pruebas en verde.
+- [x] Quitar del README la imagen `images/interfaz.png` que no existía y borrar la copia duplicada del logo.
+- [ ] Confirmar con el usuario que, tras cerrar y volver a abrir desde el menú Inicio, ve la interfaz oscura y el logo claro.
 
 ## Bajo petición del usuario
 

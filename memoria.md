@@ -24,6 +24,10 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - 2026-11-19: cambios de esta evolución commiteados y pusheados a `main` (`dd3c588` y `84ac086`); `.env` está ignorado por git (`git check-ignore -v .env` → `.gitignore:4:.env`).
 - 2026-11-19: metadatos de GitHub actualizados: descripción sin marca de proveedor y topics `espanol`, `prompt`, `inteligencia-artificial`, `proyecto-personal` y `productividad`.
 - 2026-11-19: pendiente de que el usuario revise visualmente la interfaz; el agente generó capturas pero no pudo verlas (este modelo no admite entrada de imágenes).
+- 2026-11-20: el usuario comunicó que "no le carga la nueva" y que a veces aparece el logo negro. El servidor local estaba sano (PID `31156`, `node servidor.js`, puerto 8000 con respuestas 200 y MIME correcto); la causa era caché antigua del service worker y del icono de Windows.
+- 2026-11-20: corregido el origen: `app.js` desregistra service workers y borra cachés al abrir, `service-worker.js` pasa a `sinrodeos-v3` y se desregistra solo, `abrir.bat` abre con `?v=3`, y el acceso directo usa `icono-app.ico` para renovar la caché de iconos de Windows.
+- 2026-11-20: verificación en Edge headless: fondo `rgb(15, 23, 42)`, texto `rgb(248, 250, 252)`, logo con `naturalWidth=1024` y `complete=true`, selector presente, `0` service workers y `[]` cachés. `npm test` → 13/13. Commit `b09220e` pusheado a `main`.
+- 2026-11-20: Eliminada la referencia rota `images/interfaz.png` del README (ese archivo nunca se guardó: este modelo no puede ver ni guardar la captura del usuario) y borrada la copia sobrante `132dceff-....webp`.
 
 ## 3. Tecnologías y arquitectura
 
@@ -38,13 +42,13 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 | --- | --- |
 | `index.html` | Interfaz (manifest, iconos y aviso de clave faltante) |
 | `estilos.css` | Sistema visual (azul tinta sobre fondo frío, un único momento de movimiento) |
-| `app.js` | Cableado de interfaz, estados, historial y comprobación visual |
+| `app.js` | Cableado de interfaz, estados, historial y limpieza de cachés al abrir |
 | `logica/instrucciones.js` | Reglas fijas que recibe Gemini: no añadir, no quitar, no cambiar |
 | `logica/gemini.js` | Llamada al servidor local y limpieza de la respuesta de Gemini |
 | `logica/mejorador.js` | Verificación interna aproximada de conservación (no genera el prompt) |
 | `logica/historial.js` | Historial local en `localStorage` |
 | `servidor.js` | Servidor estático + lectura de `.env` + llamada a Gemini |
-| `service-worker.js` | Caché de la interfaz; nunca guarda peticiones a `/api/` |
+| `service-worker.js` | Limpiador temporal: borra cachés antiguas y se desregistra al activarse |
 | `manifest.webmanifest` | App instalable en ventana propia |
 | `abrir.bat` | Abre la ventana de app y arranca el servidor si no está en marcha |
 | `scripts/generar-iconos.js` | Genera iconos SVG/PNG/ICO sin dependencias |
@@ -97,6 +101,8 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - 2026-11-19: integrado `logo.webp` como identidad en cabecera, favicon, PWA, iconos y acceso directo; eliminados los textos de marca de proveedor que quedaban en `index.html`, `PRODUCT.md` y `package.json`.
 - 2026-11-19: añadidos cuatro estilos de prompt (Preciso, Directo, Analítico, Creativo) propagados por interfaz, servidor, instrucciones, historial y pruebas.
 - 2026-11-19: reescrito `scripts/generar-iconos.js` para convertir `logo.webp` con Edge/Chrome headless sin dependencias; renovada la caché del service worker.
+- 2026-11-20: desactivada la caché de la interfaz: `app.js` limpia registros y cachés al cargar, `service-worker.js` se convierte en limpiador v3 que se desregistra, `abrir.bat` abre con `?v=3` y el acceso directo usa `icono-app.ico`.
+- 2026-11-20: quitada la referencia rota a `images/interfaz.png` en `README.md` y eliminada la copia duplicada `132dceff-c73e-4393-84f0-1723dfb84333.webp`.
 
 ## 7. Decisiones tomadas
 
@@ -113,6 +119,8 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - `logo.webp` es la única fuente de iconos; se convierte a PNG/ICO con el navegador del sistema para no añadir dependencias (2026-11-19).
 - Indicador de progreso finito, no una animación en bucle, para evitar movimiento innecesario (2026-11-19).
 - Declarar la asistencia de IA de forma visible y usar una voz cercana y real (2026-11-19).
+- La interfaz no se guarda en caché: se sirve siempre desde el servidor local para que los cambios aparezcan al reabrir; la limpieza al abrir se mantiene para evitar recaídas (2026-11-20).
+- Para renovar el icono de Windows se usa un nombre de archivo nuevo (`icono-app.ico`) porque Explorer cachea los iconos por ruta (2026-11-20).
 
 ## 8. Pruebas verificadas
 
@@ -126,6 +134,9 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - 2026-11-19: `git check-ignore -v .env` → `.gitignore:4:.env`; `.env` no aparece en `git status --short`.
 - 2026-11-19: revisión del índice de git antes del commit: solo marcadores `TU_CLAVE_AQUI` / `tu_clave_aquí`, ninguna clave real.
 - 2026-11-19: `git push origin main` → `ea67812..84ac086`; `git status --short` final → limpio.
+- 2026-11-20: endpoints `/`, `/estilos.css`, `/index.html`, `/logo.webp`, `/icono.ico` y `/service-worker.js` → 200 con MIME correcto; servidor con PID `31156` ejecutando `node servidor.js`.
+- 2026-11-20: Edge headless sobre `http://127.0.0.1:8000/?v=3`: fondo `rgb(15, 23, 42)`, texto `rgb(248, 250, 252)`, logo `naturalWidth=1024` y `complete=true`, selector `true`, registros de service worker `0`, cachés `[]`.
+- 2026-11-20: `npm test` → 13/13 en verde tras la limpieza de cachés; `git push` → `1bd5b60..b09220e`.
 - 2026-11-19: metadatos verificados tras editarlos con `gh repo view`: descripción y topics correctos.
 
 ## 9. Errores y problemas pendientes
@@ -139,13 +150,16 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - **Resuelto**: los prompts salían casi literales y poco profesionales; se cambió el sistema a "experto en Ingeniería de Prompts" con reformulación obligatoria y estructura profesional.
 - **Resuelto**: el icono visible era el antiguo cuadrado negro generado por código; ahora todos los iconos salen de `logo.webp`.
 - **Resuelto**: quedaron menciones al proveedor en textos públicos (`index.html`, `PRODUCT.md`, `package.json`); neutralizadas.
-- Capturas de escritorio y móvil generadas en la carpeta temporal de OpenCode, pero no inspeccionadas visualmente por el agente. Revisión visual pendiente por parte del usuario.
+- **Resuelto**: el usuario veía la interfaz antigua o el logo negro al abrir. No era el servidor: era caché del service worker v2 e icono cacheado por Windows. Limpieza al abrir + `?v=3` + `icono-app.ico`; verificado con 0 service workers y 0 cachés en navegador real. Queda confirmación visual del usuario tras reabrir.
+- **Resuelto**: `README.md` referenciaba `images/interfaz.png`, un archivo que no existe porque este modelo no puede guardar la captura enviada. Se quitó la referencia en lugar de inventar una imagen.
+- Capturas de escritorio y móvil generadas en la carpeta temporal de OpenCode, pero no inspeccionadas visualmente por el agente. El usuario envió una captura por chat, pero este modelo no admite entrada de imágenes; no se publicó ninguna imagen inventada.
 
 ## 10. Próximos pasos
 
-1. Decir al usuario que los cuatro estilos y el logo ya están integrados y verificados.
-2. Pedir que abra la app desde el menú Inicio y confirme que el icono es el suyo y que el selector funciona.
-3. Si lo pide: ajustar estilos o añadir arranque automático; no hacerlo sin permiso.
+1. Decir al usuario, con palabras sencillas, que ya se corrigió la causa (caché antigua) y que debe cerrar la ventana y volver a abrir desde el menú Inicio.
+2. Si sigue viendo el logo negro del acceso directo, reiniciar el Explorador de Windows o cerrar sesión y volver a entrar para renovar la caché de iconos; no borrar la carpeta del proyecto.
+3. Confirmar que ve fondo oscuro, logo claro y el selector de cuatro estilos; solo entonces dar por cerrada la incidencia.
+4. Si lo pide: ajustar estilos o añadir arranque automático; no hacerlo sin permiso.
 
 ## 11. Historial de actualizaciones
 
@@ -155,3 +169,4 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - 2026-11-19 — Evolución a Gemini gratuito, modo solo IA, app de escritorio, clave en `.env` y verificación real del endpoint.
 - 2026-11-19 — Integración de logo propio, eliminación de marcas de proveedor (Gemini/Google) en textos públicos, limpieza de metadatos de GitHub y consolidación del proyecto "puto profesional". 11/11 pruebas superadas. Repo limpio. Estado: estable.
 - 2026-11-19 — Cuatro estilos de prompt, iconos regenerados desde `logo.webp`, textos públicos neutralizados y 13/13 pruebas en verde.
+- 2026-11-20 — Revisión local a petición del usuario: diagnóstico de caché antigua, limpieza automática al abrir, icono renovado, README sin imagen rota y 13/13 pruebas en verde. Commit `b09220e` pusheado.
