@@ -21,6 +21,9 @@
 - El repositorio debe estar en el GitHub de `qirris`, con commits significativos y un README cuidado.
 - Sin secretos en archivos del proyecto.
 - Preferir soluciones sin dependencias y que funcionen en local.
+- **Todo el repo en español**: interfaz, documentación, nombres, descripciones y metadatos de GitHub, comentarios y mensajes de commits. Las palabras técnicas aceptadas en español (prompt, README, commit) están bien; el resto se traduce.
+- **Declarar siempre la asistencia de IA**: el README y la interfaz deben decir de forma visible que el proyecto se desarrolló con asistencia de IA, sin ocultarla ni exagerarla.
+- **Voz pública**: escribir como una persona de 19 años de 2º de DA que construye proyectos y los sube a GitHub para que se vea lo que hace: directa, honesta, sin lenguaje de empresa ni humo.
 
 ## Convención de archivos
 

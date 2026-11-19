@@ -9,16 +9,13 @@
 
 Herramienta local que convierte una petición escrita deprisa, desordenada o con faltas en un **prompt claro, estructurado y profesional en español**, sin cambiar nada de lo que pediste.
 
-## El problema
+## El problema (contado como lo viví)
 
-Le pides algo a una IA y:
+Tengo 19 años y estoy en 2º de DA. Llevo un tiempo haciendo proyectos y subiéndolos a GitHub para que se vea lo que hago, no solo lo que digo que sé.
 
-- no te hace caso,
-- cambia lo que pediste,
-- añade cosas que nunca pediste,
-- o te explica algo cuando querías otra cosa.
+El caso es que cada vez que le pasaba un mensaje a una IA para que me ayudara, me pasaba una de tres cosas: no sabía explicar bien lo que quería, lo entendía mal o directamente no me hacía caso. Y claro, acababa escribiendo lo mismo tres o cuatro veces hasta que por fin salía.
 
-Al final acabas reescribiendo la misma petición tres veces. Sin Rodeos hace ese trabajo por ti, con una regla que no negocia: **la forma se mejora, el contenido no se toca**.
+Pensé: si el problema está en el mensaje de entrada, arreglo el mensaje de entrada. De ahí salió Sin Rodeos: le echo mi texto tal como me sale —con faltas, desordenado, como lo escribiría a las tantas— y me devuelve un prompt claro diciendo exactamente lo que yo quise decir, sin inventar nada ni dejarme nada fuera.
 
 ## Cómo funciona
 
@@ -111,10 +108,10 @@ SinRodeos/
 ├── index.html              Interfaz
 ├── estilos.css             Sistema visual
 ├── app.js                  Eventos y estado de la interfaz
-├── servidor.js             Servidor estático + proxy local de Ollama
+├── servidor.js             Servidor estático + intermediario local de Ollama
 ├── logica/
 │   ├── mejorador.js        Reglas del modo estricto (lógica pura)
-│   ├── ollama.js           Comunicación con Ollama y fallback
+│   ├── ollama.js           Comunicación con Ollama y alternativa directa
 │   └── historial.js        Historial en localStorage
 ├── pruebas/
 │   └── mejorador.test.js   Pruebas unitarias
@@ -123,7 +120,7 @@ SinRodeos/
 └── PRODUCT.md              Definición del producto
 ```
 
-Todo el procesamiento ocurre en tu ordenador. El texto no se envía a ningún servicio externo: el proxy de `servidor.js` solo habla con `127.0.0.1:11434`.
+Todo el procesamiento ocurre en tu ordenador. El texto no se envía a ningún servicio externo: el intermediario de `servidor.js` solo habla con `127.0.0.1:11434`.
 
 ## Pruebas
 
@@ -141,8 +138,14 @@ Usa el test runner nativo de Node. Comprueba la conservación de ideas, la limpi
 4. Funcionar sin conexión y sin IA.
 5. No pedir permiso para guardar tus datos: no hay ninguno fuera de tu navegador.
 
+## Asistencia de IA
+
+Este proyecto ha sido desarrollado **con asistencia de IA**. Yo decidí qué problema resolver, cómo tenía que comportarse la herramienta y qué reglas no se podían romper; la IA me ayudó a escribir parte del código, de las pruebas y de esta documentación, y yo lo he revisado y adaptado.
+
+Lo pongo aquí porque me parece más honesto decirlo que disimularlo. Si estás mirando mi GitHub para conocerme: así trabajo, usando herramientas nuevas y siendo claro sobre lo que hice yo y lo que me ayudaron a hacer.
+
 ## Licencia y autor
 
-MIT · Hecho por [qirris](https://github.com/qirris).
+MIT · Hecho por [qirris](https://github.com/qirris), con asistencia de IA.
 
 Sin rodeos.

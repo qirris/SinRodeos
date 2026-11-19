@@ -19,7 +19,7 @@ Usuario: qirris. Idioma de producto, interfaz, documentación y commits: **espa�
 ## 3. Tecnologías y arquitectura
 
 - Interfaz: HTML + CSS + JavaScript (ES modules), sin frameworks ni dependencias.
-- Servidor local: `servidor.js` con módulos nativos de Node (`http`, `fs`, `path`) para servir archivos y hacer de proxy hacia Ollama (`127.0.0.1:11434`).
+- Servidor local: `servidor.js` con módulos nativos de Node (`http`, `fs`, `path`) para servir archivos y hacer de intermediario hacia Ollama (`127.0.0.1:11434`).
 - IA opcional: Ollama local con `qwen3:8b`. Modo sin IA siempre disponible.
 - Pruebas: `node --test` (módulo nativo de Node).
 
@@ -29,9 +29,9 @@ Usuario: qirris. Idioma de producto, interfaz, documentación y commits: **espa�
 | `estilos.css` | Sistema visual (azul tinta sobre fondo frío, un único momento de movimiento) |
 | `app.js` | Cableado de interfaz, eventos, accesibilidad y estados |
 | `logica/mejorador.js` | Reglas del modo estricto: dividir, clasificar, construir y verificar conservación |
-| `logica/ollama.js` | Descubrimiento de modelos y generación con Ollama, con fallback directo |
+| `logica/ollama.js` | Descubrimiento de modelos y generación con Ollama, con alternativa directa directo |
 | `logica/historial.js` | Historial local en `localStorage` |
-| `servidor.js` | Servidor estático + proxy de Ollama |
+| `servidor.js` | Servidor estático + intermediario de Ollama |
 | `pruebas/mejorador.test.js` | Pruebas unitarias de la lógica pura |
 | `README.md` | Documentación pública en español |
 | `PRODUCT.md` | Definición de producto |
@@ -39,7 +39,9 @@ Usuario: qirris. Idioma de producto, interfaz, documentación y commits: **espa�
 ## 4. Instrucciones y restricciones
 
 - **No cambiar nada de lo pedido**: no añadir, quitar ni reinterpretar requisitos del usuario; solo mejorar redacción y estructura.
-- Todo en español, incluidos mensajes de interfaz, errores, documentación y commits.
+- Todo en español, incluidos mensajes de interfaz, errores, documentación, metadatos de GitHub y commits.
+- Declarar de forma visible que el proyecto se desarrolló con asistencia de IA.
+- Voz pública: persona de 19 años de 2º de DA que construye y sube proyectos; directa, honesta y sin lenguaje de empresa.
 - Sin secretos en archivos `.md` ni en el repositorio.
 - El comportamiento real del código manda sobre esta memoria.
 - Detalle en `instrucciones/INSTRUCCIONES_GENERALES.md`.
@@ -55,16 +57,18 @@ Usuario: qirris. Idioma de producto, interfaz, documentación y commits: **espa�
 - Copia al portapapeles con alternativa para navegadores sin permiso.
 - Historial de los últimos 10 prompts en `localStorage`, con restauración y borrado.
 - Atajo `Ctrl/Cmd + Enter`, navegación por teclado, `aria-live` y respeto a `prefers-reduced-motion`.
-- README en español y tres commits en GitHub.
+- README en español con el origen del proyecto contado en primera persona y la declaración de asistencia de IA; pie de la interfaz con la misma declaración.
 
 ## 6. Cambios realizados
 
 - 2026-11-19: creado el sistema de memoria, `PRODUCT.md` y las instrucciones por tema.
-- 2026-11-19: creada la aplicación (interfaz, lógica, servidor y proxies).
+- 2026-11-19: creada la aplicación (interfaz, lógica, servidor e intermediarios).
 - 2026-11-19: corregidas tres pruebas fallidas: normalización de espacios alrededor de saltos de línea, clasificación de "aplicación" como objetivo y reglas añadidas con texto vacío.
 - 2026-11-19: refinado el clasificador para no confundir descripciones de problema con restricciones.
 - 2026-11-19: corregidos hallazgos del detector de diseño: contraste del botón principal, texto inferior a 11 px en móvil y animación infinita eliminada.
 - 2026-11-19: creado `README.md`, inicializado git y publicado en GitHub (commits `b102ef9`, `b9c5e3b`, `05f0e32`).
+- 2026-11-19: reescrito el origen del proyecto en el README con voz de persona de 19 años de 2º de DA; añadida la sección "Asistencia de IA" y la misma nota en el pie de la interfaz.
+- 2026-11-19: traducidos al español los encabezados de `PRODUCT.md` y los términos "proxy" y "fallback" en documentación y memoria.
 
 ## 7. Decisiones tomadas
 
@@ -73,6 +77,7 @@ Usuario: qirris. Idioma de producto, interfaz, documentación y commits: **espa�
 - Nombre de producto: **Sin Rodeos** (2026-11-19).
 - El modo estricto verifica la conservación de ideas; el modo IA pide revisión al usuario porque una IA no puede garantizarla por sí sola (2026-11-19).
 - El indicador de progreso es finito, no una animación en bucle, para evitar movimiento innecesario (2026-11-19).
+- Declarar la asistencia de IA de forma visible y usar una voz cercana y real, porque el usuario quiere que su GitHub muestre a una persona proactiva y honesta (2026-11-19).
 
 ## 8. Pruebas verificadas
 
@@ -89,7 +94,7 @@ Usuario: qirris. Idioma de producto, interfaz, documentación y commits: **espa�
 - Resueltos: los tres fallos iniciales de pruebas y los tres hallazgos del detector (detallados en la sección 6).
 - `ollama serve` debe iniciarse manualmente cuando se quiera usar el modo IA; es un comportamiento previsto y se comunica en la interfaz.
 - Capturas de escritorio y móvil generadas en la carpeta temporal de OpenCode, pero no inspeccionadas visualmente por el agente (este modelo no admite imágenes). Revisión visual pendiente por parte del usuario.
-- El fallback directo a `http://127.0.0.1:11434` no funciona si la app se sirve por HTTPS (por ejemplo, GitHub Pages): en ese caso solo está disponible el modo estricto.
+- La alternativa directa a `http://127.0.0.1:11434` no funciona si la app se sirve por HTTPS (por ejemplo, GitHub Pages): en ese caso solo está disponible el modo estricto.
 
 ## 10. Próximos pasos
 
@@ -102,3 +107,4 @@ Usuario: qirris. Idioma de producto, interfaz, documentación y commits: **espa�
 
 - 2026-11-19 — Inicialización del proyecto, memoria y producto.
 - 2026-11-19 — Aplicación completa, pruebas en verde, documentación y publicación en GitHub.
+- 2026-11-19 — Ajuste de contenido: todo en español, historia personal y declaración de asistencia de IA.
