@@ -19,7 +19,8 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - 2026-11-19: `npm test` → 11/11 en verde; detector de diseño → `[]`.
 - 2026-11-19: endpoints estáticos verificados (`/`, manifest, icono y service worker → 200 con MIME correcto).
 - 2026-11-19: acceso directo creado en el menú Inicio de Windows, apuntando a `abrir.bat` con `icono.ico`.
-- 2026-11-19: cambios de esta evolución pendientes de commit y push; `.env` está ignorado por git (`git check-ignore -v .env` → `.gitignore:4:.env`).
+- 2026-11-19: cambios de esta evolución commiteados y pusheados a `main` (`dd3c588` y `84ac086`); `.env` está ignorado por git (`git check-ignore -v .env` → `.gitignore:4:.env`).
+- 2026-11-19: metadatos de GitHub actualizados: descripción con Gemini gratuito, asistencia de IA y app de escritorio; topics `gemini` y `pwa` añadidos y `ollama` eliminado.
 - 2026-11-19: pendiente de que el usuario revise visualmente la interfaz; el agente generó capturas pero no pudo verlas (este modelo no admite entrada de imágenes).
 
 ## 3. Tecnologías y arquitectura
@@ -114,7 +115,9 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - 2026-11-19: llamada directa a Gemini con `gemini-3.5-flash-lite` → estado 200 y prompt correcto.
 - 2026-11-19: `POST /api/mejorar` → estado 200 y prompt real (`# Solución para proyectos con IA...`).
 - 2026-11-19: `git check-ignore -v .env` → `.gitignore:4:.env`; `.env` no aparece en `git status --short`.
-- 2026-11-19: verificación anterior de GitHub → repo creado y publicado en <https://github.com/qirris/SinRodeos>, rama `main`, último commit conocido `ea67812`.
+- 2026-11-19: revisión del índice de git antes del commit: solo marcadores `TU_CLAVE_AQUI` / `tu_clave_aquí`, ninguna clave real.
+- 2026-11-19: `git push origin main` → `ea67812..84ac086`; `git status --short` final → limpio.
+- 2026-11-19: metadatos verificados tras editarlos con `gh repo view`: descripción y topics correctos.
 
 ## 9. Errores y problemas pendientes
 
@@ -123,17 +126,14 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - **Resuelto**: una prueba de conservación fallaba con sinónimos (3/4); se bajó el umbral de coincidencia de 0,6 a 0,5 y quedó en 11/11.
 - **Resuelto**: el detector de diseño marcó `border-left: 4px solid #d97706` en `.aviso`; se sustituyó por borde completo más suave.
 - **Resuelto**: `Invoke-RestMethod` de PowerShell y `curl` con JSON escapado daban 500/400 por codificación del cuerpo; la verificación con `fetch` de Node confirmó el endpoint real.
-- Pendiente: confirmar el estado de metadatos de GitHub (descripción/topics pueden seguir mencionando Ollama) y actualizarlos si hace falta.
-- Pendiente: commit en español y push de los cambios de esta evolución.
+- **Resuelto**: `gh repo edit` no admite `--delete-topic`; el flag correcto es `--remove-topic`. Metadatos corregidos y verificados.
 - Capturas de escritorio y móvil generadas en la carpeta temporal de OpenCode, pero no inspeccionadas visualmente por el agente. Revisión visual pendiente por parte del usuario.
 
 ## 10. Próximos pasos
 
-1. Revisar metadatos de GitHub con `gh repo view`: quitar `ollama`, reflejar Gemini gratuito y escritorio, mantener español y asistencia de IA.
-2. Ejecutar `npm test` final, `git check-ignore -v .env` y `git status --short`; confirmar que `.env` no se sube.
-3. Hacer commit en español y `git push` a `main`.
-4. Decir al usuario que la app está lista, que la clave ya fue detectada, dónde abrirla y ofrecer añadir arranque automático con Windows si lo quiere.
-5. Si el usuario lo pide: ajustar estilos o añadir arranque automático; no hacerlo sin permiso.
+1. Decir al usuario que la app está lista, que la clave ya fue detectada, dónde abrirla y ofrecer añadir arranque automático con Windows si lo quiere.
+2. Esperar a que el usuario confirme que abre bien desde el menú Inicio y que la interfaz le resulta cómoda.
+3. Si el usuario lo pide: ajustar estilos o añadir arranque automático; no hacerlo sin permiso.
 
 ## 11. Historial de actualizaciones
 
@@ -141,3 +141,4 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - 2026-11-19 — Aplicación completa, pruebas en verde, documentación y publicación en GitHub.
 - 2026-11-19 — Ajuste de contenido: todo en español, historia personal y declaración de asistencia de IA.
 - 2026-11-19 — Evolución a Gemini gratuito, modo solo IA, app de escritorio, clave en `.env` y verificación real del endpoint.
+- 2026-11-19 — Commits `dd3c588` y `84ac086` pusheados; metadatos de GitHub actualizados y repo limpio.

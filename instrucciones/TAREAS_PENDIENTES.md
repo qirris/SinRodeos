@@ -20,9 +20,9 @@
 
 ## Pendientes
 
-- [ ] Revisar metadatos de GitHub (descripción y topics): quitar `ollama`, reflejar Gemini gratuito y app de escritorio.
-- [ ] Ejecutar `npm test` final y comprobar `git check-ignore -v .env` y `git status --short`.
-- [ ] Hacer commit en español y `git push` a `main`.
+- [x] Revisar metadatos de GitHub (descripción y topics): quitar `ollama`, reflejar Gemini gratuito y app de escritorio.
+- [x] Ejecutar `npm test` final y comprobar `git check-ignore -v .env` y `git status --short`.
+- [x] Hacer commit en español y `git push` a `main` (`dd3c588` y `84ac086`).
 - [ ] Confirmar con el usuario que la app abre correctamente desde el menú Inicio y que la interfaz le resulta cómoda.
 
 ## Bajo petición del usuario
