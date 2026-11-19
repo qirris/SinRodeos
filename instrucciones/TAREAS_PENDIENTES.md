@@ -10,7 +10,7 @@
 - [x] Redactar `README.md` en español.
 - [x] Inicializar git, hacer commits y publicar en GitHub.
 - [x] Actualizar `memoria.md` con el estado final verificado.
-- [x] Contar el origen del proyecto en el README con voz de persona de 19 años de 2º de DA.
+- [x] Contar el origen del proyecto en el README con tono joven y cercano, sin publicar datos personales.
 - [x] Declarar la asistencia de IA en el README, la interfaz y los metadatos de GitHub.
 - [x] Traducir al español los últimos textos técnicos del repo (`PRODUCT.md`, "proxy", "fallback").
 

@@ -41,7 +41,7 @@ Usuario: qirris. Idioma de producto, interfaz, documentación y commits: **espa�
 - **No cambiar nada de lo pedido**: no añadir, quitar ni reinterpretar requisitos del usuario; solo mejorar redacción y estructura.
 - Todo en español, incluidos mensajes de interfaz, errores, documentación, metadatos de GitHub y commits.
 - Declarar de forma visible que el proyecto se desarrolló con asistencia de IA.
-- Voz pública: persona de 19 años de 2º de DA que construye y sube proyectos; directa, honesta y sin lenguaje de empresa.
+- Voz pública: joven, cercana, directa y honesta, sin lenguaje de empresa. El contexto personal del usuario es solo referencia de tono, nunca dato publicado.
 - Sin secretos en archivos `.md` ni en el repositorio.
 - El comportamiento real del código manda sobre esta memoria.
 - Detalle en `instrucciones/INSTRUCCIONES_GENERALES.md`.
@@ -67,7 +67,8 @@ Usuario: qirris. Idioma de producto, interfaz, documentación y commits: **espa�
 - 2026-11-19: refinado el clasificador para no confundir descripciones de problema con restricciones.
 - 2026-11-19: corregidos hallazgos del detector de diseño: contraste del botón principal, texto inferior a 11 px en móvil y animación infinita eliminada.
 - 2026-11-19: creado `README.md`, inicializado git y publicado en GitHub (commits `b102ef9`, `b9c5e3b`, `05f0e32`).
-- 2026-11-19: reescrito el origen del proyecto en el README con voz de persona de 19 años de 2º de DA; añadida la sección "Asistencia de IA" y la misma nota en el pie de la interfaz.
+- 2026-11-19: reescrito el origen del proyecto en el README con tono joven y cercano; añadida la sección "Asistencia de IA" y la misma nota en el pie de la interfaz.
+- 2026-11-19: corregido el README a petición del usuario: su contexto personal era una indicación de tono, no texto para publicar. Se eliminaron los datos personales del README y del resto de archivos del repo.
 - 2026-11-19: traducidos al español los encabezados de `PRODUCT.md` y los términos "proxy" y "fallback" en documentación y memoria.
 
 ## 7. Decisiones tomadas

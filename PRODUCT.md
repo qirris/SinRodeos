@@ -12,7 +12,7 @@ Delegado por el usuario: se eligió HTML + CSS + JavaScript puro sin dependencia
 
 ## Usuarios
 
-qirris, 19 años, estudiante de 2º de DA. Usa la IA para hacer proyectos y necesita que entienda exactamente lo que quiso decir cuando escribe deprisa, con faltas o sin saber explicarlo bien. Situación real: peticiones que la IA ignora, cambia o explica mal, y que acaban reescribiéndose varias veces.
+qirris. Usa la IA para hacer proyectos y necesita que entienda exactamente lo que quiso decir cuando escribe deprisa, con faltas o sin saber explicarlo bien. Situación real: peticiones que la IA ignora, cambia o explica mal, y que acaban reescribiéndose varias veces.
 
 ## Propósito del producto
 
@@ -38,7 +38,7 @@ Se ejecuta en el ordenador del usuario desde el navegador. Puede funcionar sin c
 
 ## Compromisos de marca
 
-Nombre: **Sin Rodeos**. Voz: directa, clara, sin rodeos y sin promesas infladas; cercana a una persona de 19 años que está aprendiendo y construyendo en público. El repositorio debe verse cuidado y profesional en GitHub, y debe ser honesto sobre la asistencia de IA recibida.
+Nombre: **Sin Rodeos**. Voz: directa, clara, joven, cercana, sin rodeos y sin promesas infladas; alguien que está aprendiendo y construyendo en público. El repositorio debe verse cuidado y profesional en GitHub, y debe ser honesto sobre la asistencia de IA recibida.
 
 ## Evidencia disponible
 

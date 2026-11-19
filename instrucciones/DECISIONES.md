@@ -10,7 +10,7 @@
 | 2026-11-19 | El modo estricto verifica conservación y el modo IA pide revisión | Una IA no puede garantizar por sí sola que no haya cambiado contenido |
 | 2026-11-19 | Indicador de progreso finito, sin bucle | Evita movimiento innecesario y pasa el detector de diseño |
 | 2026-11-19 | Declarar la asistencia de IA en README e interfaz | El usuario quiere transparencia y que se vea una persona proactiva y honesta |
-| 2026-11-19 | Voz pública de persona de 19 años de 2º de DA | Es la realidad del usuario y la historia real de por qué nació el proyecto |
+| 2026-11-19 | Voz pública joven y cercana, sin publicar datos personales | El usuario dio su contexto para marcar el tono, no para que apareciera como dato en el repo |
 | 2026-11-19 | Traducir al español los encabezados de `PRODUCT.md` y los términos "proxy"/"fallback" | El usuario quiere el repositorio completamente en español |
 
 Las decisiones no se borran: si una queda obsoleta se tacha y se indica la fecha y el motivo.

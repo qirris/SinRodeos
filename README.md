@@ -9,13 +9,11 @@
 
 Herramienta local que convierte una petición escrita deprisa, desordenada o con faltas en un **prompt claro, estructurado y profesional en español**, sin cambiar nada de lo que pediste.
 
-## El problema (contado como lo viví)
+## El problema
 
-Tengo 19 años y estoy en 2º de DA. Llevo un tiempo haciendo proyectos y subiéndolos a GitHub para que se vea lo que hago, no solo lo que digo que sé.
+Cada vez que le paso un mensaje a una IA para que me ayude con un proyecto, me pasa una de tres cosas: no sé explicar bien lo que quiero, lo entiende mal o directamente no me hace caso. Y claro, acabo escribiendo lo mismo tres o cuatro veces hasta que por fin sale.
 
-El caso es que cada vez que le pasaba un mensaje a una IA para que me ayudara, me pasaba una de tres cosas: no sabía explicar bien lo que quería, lo entendía mal o directamente no me hacía caso. Y claro, acababa escribiendo lo mismo tres o cuatro veces hasta que por fin salía.
-
-Pensé: si el problema está en el mensaje de entrada, arreglo el mensaje de entrada. De ahí salió Sin Rodeos: le echo mi texto tal como me sale —con faltas, desordenado, como lo escribiría a las tantas— y me devuelve un prompt claro diciendo exactamente lo que yo quise decir, sin inventar nada ni dejarme nada fuera.
+Pensé: si el problema está en el mensaje de entrada, arreglo el mensaje de entrada. De ahí salió Sin Rodeos: le echo mi texto tal como me sale —con faltas, desordenado— y me devuelve un prompt claro diciendo exactamente lo que yo quise decir, sin inventar nada ni dejarme nada fuera.
 
 ## Cómo funciona
 
