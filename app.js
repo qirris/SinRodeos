@@ -191,9 +191,19 @@ document.addEventListener("keydown", evento => {
   }
 });
 
+// La app se sirve siempre desde el servidor local. Una caché antigua podía mostrar
+// la interfaz vieja o el logo anterior, así que al abrir limpiamos cualquier
+// service worker y caché que quedara de otras versiones.
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js").catch(() => {});
+  window.addEventListener("load", async () => {
+    try {
+      const registros = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(registros.map(registro => registro.unregister()));
+      const claves = await caches.keys();
+      await Promise.all(claves.map(clave => caches.delete(clave)));
+    } catch {
+      // Si el navegador no permite limpiar, la app sigue funcionando desde el servidor.
+    }
   });
 }
 

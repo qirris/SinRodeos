@@ -2,8 +2,6 @@
 
 > Escribe como quieras. Recibe un prompt profesional, estructurado y listo para usar.
 
-![Vista previa de la interfaz](images/interfaz.png)
-
 Herramienta que convierte una petición escrita deprisa, desordenada o con faltas en un **prompt profesional en español**, sin cambiar nada de lo que pediste.
 
 ## Versatilidad: 4 Estilos de Prompt
