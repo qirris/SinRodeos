@@ -1,17 +1,17 @@
 :root {
-  --fondo: #eef1f5;
-  --superficie: #ffffff;
-  --salida: #f8fafc;
-  --tinta: #111827;
-  --secundario: #556174;
-  --borde: #d7dde6;
-  --acento: #2440e0;
-  --acento-oscuro: #1b31b8;
-  --acento-suave: rgba(36, 64, 224, 0.14);
-  --exito: #0f766e;
-  --aviso: #92400e;
-  --error: #b42318;
-  --sombra: 0 10px 30px rgba(17, 24, 39, 0.06);
+  --fondo: #0f172a;
+  --superficie: #1e293b;
+  --salida: #0f172a;
+  --tinta: #f8fafc;
+  --secundario: #94a3b8;
+  --borde: #334155;
+  --acento: #3b82f6;
+  --acento-oscuro: #2563eb;
+  --acento-suave: rgba(59, 130, 246, 0.2);
+  --exito: #10b981;
+  --aviso: #f59e0b;
+  --error: #ef4444;
+  --sombra: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
   --radio: 16px;
 }
 
@@ -31,7 +31,7 @@ body {
   margin: 0;
   background: var(--fondo);
   color: var(--tinta);
-  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -145,7 +145,7 @@ body {
   font-weight: 700;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  color: var(--secundario);
+  color: var(--tinta);
 }
 
 .promesa span + span {
@@ -167,17 +167,17 @@ body {
   flex-wrap: wrap;
   margin-bottom: 18px;
   padding: 13px 16px;
-  background: #fff7ed;
-  border: 1px solid #edbd7b;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.2);
   border-radius: 11px;
-  color: #7c2d12;
+  color: #fbbf24;
   font-size: 0.9rem;
 }
 
 .aviso code {
   font-family: Consolas, "Courier New", monospace;
   font-size: 0.86rem;
-  background: rgba(124, 45, 18, 0.08);
+  background: rgba(251, 191, 36, 0.1);
   border-radius: 4px;
   padding: 1px 5px;
 }
@@ -197,7 +197,7 @@ body {
   border: 1px solid var(--borde);
   border-radius: var(--radio);
   padding: 18px;
-  box-shadow: var(--sombra);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
 }
 
 .panel__cabecera {
@@ -210,28 +210,33 @@ body {
 
 .panel__cabecera h2 {
   margin: 0;
-  font-size: 1rem;
-  letter-spacing: -0.01em;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--secundario);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .etiqueta {
-  font-size: 0.76rem;
-  font-weight: 600;
-  color: var(--secundario);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--tinta);
   background: var(--fondo);
-  border-radius: 999px;
-  padding: 4px 9px;
+  border-radius: 6px;
+  padding: 4px 10px;
   white-space: nowrap;
 }
 
 .etiqueta--bien {
-  color: var(--exito);
-  background: rgba(15, 118, 110, 0.1);
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 .etiqueta--aviso {
-  color: var(--aviso);
-  background: rgba(217, 119, 6, 0.12);
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.2);
 }
 
 textarea {
@@ -253,7 +258,7 @@ textarea {
 }
 
 textarea::placeholder {
-  color: #626b7a;
+  color: #64748b;
   opacity: 1;
 }
 
@@ -272,14 +277,14 @@ textarea::-webkit-scrollbar {
 }
 
 textarea::-webkit-scrollbar-thumb {
-  background: #c3cbd7;
+  background: #475569;
   border: 3px solid transparent;
   border-radius: 999px;
   background-clip: content-box;
 }
 
 textarea::-webkit-scrollbar-thumb:hover {
-  background: #a9b4c4;
+  background: #64748b;
   background-clip: content-box;
 }
 
