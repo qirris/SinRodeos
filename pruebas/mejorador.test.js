@@ -4,10 +4,8 @@ import assert from "node:assert/strict";
 import {
   normalizarEspacios,
   dividirEnIdeas,
-  clasificarIdea,
-  construirPrompt,
-  verificarConservacion,
-  mejorarEstricto
+  palabrasSignificativas,
+  verificarConservacion
 } from "../logica/mejorador.js";
 
 const EJEMPLO = `cuando estoy haciendo un proyecto con la ia no me hace caso
@@ -15,7 +13,7 @@ quiero que me pases el prompt ya puesto
 sin cambiar nada de lo que pido
 devuélvemelo en español`;
 
-test("normalizarEspacios agrupa espacios y salto de línea", () => {
+test("normalizarEspacios agrupa espacios y saltos de línea", () => {
   assert.equal(normalizarEspacios("  hola   mundo  \n\n\n  adiós "), "hola mundo\n\nadiós");
 });
 
@@ -24,43 +22,56 @@ test("dividirEnIdeas quita viñetas y separa frases", () => {
   assert.deepEqual(ideas, ["primera idea.", "segunda idea!", "tercera idea"]);
 });
 
-test("clasificarIdea reconoce restricciones, entrega y contexto", () => {
-  assert.equal(clasificarIdea("No cambies nada de lo que pido."), "restricciones");
-  assert.equal(clasificarIdea("Devuélveme un README en español."), "entrega");
-  assert.equal(clasificarIdea("Cuando trabajo con IA me ignora."), "contexto");
-  assert.equal(clasificarIdea("Haz una aplicación para mi ordenador."), "objetivo");
-  assert.equal(clasificarIdea("Cuando trabajo con la IA no me hace caso."), "contexto");
-  assert.equal(clasificarIdea("Devuélvemelo en español."), "entrega");
+test("palabrasSignificativas descarta palabras vacías y conserva negaciones", () => {
+  const palabras = palabrasSignificativas("No quiero que añadas nada sin permiso");
+  assert.ok(palabras.includes("no"));
+  assert.ok(palabras.includes("anadas"));
+  assert.ok(palabras.includes("sin"));
+  assert.ok(!palabras.includes("que"));
 });
 
-test("mejorarEstricto conserva todas las ideas del usuario", () => {
-  const resultado = mejorarEstricto(EJEMPLO);
-  assert.equal(resultado.conservacion.total, 4);
-  assert.equal(resultado.conservacion.conservadas, 4);
-  assert.equal(resultado.conservacion.porcentaje, 100);
-  assert.match(resultado.prompt, /^# Prompt mejorado/);
-  assert.match(resultado.prompt, /## Restricciones/);
-  assert.match(resultado.prompt, /## Entrega esperada/);
+test("verificarConservacion da el 100 % cuando aparecen todas las ideas", () => {
+  const resultado = verificarConservacion(EJEMPLO, `# Prompt mejorado
+
+## Contexto
+
+- Cuando estoy haciendo un proyecto con la IA no me hace caso.
+
+## Restricciones
+
+- Sin cambiar nada de lo que pido.
+
+## Entrega
+
+- Pásame el prompt ya puesto.
+- Devuélvemelo en español.`);
+
+  assert.equal(resultado.total, 4);
+  assert.equal(resultado.conservadas, 4);
+  assert.equal(resultado.porcentaje, 100);
+  assert.deepEqual(resultado.faltantes, []);
 });
 
-test("construirPrompt añade reglas solo cuando se piden", () => {
-  const ideas = ["Haz una web."];
-  assert.doesNotMatch(construirPrompt(ideas, { incluirReglas: false }), /Reglas de precisión/);
-  assert.match(construirPrompt(ideas, { incluirReglas: true }), /## Reglas de precisión/);
-});
-
-test("verificarConservacion detecta contenido perdido", () => {
+test("verificarConservacion tolera sinónimos y cambios de redacción", () => {
   const resultado = verificarConservacion(
-    "Haz una web. No uses Java.",
-    "## Objetivo\n- Haz una web."
+    "Quiero una página web en español",
+    "### Objetivo\n\n- Se desea una página web en español."
   );
+  assert.equal(resultado.total, 1);
+  assert.equal(resultado.conservadas, 1);
+});
+
+test("verificarConservacion detecta una idea que la IA se dejó fuera", () => {
+  const resultado = verificarConservacion("Haz una web. No uses Java.", "## Objetivo\n- Haz una web.");
   assert.equal(resultado.total, 2);
   assert.equal(resultado.conservadas, 1);
-  assert.deepEqual(resultado.faltantes, ["no uses java"]);
+  assert.equal(resultado.faltantes.length, 1);
+  assert.match(resultado.faltantes[0], /java/i);
 });
 
-test("mejorarEstricto con texto vacío no inventa contenido", () => {
-  const resultado = mejorarEstricto("   ");
-  assert.equal(resultado.prompt, "# Prompt mejorado");
-  assert.equal(resultado.conservacion.total, 0);
+test("verificarConservacion con texto vacío no inventa ideas", () => {
+  const resultado = verificarConservacion("   ", "# Prompt mejorado");
+  assert.equal(resultado.total, 0);
+  assert.equal(resultado.porcentaje, 0);
+  assert.deepEqual(resultado.faltantes, []);
 });

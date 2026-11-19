@@ -1,4 +1,10 @@
 node_modules/
+
+# Clave de la API: nunca se sube al repositorio.
+.env
+.env.*
+!.env.example
+
 .impeccable/review/
 .impeccable/build/
 .impeccable/mocks/
