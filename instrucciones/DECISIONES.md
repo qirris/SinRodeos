@@ -7,5 +7,7 @@
 | 2026-11-19 | Servidor Node con módulos nativos como proxy de Ollama | Evita problemas de CORS y mantiene el texto en local |
 | 2026-11-19 | Modo sin IA obligatorio, modo IA opcional | La herramienta debe funcionar siempre, incluso con Ollama apagado |
 | 2026-11-19 | Regla de conservación estricta en el prompt de sistema | El usuario pidió explícitamente que no se cambiara nada de lo solicitado |
+| 2026-11-19 | El modo estricto verifica conservación y el modo IA pide revisión | Una IA no puede garantizar por sí sola que no haya cambiado contenido |
+| 2026-11-19 | Indicador de progreso finito, sin bucle | Evita movimiento innecesario y pasa el detector de diseño |
 
 Las decisiones no se borran: si una queda obsoleta se tacha y se indica la fecha y el motivo.
