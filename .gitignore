@@ -1,0 +1,9 @@
+node_modules/
+.impeccable/review/
+.impeccable/build/
+.impeccable/mocks/
+.impeccable/questions/
+.impeccable/config.local.json
+*.log
+.DS_Store
+Thumbs.db
