@@ -28,6 +28,7 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - 2026-11-20: corregido el origen: `app.js` desregistra service workers y borra cachés al abrir, `service-worker.js` pasa a `sinrodeos-v3` y se desregistra solo, `abrir.bat` abre con `?v=3`, y el acceso directo usa `icono-app.ico` para renovar la caché de iconos de Windows.
 - 2026-11-20: verificación en Edge headless: fondo `rgb(15, 23, 42)`, texto `rgb(248, 250, 252)`, logo con `naturalWidth=1024` y `complete=true`, selector presente, `0` service workers y `[]` cachés. `npm test` → 13/13. Commit `b09220e` pusheado a `main`.
 - 2026-11-20: Eliminada la referencia rota `images/interfaz.png` del README (ese archivo nunca se guardó: este modelo no puede ver ni guardar la captura del usuario) y borrada la copia sobrante `132dceff-....webp`.
+- 2026-11-21: el servidor local se detuvo al cerrarse la terminal que lo ejecutaba (`exit 1073807364`, `ECONNREFUSED` en el puerto 8000). Se relanzó en segundo plano (PID `7060`) y se confirmó que `/`, `/app.js` y `/estilos.css` responden 200 con la versión corregida.
 
 ## 3. Tecnologías y arquitectura
 
@@ -137,6 +138,7 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - 2026-11-20: endpoints `/`, `/estilos.css`, `/index.html`, `/logo.webp`, `/icono.ico` y `/service-worker.js` → 200 con MIME correcto; servidor con PID `31156` ejecutando `node servidor.js`.
 - 2026-11-20: Edge headless sobre `http://127.0.0.1:8000/?v=3`: fondo `rgb(15, 23, 42)`, texto `rgb(248, 250, 252)`, logo `naturalWidth=1024` y `complete=true`, selector `true`, registros de service worker `0`, cachés `[]`.
 - 2026-11-20: `npm test` → 13/13 en verde tras la limpieza de cachés; `git push` → `1bd5b60..b09220e`.
+- 2026-11-21: tras reiniciar el servidor en segundo plano, `/` contiene `selectorEstilo`, `/app.js` contiene `getRegistrations` y `/estilos.css` contiene `#0f172a`; los tres devuelven 200.
 - 2026-11-19: metadatos verificados tras editarlos con `gh repo view`: descripción y topics correctos.
 
 ## 9. Errores y problemas pendientes
@@ -152,6 +154,7 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - **Resuelto**: quedaron menciones al proveedor en textos públicos (`index.html`, `PRODUCT.md`, `package.json`); neutralizadas.
 - **Resuelto**: el usuario veía la interfaz antigua o el logo negro al abrir. No era el servidor: era caché del service worker v2 e icono cacheado por Windows. Limpieza al abrir + `?v=3` + `icono-app.ico`; verificado con 0 service workers y 0 cachés en navegador real. Queda confirmación visual del usuario tras reabrir.
 - **Resuelto**: `README.md` referenciaba `images/interfaz.png`, un archivo que no existe porque este modelo no puede guardar la captura enviada. Se quitó la referencia en lugar de inventar una imagen.
+- **Resuelto**: el servidor dejó de escuchar al cerrarse la terminal que lo lanzó; la app daba `ECONNREFUSED` y parecía "no cargar". Relanzado en segundo plano y verificado. Si vuelve a pasar, basta con abrir `abrir.bat` o ejecutar `npm start`.
 - Capturas de escritorio y móvil generadas en la carpeta temporal de OpenCode, pero no inspeccionadas visualmente por el agente. El usuario envió una captura por chat, pero este modelo no admite entrada de imágenes; no se publicó ninguna imagen inventada.
 
 ## 10. Próximos pasos

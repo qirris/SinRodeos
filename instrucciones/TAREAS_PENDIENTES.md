@@ -31,6 +31,7 @@
 - [x] Limpiar cachés y service workers al abrir (`app.js` + `service-worker.js` v3), abrir con `?v=3` y usar `icono-app.ico` en el acceso directo.
 - [x] Verificar en Edge headless fondo oscuro, logo cargado, selector, 0 service workers y 0 cachés; 13/13 pruebas en verde.
 - [x] Quitar del README la imagen `images/interfaz.png` que no existía y borrar la copia duplicada del logo.
+- [x] Relanzar el servidor en segundo plano tras la caída por cierre de terminal y verificar que sirve la versión corregida.
 - [ ] Confirmar con el usuario que, tras cerrar y volver a abrir desde el menú Inicio, ve la interfaz oscura y el logo claro.
 
 ## Bajo petición del usuario
