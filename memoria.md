@@ -13,6 +13,8 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 2. Estado actual
 
+- 2026-11-22, publicación verificada: versión 1.2.0 y nuevo logo subidos a `main`, commit `a7127ba19d1e5086364648799c3ec17cd23fa5bc`. `git ls-remote` coincide con el commit local y la lectura mediante GitHub confirma la cabecera actualizada y la procedencia del logo. La clave y el informe privado no están incluidos. La instalación anterior y su acceso directo permanecen sin modificar.
+
 - 2026-11-22, cierre para publicación: versión 1.2.0 preparada para `main` con las mejoras y el nuevo logo. Pruebas reejecutadas: 31/31. README e instrucciones actualizados con los límites reales; clave e informes de revisión ignorados por git. La publicación se registrará después de comprobar el remoto.
 
 - 2026-11-22, petición posterior: el usuario pidió cambiar el dibujo del logo. Creado un nuevo símbolo S/flecha azul sobre azul tinta con ImageGen y guardado en `logo.png`; integrado en cabecera, favicon, PNG de 192/512 px e ICO de 32/48/64/256 px. Transparencia comprobada en las esquinas. Original `logo.webp` conservado. Cambios en la copia local, sin publicación ni modificación de accesos directos de Windows.
@@ -94,6 +96,8 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 6. Cambios realizados
 
+- 2026-11-22: publicados 43 archivos de implementación, recursos y documentación en `main`, sin forzar el remoto. Añadidos `DESIGN.md` y `.impeccable/design.json` a partir del código real, con evidencia estática y sin declarar aprobación visual.
+
 - 2026-11-22: cierre de documentación para publicación: instalación y actualización de copias existentes, privacidad real, estilos actuales, pruebas y pendientes. Se mantiene la instrucción de no manejar ventanas sin petición expresa.
 
 - 2026-11-22: reemplazado el logo a petición expresa. `scripts/generar-iconos.js` usa ahora `scripts/convertir-iconos.ps1` y System.Drawing de Windows para convertir `logo.png` sin abrir ventanas ni usar navegador. `logo.png.json` recoge procedencia y prompts. La cabecera usa la variante ligera de 192 px sin recorte ni deformación.
@@ -139,6 +143,8 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 8. Pruebas verificadas
 
+- 2026-11-22, publicación: revisión de 43 archivos preparados sin rutas privadas ni patrones de credenciales. Push `14e7c1a..a7127ba` completado. GitHub devuelve `index.html` con SHA `94022418800e0fc9ccd95ba7e3bcedab1af65eda`, idéntico al archivo del commit local; incluye el nuevo icono y la vista previa. Referencia remota `main` verificada en `a7127ba19d1e5086364648799c3ec17cd23fa5bc`.
+
 - 2026-11-22, cierre: `npm test` → 31/31, `git diff --check` sin errores. `git check-ignore -v .env .impeccable/review/comparacion-prompts.json` confirma la exclusión de la clave y del informe. `git fetch origin main` no encontró cambios remotos adicionales.
 
 - 2026-11-22: nuevo logo verificado visualmente como archivo; variante de 192 px inspeccionada. `logo.png` 1254 × 1254, variantes 192 × 192 y 512 × 512, alfa de esquina 0 en las tres. Los dos ICO contienen 32, 48, 64 y 256 px. `npm run iconos` completado sin navegador; `npm test` → 31/31 después de integrar los recursos. No se manejaron ventanas.
@@ -166,7 +172,7 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - **Supérsedido por rediseño expreso**: el mero reencuadre del logo anterior no satisfizo al usuario. Sustituido el dibujo por un logo S/flecha; se conserva el recurso anterior y la nueva fuente se identifica explícitamente.
 
 - **Corregido en código, pendiente de revisión visual**: `logo.webp` tiene mucho espacio blanco y se forzaba a 40 × 40 pese a no ser cuadrado; el símbolo quedaba pequeño y deformado. Se conserva el dibujo y se corrige su encuadre con CSS.
-- **Pendiente de cierre del plan de 2026-11-22**: comprobación visual, revisión de los resultados reales de comparación, completar la comparación número 12 y cerrar documentación/publicación. No marcar estos puntos como terminados.
+- **Pendientes de verificación del plan de 2026-11-22**: comprobación visual, revisión de los resultados reales de comparación y completar la comparación número 12. Implementación, documentación y publicación cerradas; no marcar las verificaciones pendientes como terminadas.
 
 - **Resuelto**: `ReferenceError: text is not defined` en `servidor.js` (se pasaba `parts: [{ text }]` donde debía ser `texto`). La llamada directa a Gemini funcionaba y solo fallaba el endpoint; se corrigió a `parts: [{ text: texto }]` y se eliminó el debug temporal.
 - **Resuelto**: el primer arranque del servidor nuevo decía "Falta la clave" porque se inició antes de que el usuario pegara la clave; al reiniciarlo detectó la clave correctamente. La lectura por petición evita futuros reinicios.
@@ -184,12 +190,13 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 10. Próximos pasos
 
-1. Crear commit en español y publicar en `main`; verificar la referencia remota y el contenido antes de darlo por subido.
-2. Pendiente: revisión visual real en escritorio y móvil. No usar Computer Use ni controlar ventanas sin petición expresa.
-3. Pendiente: revisar cualitativamente el informe de comparación real y completar el par 12. No afirmar mejoras medidas sin evaluación.
-4. La instalación anterior y su acceso directo no se actualizan al publicar GitHub. Actualizarlos solo como tarea expresa; conservar configuración y datos del usuario.
+1. Pendiente: revisión visual real en escritorio y móvil. No usar Computer Use ni controlar ventanas sin petición expresa.
+2. Pendiente: revisar cualitativamente el informe de comparación real y completar el par 12. No afirmar mejoras medidas sin evaluación.
+3. La instalación anterior y su acceso directo no se actualizan al publicar GitHub. Actualizarlos solo como tarea expresa; conservar configuración y datos del usuario.
 
 ## 11. Historial de actualizaciones
+
+- 2026-11-22 — Versión 1.2.0 y nuevo logo publicados en `main` (`a7127ba`), con commit en español, sin claves ni informes privados. Referencia y contenido de GitHub comprobados; 31/31 pruebas. Se registran por separado las verificaciones visual y comparativa aún pendientes.
 
 - 2026-11-22 — Preparación del commit y publicación autorizada en `main`, con documentación de versión 1.2.0, 31 pruebas y pendientes explícitos. Sin manejo de ventanas.
 

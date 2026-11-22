@@ -24,7 +24,7 @@
 
 - [x] Implementar la versión 1.2.0: nueva interfaz, instrucciones, revisión orientativa, cancelación, vista previa y servidor restringido. 31/31 pruebas automáticas.
 - [x] Actualizar README e instrucciones con instalación, actualización, privacidad y estado de verificación reales.
-- [ ] Publicar la versión 1.2.0 en `main` y verificar GitHub.
+- [x] Publicar la versión 1.2.0 en `main` y verificar GitHub: commit de implementación `a7127ba`, referencia remota y contenido confirmados el 2026-11-22.
 - [ ] Comprobar visualmente escritorio y móvil, respetando la restricción de no controlar ventanas sin petición expresa.
 - [ ] Revisar cualitativamente los 11 pares reales y completar el caso 12; no presentar resultados como una mejora medida antes de evaluarlos.
 
