@@ -26,7 +26,9 @@
 - **Todo el repo en español**: interfaz, documentación, nombres, descripciones y metadatos de GitHub, comentarios y mensajes de commits. Las palabras técnicas aceptadas en español (prompt, README, commit) están bien; el resto se traduce.
 - **Declarar siempre la asistencia de IA**: el README y la interfaz deben decir de forma visible que el proyecto se desarrolló con asistencia de IA, sin ocultarla ni exagerarla.
 - **Voz pública**: joven, cercana, directa y honesta, sin lenguaje de empresa ni humo. El contexto personal del usuario sirve solo como referencia para el tono: **no se publica como dato**.
-- Ser honesto con la privacidad: el texto se envía a Gemini; la clave no sale del ordenador; la capa gratuita tiene límites.
+- Ser honesto con la privacidad: el texto se envía a Gemini; solo el servidor usa la clave para autenticarse ante Google y nunca la entrega al navegador; la capa gratuita tiene límites.
+- No controlar ventanas ni usar Computer Use sin petición expresa: el usuario objetó a la interrupción de Chrome el 2026-11-22. Trabajar desde archivos y terminal.
+- Cerrar los cambios autorizados con commit y publicación en `main`, como en el flujo habitual del proyecto; verificar GitHub antes de afirmar que están publicados. No dejarlos solo en otra copia local.
 
 ## Convención de archivos
 

@@ -1,11 +1,12 @@
 {
   "name": "sinrodeos",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Convierte peticiones en bruto en prompts claros en español con IA gratuita, sin cambiar nada de lo pedido.",
   "type": "module",
   "scripts": {
     "start": "node servidor.js",
     "test": "node --test",
+    "comparar": "node scripts/comparar-prompts.js",
     "iconos": "node scripts/generar-iconos.js"
   },
   "keywords": [

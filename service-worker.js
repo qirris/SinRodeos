@@ -10,7 +10,7 @@ self.addEventListener("install", evento => {
 self.addEventListener("activate", evento => {
   evento.waitUntil(
     caches.keys()
-      .then(claves => Promise.all(claves.map(clave => caches.delete(clave))))
+      .then(claves => Promise.all(claves.filter(clave => clave.startsWith("sinrodeos-")).map(clave => caches.delete(clave))))
       .then(() => self.registration.unregister())
       .then(() => self.clients.claim())
   );

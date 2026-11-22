@@ -2,6 +2,8 @@
 
 ## Completadas
 
+- [x] 2026-11-22: sustituir el logo a petición expresa del usuario; integrar S/flecha en cabecera, favicon y variantes PNG/ICO. Fuente `logo.png`, procedencia y prompts en `logo.png.json`. Conversión sin ventanas; dimensiones y transparencia verificadas; 31/31 pruebas.
+
 - [x] Implementar `index.html`, `estilos.css` y `app.js`.
 - [x] Crear sistema de memoria, `PRODUCT.md`, `README.md` e instrucciones por tema.
 - [x] Inicializar git y publicar en GitHub (último commit conocido antes de la evolución: `ea67812`).
@@ -19,6 +21,12 @@
 - [x] Actualizar `memoria.md`, `AGENTS.md` y las instrucciones internas al estado Gemini-only.
 
 ## Pendientes
+
+- [x] Implementar la versión 1.2.0: nueva interfaz, instrucciones, revisión orientativa, cancelación, vista previa y servidor restringido. 31/31 pruebas automáticas.
+- [x] Actualizar README e instrucciones con instalación, actualización, privacidad y estado de verificación reales.
+- [ ] Publicar la versión 1.2.0 en `main` y verificar GitHub.
+- [ ] Comprobar visualmente escritorio y móvil, respetando la restricción de no controlar ventanas sin petición expresa.
+- [ ] Revisar cualitativamente los 11 pares reales y completar el caso 12; no presentar resultados como una mejora medida antes de evaluarlos.
 
 - [x] Revisar metadatos de GitHub (descripción y topics): quitar `gemini`, `pwa`, añadir `productividad`.
 - [x] Ejecutar el plan de pulido: logo, neutralización de textos, metadatos y verificación.

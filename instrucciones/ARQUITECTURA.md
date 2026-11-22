@@ -26,14 +26,22 @@ El servidor local sigue siendo necesario: es el único que lee la clave de `.env
 | `logica/historial.js` | Guardar, listar y borrar entradas en `localStorage` |
 | `app.js` | Estado de la interfaz, eventos, accesibilidad y mensajes |
 | `servidor.js` | Servidor estático + lectura de `.env` + llamada a Gemini con módulos nativos |
-| `service-worker.js` | Caché de la interfaz; excluye `/api/` para no guardar resultados ni peticiones |
+| `service-worker.js` | Limpiador heredado; no se registra un nuevo service worker ni se ofrece funcionamiento sin conexión |
+| `logica/solicitud.js` | Una generación vigente, cancelación y descarte de respuestas antiguas |
+| `logica/vista.js` | Markdown limitado mediante nodos DOM seguros, sin interpretar HTML |
 | `manifest.webmanifest` | Definición de app instalable en ventana propia |
 | `scripts/generar-iconos.js` | Genera iconos SVG/PNG/ICO sin librerías |
 
 ## Presentación de escritorio
 
-`abrir.bat` detecta si el servidor está en marcha, lo arranca minimizado si no, y abre Edge/Chrome con `--app=http://localhost:8000 --window-size=1180,900`. El manifest y el service worker permiten además instalar la app desde el navegador. No se usa Electron para no añadir dependencias.
+`abrir.bat` detecta si el servidor está en marcha, lo arranca minimizado si no, y abre Edge/Chrome en ventana propia. El manifest conserva la presentación de app; no hay modo sin conexión. El servidor escucha solo en `127.0.0.1`, valida Host y origen y sirve una lista explícita de archivos públicos.
 
 ## Decisiones de interfaz
 
-Una sola pantalla: entrada a la izquierda, salida a la derecha en escritorio; apiladas en móvil. Sin selector de modos: siempre se usa IA. El botón principal de mejora y el de copia son las acciones centrales. La comprobación de conservación se muestra como una etiqueta discreta, no como un error.
+Una sola pantalla: entrada y acciones a la izquierda, resultado con Vista previa / Texto a la derecha; apiladas en móvil con la generación antes del resultado. Siempre se usa IA. La revisión orientativa enumera posibles problemas; no presenta un porcentaje como garantía. Historial plegable con diez entradas.
+
+## Contrato y pruebas
+
+`POST /api/mejorar`: entrada `{texto, estilo}`; salida `{prompt}`; errores `{codigo, error}` en español. El servidor lee .env por petición, respeta GEMINI_MODELO y usa `gemini-3.8-flash` si no hay valor configurado. Cancela la llamada remota al desconectar el cliente o tras 60 segundos. Rechaza respuestas vacías, bloqueadas o truncadas. No se reintenta automáticamente.
+
+`crearServidor` permite inyectar configuración y generación en pruebas; la importación no abre puertos. `scripts/servidor-vista.js` es una herramienta de revisión aislada, con respuestas marcadas como simuladas; no forma parte del arranque normal.

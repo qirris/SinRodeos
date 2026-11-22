@@ -13,6 +13,14 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 2. Estado actual
 
+- 2026-11-22, cierre para publicación: versión 1.2.0 preparada para `main` con las mejoras y el nuevo logo. Pruebas reejecutadas: 31/31. README e instrucciones actualizados con los límites reales; clave e informes de revisión ignorados por git. La publicación se registrará después de comprobar el remoto.
+
+- 2026-11-22, petición posterior: el usuario pidió cambiar el dibujo del logo. Creado un nuevo símbolo S/flecha azul sobre azul tinta con ImageGen y guardado en `logo.png`; integrado en cabecera, favicon, PNG de 192/512 px e ICO de 32/48/64/256 px. Transparencia comprobada en las esquinas. Original `logo.webp` conservado. Cambios en la copia local, sin publicación ni modificación de accesos directos de Windows.
+
+- 2026-11-22: implementación local del plan aprobado en la rama `codex/mejorar-prompts-e-interfaz`, todavía sin commit ni publicación. Nueva pantalla oscura, instrucciones revisadas, cancelación y restricciones del servidor. `npm test`: 31/31. Comparación real: 11/12 pares completados; el último falló por disponibilidad del proveedor. No se ha afirmado una mejora semántica medida.
+- 2026-11-22: el usuario objetó al intento de controlar Chrome; se detuvo Computer Use y el trabajo. No volver a controlar ventanas sin petición expresa. Después pidió corregir el logo: se ajustó únicamente su presentación en los archivos locales.
+- 2026-11-22: logo de cabecera con encuadre centrado, márgenes reducidos y proporciones originales (1024 × 765). El archivo original se conserva. Comprobación visual pendiente por el bloqueo del navegador integrado y de Computer Use.
+
 - 2026-11-19: aplicación terminada y funcionando con IA en la nube. Última verificación: 2026-11-19.
 - 2026-11-19: clave del usuario ya pegada en `.env` (longitud detectada: 53 caracteres). **Nunca abrir ni mostrar la clave**; comprobar solo su presencia.
 - 2026-11-19: llamada real a `POST /api/mejorar` verificada con estado 200 y prompt generado.
@@ -86,6 +94,12 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 6. Cambios realizados
 
+- 2026-11-22: cierre de documentación para publicación: instalación y actualización de copias existentes, privacidad real, estilos actuales, pruebas y pendientes. Se mantiene la instrucción de no manejar ventanas sin petición expresa.
+
+- 2026-11-22: reemplazado el logo a petición expresa. `scripts/generar-iconos.js` usa ahora `scripts/convertir-iconos.ps1` y System.Drawing de Windows para convertir `logo.png` sin abrir ventanas ni usar navegador. `logo.png.json` recoge procedencia y prompts. La cabecera usa la variante ligera de 192 px sin recorte ni deformación.
+
+- 2026-11-22: corregida la deformación del logo de cabecera: un contenedor de 44 × 44 recorta el margen blanco, mientras la imagen conserva su relación de aspecto. Cambio local, sin tocar accesos directos ni ventanas.
+
 - 2026-11-19: creado el sistema de memoria, `PRODUCT.md` y las instrucciones por tema.
 - 2026-11-19: creada la primera versión de la aplicación (interfaz, lógica, servidor e intermediarios) con Ollama y modo sin IA.
 - 2026-11-19: corregidas tres pruebas fallidas iniciales y tres hallazgos del detector de diseño.
@@ -125,6 +139,12 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 8. Pruebas verificadas
 
+- 2026-11-22, cierre: `npm test` → 31/31, `git diff --check` sin errores. `git check-ignore -v .env .impeccable/review/comparacion-prompts.json` confirma la exclusión de la clave y del informe. `git fetch origin main` no encontró cambios remotos adicionales.
+
+- 2026-11-22: nuevo logo verificado visualmente como archivo; variante de 192 px inspeccionada. `logo.png` 1254 × 1254, variantes 192 × 192 y 512 × 512, alfa de esquina 0 en las tres. Los dos ICO contienen 32, 48, 64 y 256 px. `npm run iconos` completado sin navegador; `npm test` → 31/31 después de integrar los recursos. No se manejaron ventanas.
+
+- 2026-11-22: `npm test` tras ajustar la cabecera → 31 pruebas superadas, 0 fallos. No se ejecutó revisión visual en navegador. La revisión independiente de código detectó un problema de numeración/anidación en Markdown; corregido y su regresión verificada de forma independiente.
+
 - 2026-11-19: `npm test` → 13 pruebas, 13 superadas, 0 fallos (incluye los cuatro estilos).
 - 2026-11-19: detector de diseño (`impeccable detect --json index.html estilos.css app.js`) → `[]` (sin hallazgos). Se quitó el borde lateral del aviso que había marcado como patrón detectado.
 - 2026-11-19: `curl` a `/`, `/manifest.webmanifest`, `/icono-512.png` y `/service-worker.js` → 200 con tipos MIME correctos.
@@ -143,6 +163,11 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 9. Errores y problemas pendientes
 
+- **Supérsedido por rediseño expreso**: el mero reencuadre del logo anterior no satisfizo al usuario. Sustituido el dibujo por un logo S/flecha; se conserva el recurso anterior y la nueva fuente se identifica explícitamente.
+
+- **Corregido en código, pendiente de revisión visual**: `logo.webp` tiene mucho espacio blanco y se forzaba a 40 × 40 pese a no ser cuadrado; el símbolo quedaba pequeño y deformado. Se conserva el dibujo y se corrige su encuadre con CSS.
+- **Pendiente de cierre del plan de 2026-11-22**: comprobación visual, revisión de los resultados reales de comparación, completar la comparación número 12 y cerrar documentación/publicación. No marcar estos puntos como terminados.
+
 - **Resuelto**: `ReferenceError: text is not defined` en `servidor.js` (se pasaba `parts: [{ text }]` donde debía ser `texto`). La llamada directa a Gemini funcionaba y solo fallaba el endpoint; se corrigió a `parts: [{ text: texto }]` y se eliminó el debug temporal.
 - **Resuelto**: el primer arranque del servidor nuevo decía "Falta la clave" porque se inició antes de que el usuario pegara la clave; al reiniciarlo detectó la clave correctamente. La lectura por petición evita futuros reinicios.
 - **Resuelto**: una prueba de conservación fallaba con sinónimos (3/4); se bajó el umbral de coincidencia de 0,6 a 0,5 y quedó en 11/11.
@@ -159,12 +184,18 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 10. Próximos pasos
 
-1. Decir al usuario, con palabras sencillas, que ya se corrigió la causa (caché antigua) y que debe cerrar la ventana y volver a abrir desde el menú Inicio.
-2. Si sigue viendo el logo negro del acceso directo, reiniciar el Explorador de Windows o cerrar sesión y volver a entrar para renovar la caché de iconos; no borrar la carpeta del proyecto.
-3. Confirmar que ve fondo oscuro, logo claro y el selector de cuatro estilos; solo entonces dar por cerrada la incidencia.
-4. Si lo pide: ajustar estilos o añadir arranque automático; no hacerlo sin permiso.
+1. Crear commit en español y publicar en `main`; verificar la referencia remota y el contenido antes de darlo por subido.
+2. Pendiente: revisión visual real en escritorio y móvil. No usar Computer Use ni controlar ventanas sin petición expresa.
+3. Pendiente: revisar cualitativamente el informe de comparación real y completar el par 12. No afirmar mejoras medidas sin evaluación.
+4. La instalación anterior y su acceso directo no se actualizan al publicar GitHub. Actualizarlos solo como tarea expresa; conservar configuración y datos del usuario.
 
 ## 11. Historial de actualizaciones
+
+- 2026-11-22 — Preparación del commit y publicación autorizada en `main`, con documentación de versión 1.2.0, 31 pruebas y pendientes explícitos. Sin manejo de ventanas.
+
+- 2026-11-22 — Nuevo logo generado e integrado a petición expresa, iconos coherentes y conversión por archivos sin navegador. 31/31 pruebas; pendiente publicar la implementación general y cerrar su revisión visual.
+
+- 2026-11-22 — Implementación local del plan; interrupción del control de pantalla tras objeción del usuario y posterior corrección del encuadre del logo. 31/31 pruebas; sin publicar cambios.
 
 - 2026-11-19 — Inicialización del proyecto, memoria y producto.
 - 2026-11-19 — Aplicación completa, pruebas en verde, documentación y publicación en GitHub.

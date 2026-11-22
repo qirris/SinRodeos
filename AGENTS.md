@@ -22,4 +22,4 @@ Punto de entrada del proyecto. Aplicación que convierte texto en bruto en promp
 
 ## Estado rápido
 
-Funcionando con Gemini gratuito, clave detectada en `.env`, 11/11 pruebas en verde y acceso directo en el menú Inicio. Última verificación: 2026-11-19. Pendiente: commit/push y revisión de metadatos de GitHub.
+Versión 1.2.0: interfaz oscura, nuevo logo S/flecha, instrucciones revisadas, vista previa segura, cancelación y servidor restringido al equipo local. Última verificación: 2026-11-22, 31/31 pruebas automáticas. Comparación real: 11/12 pares completados; revisión visual pendiente. Fuente del logo: `logo.png`; variantes mediante `npm run iconos` sin ventanas. Ver `memoria.md` para publicación y pendientes reales.

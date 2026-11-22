@@ -53,13 +53,22 @@ export function verificarConservacion(textoOriginal, prompt) {
     .map(idea => ({ idea, palabras: palabrasSignificativas(idea) }))
     .filter(entrada => entrada.palabras.length > 0);
 
-  const usadas = new Set(palabrasSignificativas(prompt));
+  const candidatas = dividirEnIdeas(prompt);
+  const auxiliares = new Set(["no", "sin", "nunca", "quiero", "debes", "debe", "uses", "usar", "usa", "haz", "hacer", "es"]);
+  const negacion = /\b(no|sin|nunca|jamás|evita|evitar|prohíbe)\b/i;
   const faltantes = [];
   let conservadas = 0;
 
   for (const { idea, palabras } of ideas) {
-    const encontradas = palabras.filter(palabra => usadas.has(palabra)).length;
-    if (encontradas / palabras.length >= 0.5) {
+    const importantes = palabras.filter(palabra => !auxiliares.has(palabra));
+    const buscar = importantes.length ? importantes : palabras;
+    const coincide = candidatas.some(candidata => {
+      const usadas = new Set(palabrasSignificativas(candidata));
+      const proporcion = buscar.filter(palabra => usadas.has(palabra)).length / buscar.length;
+      return proporcion >= 0.5 && (!negacion.test(idea) || negacion.test(candidata));
+    });
+    const literales = extraerLiterales(idea);
+    if (coincide && literales.every(literal => contieneLiteral(prompt, literal))) {
       conservadas++;
     } else {
       faltantes.push(idea);
@@ -71,6 +80,21 @@ export function verificarConservacion(textoOriginal, prompt) {
     total,
     conservadas,
     porcentaje: total ? Math.round((conservadas / total) * 100) : 0,
-    faltantes
+    faltantes,
+    avisos: [...new Set([
+      ...extraerLiterales(textoOriginal).filter(literal => !contieneLiteral(prompt, literal)).map(literal => `Comprueba este dato o literal: ${literal}`),
+      ...faltantes.map(idea => `Revisa esta parte de tu petición: ${idea}`)
+    ])]
   };
+}
+
+function contieneLiteral(texto, literal) {
+  // Los límites impiden dar por conservado 500 cuando el resultado dice 5000.
+  const escapado = literal.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(?<![\\p{L}\\p{N}_])${escapado}(?![\\p{L}\\p{N}_])`, "u").test(texto);
+}
+
+function extraerLiterales(texto) {
+  const patrones = /`([^`\n]+)`|https?:\/\/[^\s<>]+|(?:[\w.-]+\/)+[\w./-]+|\d+(?:[.,]\d+)*(?:\s?%)?/g;
+  return [...String(texto || "").matchAll(patrones)].map(coincidencia => coincidencia[1] || coincidencia[0]);
 }

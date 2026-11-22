@@ -29,10 +29,10 @@ test("las instrucciones de sistema protegen el contenido y piden buen formato", 
 
 test("cada estilo añade sus reglas y mantiene las comunes", () => {
   const estilos = {
-    preciso: /Objetivo, Contexto, Restricciones y Formato de salida/,
-    directo: /m[aá]ximo de 6 l[ií]neas/,
-    analitico: /Razonamiento paso a paso/,
-    creativo: /Sugerencias/
+    preciso: /solo cuando exista contenido/,
+    directo: /No impongas un número máximo de líneas/,
+    analitico: /No resuelvas el problema/,
+    creativo: /no añadas sugerencias/
   };
 
   for (const [estilo, patron] of Object.entries(estilos)) {
@@ -42,6 +42,12 @@ test("cada estilo añade sus reglas y mantiene las comunes", () => {
     assert.match(instrucciones, /NO elimines/);
     assert.match(instrucciones, /NO cambies/);
     assert.match(instrucciones, /español/);
+  }
+});
+
+test("limpiarRespuesta conserva títulos válidos, código y envoltorios parciales", () => {
+  for (const entrada of ["Seguro de viaje: cubre cancelaciones.", "Claro: ese es el nombre del proyecto.", "```js\nconst x = 1;\n```", "# Ejemplo\n```js\nx()\n```", "texto\n```", "```markdown\nTexto sin cierre"]) {
+    assert.equal(limpiarRespuesta(entrada), entrada);
   }
 });
 

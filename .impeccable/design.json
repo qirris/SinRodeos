@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-22T19:18:36.0557740Z",
+  "title": "Sistema de diseño: Sin Rodeos",
+  "extensions": {
+    "colorMeta": {
+      "acento": { "role": "primary", "displayName": "Azul de acción" },
+      "enlace": { "role": "primary", "displayName": "Azul claro de enlace y foco" },
+      "fondo": { "role": "neutral", "displayName": "Azul tinta de fondo" },
+      "superficie": { "role": "neutral", "displayName": "Superficie de panel" },
+      "lienzo": { "role": "neutral", "displayName": "Lienzo de edición" },
+      "tinta": { "role": "neutral", "displayName": "Texto principal" },
+      "secundario": { "role": "neutral", "displayName": "Texto secundario" },
+      "borde": { "role": "neutral", "displayName": "Borde y separador" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Título principal", "purpose": "Encabezado de la pantalla; 25 px a 480 px o menos." },
+      "title": { "displayName": "Título de panel", "purpose": "Encabezados de entrada y resultado." },
+      "body": { "displayName": "Texto base", "purpose": "Familia e interlineado generales heredados." },
+      "lectura": { "displayName": "Resultado legible", "purpose": "Vista previa del prompt." },
+      "accion": { "displayName": "Acción principal", "purpose": "Botón para generar el prompt." },
+      "label": { "displayName": "Etiqueta y dato", "purpose": "Contadores y selector de vista." }
+    },
+    "motion": [
+      { "name": "aparicion-resultado", "value": "aparecer 180ms ease-out", "purpose": "Solo con prefers-reduced-motion: no-preference; opacidad 0.6 a 1 y translateY(3px) a translateY(0)." }
+    ],
+    "breakpoints": [
+      { "name": "una-columna", "value": "900px" },
+      { "name": "movil", "value": "480px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botón primario",
+      "kind": "button",
+      "refersTo": "boton-primario",
+      "description": "Acción de generar el prompt.",
+      "html": "<button class=\"ds-primario\" type=\"button\">Generar prompt<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 12h16m-6-6 6 6-6 6\"/></svg></button>",
+      "css": ".ds-primario{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:44px;padding:10px 20px;border:1px solid var(--acento,#2563eb);border-radius:8px;background:var(--acento,#2563eb);color:white;font:600 14px/1.5 'Segoe UI',system-ui,sans-serif;cursor:pointer}.ds-primario svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.ds-primario:hover:not(:disabled){background:#1d4ed8}.ds-primario:focus-visible{outline:2px solid var(--enlace,#93c5fd);outline-offset:4px}.ds-primario:disabled{opacity:.5;cursor:default}"
+    },
+    {
+      "name": "Botón secundario",
+      "kind": "button",
+      "refersTo": "boton-secundario",
+      "description": "Acciones de copiar o cancelar.",
+      "html": "<button class=\"ds-secundario\" type=\"button\">Cancelar</button>",
+      "css": ".ds-secundario{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:44px;padding:10px 14px;border:1px solid var(--borde,#35445d);border-radius:8px;background:var(--lienzo,#121c2e);color:var(--tinta,#f1f5fc);font:600 13px/1.5 'Segoe UI',system-ui,sans-serif;cursor:pointer}.ds-secundario:hover:not(:disabled){background:#263854}.ds-secundario:focus-visible{outline:2px solid var(--enlace,#93c5fd);outline-offset:4px}.ds-secundario:disabled{opacity:.5;cursor:default}"
+    },
+    {
+      "name": "Botón de texto",
+      "kind": "button",
+      "refersTo": "boton-texto",
+      "description": "Limpiar la entrada o borrar el historial.",
+      "html": "<button class=\"ds-texto\" type=\"button\">Limpiar</button>",
+      "css": ".ds-texto{min-height:44px;padding:8px 10px;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--secundario,#a9b8d0);font:13px/1.5 'Segoe UI',system-ui,sans-serif;cursor:pointer}.ds-texto:hover{background:#23334d;color:var(--tinta,#f1f5fc)}.ds-texto:focus-visible{outline:2px solid var(--enlace,#93c5fd);outline-offset:4px}.ds-texto:disabled{opacity:.5;cursor:default}"
+    },
+    {
+      "name": "Campo de petición",
+      "kind": "input",
+      "refersTo": "campo-texto",
+      "description": "Área de texto con redimensionamiento vertical.",
+      "html": "<textarea class=\"ds-entrada\" aria-label=\"Tu petición\" placeholder=\"Quiero corregir el login de mi proyecto en React…\"></textarea>",
+      "css": ".ds-entrada{display:block;width:100%;min-height:250px;padding:16px;border:1px solid var(--borde,#35445d);border-radius:8px;background:var(--lienzo,#121c2e);color:var(--tinta,#f1f5fc);caret-color:var(--enlace,#93c5fd);font:15px/1.65 'Segoe UI',system-ui,sans-serif;resize:vertical}.ds-entrada::placeholder{color:#9aaac3;opacity:1}.ds-entrada:focus-visible{outline:2px solid var(--enlace,#93c5fd);outline-offset:4px}@media(max-width:900px){.ds-entrada{min-height:220px}}"
+    },
+    {
+      "name": "Selector nativo",
+      "kind": "input",
+      "refersTo": "selector",
+      "description": "Selección del estilo del prompt.",
+      "html": "<select class=\"ds-selector\" aria-label=\"Estilo del prompt\"><option>Preciso</option><option>Directo</option><option>Analítico</option><option>Creativo</option></select>",
+      "css": ".ds-selector{min-width:0;min-height:44px;padding:8px 12px;border:1px solid var(--borde,#35445d);border-radius:8px;background:var(--lienzo,#121c2e);color:var(--tinta,#f1f5fc);color-scheme:dark;font:13px/1.5 'Segoe UI',system-ui,sans-serif}.ds-selector:focus-visible{outline:2px solid var(--enlace,#93c5fd);outline-offset:4px}"
+    },
+    {
+      "name": "Selector de vista",
+      "kind": "nav",
+      "refersTo": "vista-activa",
+      "description": "Botones agrupados con estado aria-pressed.",
+      "html": "<div class=\"ds-vistas\" role=\"group\" aria-label=\"Presentación del prompt\"><button type=\"button\" aria-pressed=\"true\">Vista previa</button><button type=\"button\" aria-pressed=\"false\">Texto</button></div>",
+      "css": ".ds-vistas{display:flex;gap:4px;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--borde,#35445d)}.ds-vistas button{min-height:44px;padding:8px 12px;border:0;border-radius:8px;background:transparent;color:var(--secundario,#a9b8d0);font:12px/1.5 'Segoe UI',system-ui,sans-serif;cursor:pointer}.ds-vistas button[aria-pressed=true]{background:#2a3c58;color:var(--tinta,#f1f5fc)}.ds-vistas button:hover{color:var(--tinta,#f1f5fc)}.ds-vistas button:focus-visible{outline:2px solid var(--enlace,#93c5fd);outline-offset:4px}"
+    },
+    {
+      "name": "Panel de trabajo",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Superficie compartida por entrada y resultado.",
+      "html": "<section class=\"ds-panel\" aria-labelledby=\"ds-titulo-panel\"><div class=\"ds-cabecera-panel\"><h2 id=\"ds-titulo-panel\">Tu petición</h2><span>0 caracteres</span></div></section>",
+      "css": ".ds-panel{min-width:0;padding:24px;border:1px solid var(--borde,#35445d);border-radius:14px;background:var(--superficie,#182337);color:var(--tinta,#f1f5fc);font:16px/1.5 'Segoe UI',system-ui,sans-serif}.ds-cabecera-panel{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;margin-bottom:12px}.ds-cabecera-panel h2{margin:0;font-size:17px;font-weight:600}.ds-cabecera-panel span{color:var(--secundario,#a9b8d0);font-size:12px;font-variant-numeric:tabular-nums}.ds-panel[aria-busy=true]{border-color:var(--enlace,#93c5fd)}@media(max-width:480px){.ds-panel{padding:16px}}"
+    }
+  ],
+  "narrative": {
+    "overview": "La interfaz conserva el fondo azul tinta y emplea superficies oscuras, bordes visibles y un acento azul para la acción principal. La voz es clara, cercana y directa, según PRODUCT.md.\n\nLa identidad actual parte de `logo.png`, la S geométrica con flecha hacia la derecha descrita en PRODUCT.md. La cabecera utiliza `icono-192.png` a 44 × 44 px, con `object-fit: contain`; favicon e iconos PNG/ICO comparten esa fuente.",
+    "keyCharacteristics": [
+      "Texto y controles con jerarquía compacta.",
+      "Profundidad por tonos, espacio y bordes.",
+      "Entrada y resultado presentes en el mismo espacio de trabajo."
+    ],
+    "rules": [],
+    "dos": [
+      "Mantener la identidad de `logo.png` y sus iconos derivados.",
+      "Reutilizar las variables CSS y las variantes existentes.",
+      "Conservar foco visible, etiquetas, estados textuales y movimiento condicionado a la preferencia del usuario.",
+      "Mantener la voz clara, cercana y directa en español."
+    ],
+    "donts": [
+      "Añadir sombras decorativas al sistema plano documentado.",
+      "Sustituir la fuente actual por el recurso anterior `logo.webp`.",
+      "Afirmar validación visual o aprobación del usuario a partir de esta extracción estática."
+    ]
+  }
+}

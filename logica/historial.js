@@ -6,7 +6,7 @@ const LIMITE = 10;
 export function obtenerHistorial() {
   try {
     const datos = JSON.parse(localStorage.getItem(CLAVE) || "[]");
-    return Array.isArray(datos) ? datos : [];
+    return Array.isArray(datos) ? datos.filter(entrada => entrada && typeof entrada.texto === "string" && typeof entrada.prompt === "string").slice(0, LIMITE) : [];
   } catch {
     return [];
   }

@@ -3,127 +3,48 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sin Rodeos — Tu texto, sin cambiar nada</title>
-  <meta name="description" content="Convierte tus peticiones en bruto en prompts claros y profesionales en español con IA gratuita, sin cambiar nada de lo que pediste.">
+  <title>Sin Rodeos — Dale forma a lo que tienes en mente</title>
+  <meta name="description" content="Transforma tu petición en un prompt claro para tus proyectos. Escribe a tu manera, revisa y copia.">
   <meta name="theme-color" content="#0f172a">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Sin Rodeos">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="logo.webp" type="image/webp">
-  <link rel="icon" href="icono.ico" sizes="any">
-  <link rel="apple-touch-icon" href="logo.webp">
+  <link rel="icon" href="icono.ico" type="image/x-icon" sizes="any">
+  <link rel="apple-touch-icon" href="icono-192.png">
   <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
+  <a class="saltar" href="#textoEntrada">Ir al editor</a>
   <header class="cabecera">
-    <div class="marca">
-      <img src="logo.webp" alt="Logo de Sin Rodeos" class="marca__logo">
-      <div>
-        <h1>Sin Rodeos</h1>
-        <p>Tu texto, sin cambiar nada. Solo mejor escrito.</p>
-      </div>
-    </div>
-    <a class="enlace" href="https://github.com/qirris/SinRodeos" target="_blank" rel="noopener">
-      Ver en GitHub
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M7 17 17 7M9 7h8v8"></path>
-      </svg>
-    </a>
+    <a class="marca" href="/" aria-label="Sin Rodeos, inicio"><img class="marca__simbolo" src="icono-192.png" width="44" height="44" alt=""><span>Sin Rodeos<span class="marca__detalle">Un poco de orden para tus ideas.</span></span></a>
+    <a class="enlace" href="https://github.com/qirris/SinRodeos" target="_blank" rel="noopener">Ver en GitHub <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
   </header>
-
   <main class="principal">
-    <div class="promesa" role="note" aria-label="Principios del producto">
-      <span>Con IA</span>
-      <span>No inventa</span>
-      <span>No quita</span>
-      <span>No cambia</span>
-    </div>
-
-    <div class="aviso" id="avisoConfiguracion" role="alert" hidden>
-      <strong>Falta la clave del servicio de IA.</strong>
-      Abre el archivo <code>.env</code> que está en la carpeta de Sin Rodeos y pega tu clave en
-      <code>GEMINI_API_KEY=</code>. Guardas el archivo y vuelves a pulsar el botón. No hace falta reiniciar.
-    </div>
-
-    <div class="columnas">
-      <section class="panel" aria-labelledby="titulo-entrada">
-        <div class="panel__cabecera">
-          <h2 id="titulo-entrada">Tu texto</h2>
-          <span class="etiqueta" id="contadorEntrada">0 caracteres</span>
-        </div>
-        <label class="sr-only" for="textoEntrada">Escribe aquí lo que quieres pedir</label>
-        <textarea id="textoEntrada" spellcheck="false" placeholder="Escribe aquí lo que quieres pedir, aunque salga desordenado o con faltas..."></textarea>
-        <div class="barra-entrada">
-          <button id="botonEjemplo" class="boton boton--texto" type="button">Probar ejemplo</button>
-          <button id="botonLimpiar" class="boton boton--texto" type="button">Limpiar</button>
-        </div>
+    <div class="introduccion"><h1>Dale forma a lo que tienes en mente.</h1><p>Escribe como te salga. Llévate un prompt claro para seguir con tu proyecto.</p></div>
+    <div class="aviso" id="avisoConfiguracion" role="alert" hidden><strong>Falta configurar tu clave de IA.</strong><p>Copia <code>.env.example</code> como <code>.env</code> en la carpeta de Sin Rodeos. Pega tu clave en <code>GEMINI_API_KEY</code>, guarda y vuelve a generar. No hace falta reiniciar.</p></div>
+    <div class="espacio-trabajo">
+      <section class="editor" aria-labelledby="titulo-entrada">
+        <div class="panel__cabecera"><h2 id="titulo-entrada">Tu petición</h2><span id="contadorEntrada" class="dato">0 caracteres</span></div>
+        <label class="sr-only" for="textoEntrada">Escribe lo que quieres pedir a la IA</label>
+        <textarea id="textoEntrada" placeholder="Quiero corregir el login de mi proyecto en React. No añadas librerías ni cambies el registro. Devuélveme los archivos completos…" aria-describedby="ayudaEntrada" spellcheck="true"></textarea>
+        <p class="ayuda" id="ayudaEntrada">Incluye lo que necesitas, lo que hay que respetar y cómo quieres recibirlo.</p>
+        <div class="herramientas"><label for="selectorEjemplo">¿Por dónde empiezo?</label><select id="selectorEjemplo"><option value="">Cargar un ejemplo…</option><option value="fallo">Corregir un fallo</option><option value="funcion">Crear una función</option><option value="interfaz">Mejorar una interfaz</option></select><button id="botonLimpiar" class="boton-texto" type="button">Limpiar</button></div>
+        <div class="opciones"><label for="selectorEstilo">Estilo del prompt</label><select id="selectorEstilo" aria-describedby="descripcionEstilo"><option value="preciso">Preciso</option><option value="directo">Directo</option><option value="analitico">Analítico</option><option value="creativo">Creativo</option></select><p id="descripcionEstilo" class="ayuda">Tareas, restricciones y entrega bien ordenadas.</p></div>
+        <div class="accion"><button id="botonMejorar" class="boton boton--primario" type="button"><span id="etiquetaMejorar">Generar prompt</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-6-6 6 6-6 6"/></svg></button><button id="botonCancelar" class="boton" type="button" hidden>Cancelar</button><span class="atajo">Ctrl / ⌘ + Enter</span></div>
       </section>
-
-      <div class="puente" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 12h15m0 0-5-5m5 5-5 5"></path>
-        </svg>
-      </div>
-
-      <section class="panel panel--salida" id="panelSalida" aria-labelledby="titulo-salida">
-        <div class="barra-progreso" aria-hidden="true"></div>
-        <div class="panel__cabecera">
-          <h2 id="titulo-salida">Prompt listo</h2>
-          <span class="etiqueta" id="indicadorConservacion" hidden></span>
+      <section class="resultado" id="panelSalida" aria-labelledby="titulo-salida" aria-busy="false">
+        <div class="panel__cabecera"><h2 id="titulo-salida">Tu prompt</h2><button id="botonCopiar" class="boton boton--copiar" type="button" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M15 8V4H4v11h4"/></svg>Copiar prompt</button></div>
+        <div class="vistas" role="group" aria-label="Presentación del prompt"><button id="botonVistaPrevia" type="button" aria-pressed="true" aria-controls="vistaPrevia">Vista previa</button><button id="botonVistaTexto" type="button" aria-pressed="false" aria-controls="textoSalida">Texto</button><span id="estiloResultado" class="dato"></span></div>
+        <div class="lienzo">
+          <div id="salidaVacia" class="vacio"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M13 7h17l7 7v27H13zM29 7v9h8M19 24h12M19 30h9"/></svg><h3>De idea suelta a instrucción clara.</h3><p>Aquí verás tu petición ordenada y lista para copiar en otra IA.</p><span>Tu intención marca el rumbo.</span></div>
+          <div id="vistaPrevia" class="prompt" tabindex="0" aria-label="Vista previa del prompt" hidden></div>
+          <label class="sr-only" for="textoSalida">Prompt en Markdown</label><textarea id="textoSalida" readonly hidden></textarea>
         </div>
-        <label class="sr-only" for="textoSalida">Prompt generado</label>
-        <textarea id="textoSalida" readonly placeholder="Aquí aparecerá tu prompt mejorado..."></textarea>
-        <div class="barra-salida">
-          <button id="botonCopiar" class="boton boton--secundario" type="button">
-            Copiar prompt
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="9" y="9" width="11" height="11" rx="2"></rect>
-              <path d="M5 15V5a2 2 0 0 1 2-2h8"></path>
-            </svg>
-          </button>
-          <span class="pista" id="estado" role="status" aria-live="polite">El resultado aparecerá aquí.</span>
-        </div>
+        <p id="estado" class="estado" role="status" aria-live="polite">Listo cuando tú lo estés.</p>
+        <details class="revision" id="revision" hidden><summary id="resumenRevision">Revisión orientativa</summary><p>La revisión automática es aproximada. Contrasta el resultado con tu petición antes de copiarlo.</p><ul id="listaRevision"></ul></details>
       </section>
     </div>
-
-    <section class="controles" aria-labelledby="titulo-opciones">
-      <div class="controles__texto">
-        <h2 id="titulo-opciones">Prompt con IA</h2>
-        <p>La redacción la hace un servicio de IA. Nosotros comprobamos que no falte ninguna de tus ideas.</p>
-      </div>
-      <div class="campo-estilo">
-        <label for="selectorEstilo">Estilo del prompt</label>
-        <select id="selectorEstilo" name="estilo">
-          <option value="preciso" selected>Preciso</option>
-          <option value="directo">Directo</option>
-          <option value="analitico">Analítico</option>
-          <option value="creativo">Creativo</option>
-        </select>
-      </div>
-      <button id="botonMejorar" class="boton boton--primario" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"></path>
-          <path d="M18.5 16.5 19 18l1.5.5L19 19l-.5 1.5L18 19l-1.5-.5L18 18l.5-1.5Z"></path>
-        </svg>
-        <span id="etiquetaMejorar">Convertir en prompt</span>
-        <kbd>Ctrl</kbd><kbd>Enter</kbd>
-      </button>
-    </section>
-
-    <section class="historial" aria-labelledby="titulo-historial">
-      <div class="historial__cabecera">
-        <h2 id="titulo-historial">Historial reciente</h2>
-        <button id="botonBorrarHistorial" class="boton boton--texto" type="button">Borrar historial</button>
-      </div>
-      <ol id="listaHistorial" class="historial__lista"></ol>
-      <p id="historialVacio" class="vacio">Todavía no hay prompts guardados en este navegador.</p>
-    </section>
+    <details class="historial"><summary>Historial reciente <span id="contadorHistorial" class="dato">0</span></summary><div class="historial__contenido"><p class="ayuda">Los últimos 10 prompts, guardados solo en este navegador.</p><button id="botonBorrarHistorial" class="boton-texto" type="button">Borrar historial</button><ol id="listaHistorial"></ol><p id="historialVacio" class="ayuda">Tu primer prompt aparecerá aquí.</p></div></details>
   </main>
-
-  <footer class="pie">
-    <p>La redacción la hace un servicio de IA en la nube. Tu clave se queda en tu ordenador. Desarrollo asistido por IA.</p>
-  </footer>
-
+  <footer class="pie"><p>Tu texto se envía a Gemini para redactar el prompt. La clave se guarda en tu equipo. <span>Evita compartir información sensible; la capa gratuita tiene límites.</span></p><p>Hecho para ir al grano. Desarrollo asistido por IA.</p></footer>
   <script type="module" src="app.js"></script>
 </body>
 </html>
