@@ -52,6 +52,8 @@ Verificación del 2026-11-22: **31/31 pruebas superadas**. Se completaron **11/1
 
 El logo actual es `logo.png`; el anterior se conserva como `logo.webp`. `npm run iconos` regenera PNG, ICO y SVG usando System.Drawing de Windows, sin abrir ventanas ni usar un navegador. Los prompts y la procedencia del logo están en `logo.png.json`.
 
+La barra de título usa una variante transparente del símbolo (`logo-ventana.png`), con favicon específico de 16/32 px y nombres versionados. El lanzador abre `?v=4` para renovar la identidad de la ventana conservando el mismo origen y el historial. Tras actualizar, cierra y vuelve a abrir la app si aún ves el icono anterior; no es necesario borrar el historial ni reiniciar el Explorador.
+
 ## Asistencia de IA
 
 Proyecto desarrollado con asistencia de IA, incluido el nuevo logo. Las decisiones, los cambios y sus límites se documentan en el repositorio.

@@ -23,5 +23,5 @@ if not exist "%NAVEGADOR%" (
   exit /b 1
 )
 
-start "" "%NAVEGADOR%" --app=http://localhost:8000/?v=3 --window-size=1180,900
+start "" "%NAVEGADOR%" --app=http://localhost:8000/?v=4 --window-size=1180,900
 endlocal

@@ -13,6 +13,8 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 2. Estado actual
 
+- 2026-11-22, incidencia del icono de título: la captura del usuario muestra el logo interior actualizado y un icono oscuro en la esquina superior de Windows. Añadida variante transparente del símbolo, favicon de 16/32 px y nombres v4; manifest y lanzador renuevan sus referencias sin cambiar de origen. Archivos y 31/31 pruebas verificados; queda confirmar el icono real tras reabrir la app. No se manejan ventanas ni se reinicia el Explorador.
+
 - 2026-11-22, continuación: instalación habitual actualizada desde GitHub a la versión 1.2.0 con `git pull --ff-only`, tras comprobar que estaba limpia. `.env` conserva tamaño y fecha de modificación. Servidor anterior de Sin Rodeos identificado en el puerto 8000 y reiniciado sin ventanas; nuevo proceso `11896`, enlace exclusivo a `127.0.0.1`. Página e icono responden 200, `.env` responde 404 y una generación real ficticia responde 200. Accesos directos y ventanas del usuario no se han modificado.
 
 - 2026-11-22, publicación verificada: versión 1.2.0 y nuevo logo subidos a `main`, commit `a7127ba19d1e5086364648799c3ec17cd23fa5bc`. `git ls-remote` coincide con el commit local y la lectura mediante GitHub confirma la cabecera actualizada y la procedencia del logo. La clave y el informe privado no están incluidos. La instalación anterior y su acceso directo permanecen sin modificar.
@@ -98,6 +100,8 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 6. Cambios realizados
 
+- 2026-11-22: variante `logo-ventana.png` generada con ImageGen; procedencia en `logo-ventana.png.json`. Generador extendido para `favicon-16-v4.png`, `favicon-32-v4.png` e `icono-ventana-v4.ico`. Referencias PNG con tamaños explícitos y alias `/favicon.ico`. `abrir.bat` cambia a `?v=4`; el mismo origen conserva historial y permisos. No se altera el logo dentro de la app.
+
 - 2026-11-22: actualizada la instalación habitual, no solo la copia de trabajo. Se conservó la configuración privada y se reinició exclusivamente el servidor de Sin Rodeos identificado, con ejecución oculta y sin abrir navegador.
 
 - 2026-11-22: publicados 43 archivos de implementación, recursos y documentación en `main`, sin forzar el remoto. Añadidos `DESIGN.md` y `.impeccable/design.json` a partir del código real, con evidencia estática y sin declarar aprobación visual.
@@ -147,6 +151,8 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 8. Pruebas verificadas
 
+- 2026-11-22, favicon: variantes de 16/32 px inspeccionadas como archivos, transparencia comprobada y sin píxeles negros visibles. ICO con dos tamaños 16 y 32. `npm run iconos` genera los recursos sin ventanas; `npm test` → 31/31, con rutas de favicon incluidas en la prueba de recursos públicos. La comprobación en la barra de título real sigue pendiente del usuario.
+
 - 2026-11-22, instalación habitual: `npm test` → 31/31. Versión de package.json: 1.2.0. Configuración privada ignorada por git y metadatos sin cambios. Servicio en `127.0.0.1:8000`: `/` e `/icono-192.png` → 200; `/.env` → 404. Petición real ficticia de corregir login en React, sin añadir bibliotecas ni cambiar registro y entregando archivos completos → 200; salida conserva esos elementos. Esto no completa ni sustituye la comparación de doce casos ni la revisión visual pendiente.
 
 - 2026-11-22, publicación: revisión de 43 archivos preparados sin rutas privadas ni patrones de credenciales. Push `14e7c1a..a7127ba` completado. GitHub devuelve `index.html` con SHA `94022418800e0fc9ccd95ba7e3bcedab1af65eda`, idéntico al archivo del commit local; incluye el nuevo icono y la vista previa. Referencia remota `main` verificada en `a7127ba19d1e5086364648799c3ec17cd23fa5bc`.
@@ -175,6 +181,8 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 9. Errores y problemas pendientes
 
+- **Corrección preparada; confirmación visual pendiente**: icono pequeño oscuro en la barra de título pese al logo de cabecera correcto. Se separan el favicon transparente y el icono con baldosa de la app y se versionan los recursos y la URL de arranque. No afirmar que se ha visto corregido en Windows hasta recibir confirmación del usuario.
+
 - **Supérsedido por rediseño expreso**: el mero reencuadre del logo anterior no satisfizo al usuario. Sustituido el dibujo por un logo S/flecha; se conserva el recurso anterior y la nueva fuente se identifica explícitamente.
 
 - **Corregido en código, pendiente de revisión visual**: `logo.webp` tiene mucho espacio blanco y se forzaba a 40 × 40 pese a no ser cuadrado; el símbolo quedaba pequeño y deformado. Se conserva el dibujo y se corrige su encuadre con CSS.
@@ -201,6 +209,8 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 3. La instalación habitual ya se actualizó por petición de continuar. En futuras actualizaciones, mantener el avance directo y la configuración privada; reiniciar solo el servidor identificado. No modificar accesos directos ni controlar ventanas sin petición expresa.
 
 ## 11. Historial de actualizaciones
+
+- 2026-11-22 — Corrección del icono de título: favicon transparente de 16/32 px, referencias y arranque v4, con el logo interior conservado. 31/31 pruebas; sin controlar ventanas.
 
 - 2026-11-22 — Instalación habitual actualizada a 1.2.0; servidor reiniciado sin ventanas, 31/31 pruebas y generación real ficticia verificadas. Configuración privada conservada.
 

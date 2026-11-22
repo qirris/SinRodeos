@@ -1,10 +1,10 @@
-param([Parameter(Mandatory = $true)][string]$Origen)
+param(
+  [Parameter(Mandatory = $true)][string]$Origen,
+  [Parameter(Mandatory = $true)][string]$OrigenVentana
+)
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Drawing
-$imagen = [System.Drawing.Image]::FromFile($Origen)
-try {
-  $resultado = [ordered]@{}
-  foreach ($lado in @(32, 48, 64, 192, 256, 512)) {
+function Convertir-Png([System.Drawing.Image]$imagen, [int]$lado) {
     $lienzo = [System.Drawing.Bitmap]::new($lado, $lado, [System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
     $grafico = [System.Drawing.Graphics]::FromImage($lienzo)
     $flujo = [System.IO.MemoryStream]::new()
@@ -19,14 +19,22 @@ try {
       $rectangulo = [System.Drawing.RectangleF]::new([single](($lado - $ancho) / 2), [single](($lado - $alto) / 2), $ancho, $alto)
       $grafico.DrawImage($imagen, $rectangulo)
       $lienzo.Save($flujo, [System.Drawing.Imaging.ImageFormat]::Png)
-      $resultado[[string]$lado] = [Convert]::ToBase64String($flujo.ToArray())
+      return [Convert]::ToBase64String($flujo.ToArray())
     } finally {
       $flujo.Dispose()
       $grafico.Dispose()
       $lienzo.Dispose()
     }
-  }
+}
+$imagen = [System.Drawing.Image]::FromFile($Origen)
+$imagenVentana = $null
+try {
+  $imagenVentana = [System.Drawing.Image]::FromFile($OrigenVentana)
+  $resultado = [ordered]@{}
+  foreach ($lado in @(32, 48, 64, 192, 256, 512)) { $resultado[[string]$lado] = Convertir-Png $imagen $lado }
+  foreach ($lado in @(16, 32)) { $resultado["ventana$lado"] = Convertir-Png $imagenVentana $lado }
   $resultado | ConvertTo-Json -Compress
 } finally {
   $imagen.Dispose()
+  if ($imagenVentana) { $imagenVentana.Dispose() }
 }

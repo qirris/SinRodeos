@@ -22,6 +22,8 @@
 
 ## Pendientes
 
+- [ ] Confirmar con el usuario el favicon transparente v4 en la barra de título tras cerrar y volver a abrir; archivos y 31/31 pruebas ya verificados, sin controlar ventanas.
+
 - [x] Implementar la versión 1.2.0: nueva interfaz, instrucciones, revisión orientativa, cancelación, vista previa y servidor restringido. 31/31 pruebas automáticas.
 - [x] Actualizar README e instrucciones con instalación, actualización, privacidad y estado de verificación reales.
 - [x] Publicar la versión 1.2.0 en `main` y verificar GitHub: commit de implementación `a7127ba`, referencia remota y contenido confirmados el 2026-11-22.

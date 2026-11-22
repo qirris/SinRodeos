@@ -16,7 +16,7 @@ test("solo sirve recursos públicos, nunca archivos internos ni fuentes del serv
   for (const ruta of ["/.env", "/.git/config", "/README.md", "/servidor.js", "/memoria.md", "/.env.example", "/logica/instrucciones.js", "/%2eenv", "/logica%5c..%5c.env"]) {
     assert.equal((await fetch(url + ruta)).status, 404, ruta);
   }
-  for (const ruta of ["/", "/app.js", "/estilos.css", "/logica/vista.js", "/logo.webp", "/manifest.webmanifest"]) {
+  for (const ruta of ["/", "/app.js", "/estilos.css", "/logica/vista.js", "/logo.webp", "/manifest.webmanifest", "/favicon.ico", "/favicon-16-v4.png", "/favicon-32-v4.png", "/icono-ventana-v4.ico"]) {
     const respuesta = await fetch(url + ruta);
     assert.equal(respuesta.status, 200, ruta);
     assert.ok(respuesta.headers.get("content-security-policy"));

@@ -46,6 +46,8 @@ Nombre: **Sin Rodeos**. Voz: directa, clara, joven, cercana, sin rodeos y sin pr
 
 El 2026-11-22 el usuario pidió expresamente reemplazar el logo anterior. La fuente actual es `logo.png`: una S geométrica con flecha hacia la derecha. Se usa la misma identidad en cabecera, favicon e iconos PNG/ICO. `logo.webp` se conserva como recurso anterior, no como fuente para generar los iconos. El origen y los prompts de ImageGen están en `logo.png.json`.
 
+Para la barra de título, `logo-ventana.png` contiene el mismo símbolo sin baldosa oscura. Sus derivados transparentes de 16/32 px tienen nombres versionados para distinguirlos del icono anterior; la marca de cabecera se conserva.
+
 ## Evidencia disponible
 
 - Entorno real verificado el 2026-11-19: git, gh (qirris), node y npm.

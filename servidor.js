@@ -10,6 +10,7 @@ const LIMITE_CUERPO = 1024 * 1024;
 const PUBLICOS = new Set([
   "index.html", "estilos.css", "app.js", "logo.png", "logo.webp", "icono.ico", "icono-app.ico",
   "icono.svg", "icono-192.png", "icono-512.png", "manifest.webmanifest", "service-worker.js",
+  "favicon-16-v4.png", "favicon-32-v4.png", "icono-ventana-v4.ico",
   "logica/gemini.js", "logica/mejorador.js", "logica/historial.js", "logica/vista.js", "logica/solicitud.js"
 ]);
 const TIPOS = { ".html": "text/html", ".css": "text/css", ".js": "text/javascript", ".webmanifest": "application/manifest+json", ".webp": "image/webp", ".png": "image/png", ".ico": "image/x-icon", ".svg": "image/svg+xml" };
@@ -131,7 +132,7 @@ export function crearServidor({ raiz = RAIZ, obtenerEntorno = leerEntorno, gener
         return;
       }
       if (!["GET", "HEAD"].includes(peticion.method)) throw fallo(405, "metodo", "Método no permitido.");
-      const nombre = ruta === "/" ? "index.html" : ruta.slice(1);
+      const nombre = ruta === "/" ? "index.html" : ruta === "/favicon.ico" ? "icono-ventana-v4.ico" : ruta.slice(1);
       if (!PUBLICOS.has(nombre)) throw fallo(404, "no_encontrado", "No se encontró el archivo solicitado.");
       const contenido = await fs.promises.readFile(path.join(raiz, nombre));
       respuesta.writeHead(200, { ...CABECERAS, "Content-Type": `${TIPOS[path.extname(nombre)]}; charset=utf-8` });

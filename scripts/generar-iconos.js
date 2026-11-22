@@ -7,15 +7,16 @@ import { fileURLToPath } from "node:url";
 
 const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const ORIGEN = path.join(RAIZ, "logo.png");
+const ORIGEN_VENTANA = path.join(RAIZ, "logo-ventana.png");
 const LADOS = [32, 48, 64, 256];
 
-function crearIco(imagenes) {
-  const cabecera = Buffer.alloc(6 + LADOS.length * 16);
+function crearIco(imagenes, lados = LADOS) {
+  const cabecera = Buffer.alloc(6 + lados.length * 16);
   cabecera.writeUInt16LE(1, 2);
-  cabecera.writeUInt16LE(LADOS.length, 4);
+  cabecera.writeUInt16LE(lados.length, 4);
   const datos = [];
   let posicion = cabecera.length;
-  LADOS.forEach((lado, indice) => {
+  lados.forEach((lado, indice) => {
     const png = Buffer.from(imagenes[lado], "base64");
     const entrada = 6 + indice * 16;
     cabecera[entrada] = lado === 256 ? 0 : lado;
@@ -32,10 +33,11 @@ function crearIco(imagenes) {
 
 if (process.platform !== "win32") throw new Error("La generación de iconos usa System.Drawing de Windows. La aplicación no depende de este paso para funcionar.");
 if (!fs.existsSync(ORIGEN)) throw new Error("No se encontró logo.png en la raíz del proyecto.");
+if (!fs.existsSync(ORIGEN_VENTANA)) throw new Error("No se encontró logo-ventana.png en la raíz del proyecto.");
 
 const salida = execFileSync("powershell.exe", [
   "-NoLogo", "-NoProfile", "-NonInteractive", "-File",
-  path.join(RAIZ, "scripts", "convertir-iconos.ps1"), "-Origen", ORIGEN
+  path.join(RAIZ, "scripts", "convertir-iconos.ps1"), "-Origen", ORIGEN, "-OrigenVentana", ORIGEN_VENTANA
 ], { encoding: "utf8", windowsHide: true, maxBuffer: 32 * 1024 * 1024, timeout: 60000 });
 const imagenes = JSON.parse(salida.replace(/^\uFEFF/, "").trim());
 for (const lado of [...LADOS, 192, 512]) {
@@ -45,5 +47,12 @@ for (const lado of [192, 512]) fs.writeFileSync(path.join(RAIZ, `icono-${lado}.p
 const ico = crearIco(imagenes);
 fs.writeFileSync(path.join(RAIZ, "icono.ico"), ico);
 fs.writeFileSync(path.join(RAIZ, "icono-app.ico"), ico);
+const ventana = {};
+for (const lado of [16, 32]) {
+  if (!imagenes[`ventana${lado}`]) throw new Error(`Falta el favicon de ${lado} px.`);
+  ventana[lado] = imagenes[`ventana${lado}`];
+  fs.writeFileSync(path.join(RAIZ, `favicon-${lado}-v4.png`), Buffer.from(ventana[lado], "base64"));
+}
+fs.writeFileSync(path.join(RAIZ, "icono-ventana-v4.ico"), crearIco(ventana, [16, 32]));
 fs.writeFileSync(path.join(RAIZ, "icono.svg"), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"><image href="data:image/png;base64,${imagenes[192]}" width="192" height="192"/></svg>\n`);
-console.log("Iconos actualizados desde logo.png: PNG de 192/512 px, SVG autocontenido e ICO de 32/48/64/256 px. Sin navegador ni ventanas.");
+console.log("Iconos de app actualizados y favicon transparente v4 de 16/32 px generado. Sin navegador ni ventanas.");

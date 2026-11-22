@@ -88,7 +88,7 @@
     }
   ],
   "narrative": {
-    "overview": "La interfaz conserva el fondo azul tinta y emplea superficies oscuras, bordes visibles y un acento azul para la acción principal. La voz es clara, cercana y directa, según PRODUCT.md.\n\nLa identidad actual parte de `logo.png`, la S geométrica con flecha hacia la derecha descrita en PRODUCT.md. La cabecera utiliza `icono-192.png` a 44 × 44 px, con `object-fit: contain`; favicon e iconos PNG/ICO comparten esa fuente.",
+    "overview": "La interfaz conserva el fondo azul tinta y emplea superficies oscuras, bordes visibles y un acento azul para la acción principal. La voz es clara, cercana y directa, según PRODUCT.md.\n\nLa identidad actual parte de `logo.png`, la S geométrica con flecha hacia la derecha descrita en PRODUCT.md. La cabecera utiliza `icono-192.png` a 44 × 44 px, con `object-fit: contain`. La barra de título usa el mismo símbolo sin baldosa oscura, a partir de `logo-ventana.png`, en favicons de 16/32 px con transparencia.",
     "keyCharacteristics": [
       "Texto y controles con jerarquía compacta.",
       "Profundidad por tonos, espacio y bordes.",

@@ -1,0 +1,12 @@
+{
+  "fecha": "2026-11-22",
+  "herramienta": "imagegen (herramienta integrada)",
+  "origen": "Variante del logo S/flecha existente, sin baldosa azul tinta, para el icono pequeño de la barra de título.",
+  "archivo": "logo-ventana.png",
+  "prompt": "Use case: logo-brand, production favicon variant. Edit this existing Sin Rodeos logo only by removing the navy rounded-square background tile entirely. Preserve exactly the blue S-and-right-arrow emblem, the shape of both strokes, the open counters, blue color and relative geometry. The same symbol alone, centered and enlarged to occupy about 85 percent of the square canvas, with a small even transparent safety margin. All pixels outside the blue emblem must be truly transparent, including all areas that were navy. This is an actual favicon asset that must read clearly at 16 and 32 pixels in a Windows title bar. Flat blue #60A5FA with clean anti-aliased edges. No tile, dark backdrop, white backdrop, gradient, glow, shadows, border, text, new shapes, checkerboard pattern, watermark, or mockup. Keep the mark intact. Transparent PNG.",
+  "derivados": [
+    "favicon-16-v4.png",
+    "favicon-32-v4.png",
+    "icono-ventana-v4.ico"
+  ]
+}
