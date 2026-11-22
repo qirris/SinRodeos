@@ -13,6 +13,8 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 2. Estado actual
 
+- 2026-11-22, continuación: instalación habitual actualizada desde GitHub a la versión 1.2.0 con `git pull --ff-only`, tras comprobar que estaba limpia. `.env` conserva tamaño y fecha de modificación. Servidor anterior de Sin Rodeos identificado en el puerto 8000 y reiniciado sin ventanas; nuevo proceso `11896`, enlace exclusivo a `127.0.0.1`. Página e icono responden 200, `.env` responde 404 y una generación real ficticia responde 200. Accesos directos y ventanas del usuario no se han modificado.
+
 - 2026-11-22, publicación verificada: versión 1.2.0 y nuevo logo subidos a `main`, commit `a7127ba19d1e5086364648799c3ec17cd23fa5bc`. `git ls-remote` coincide con el commit local y la lectura mediante GitHub confirma la cabecera actualizada y la procedencia del logo. La clave y el informe privado no están incluidos. La instalación anterior y su acceso directo permanecen sin modificar.
 
 - 2026-11-22, cierre para publicación: versión 1.2.0 preparada para `main` con las mejoras y el nuevo logo. Pruebas reejecutadas: 31/31. README e instrucciones actualizados con los límites reales; clave e informes de revisión ignorados por git. La publicación se registrará después de comprobar el remoto.
@@ -96,6 +98,8 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 6. Cambios realizados
 
+- 2026-11-22: actualizada la instalación habitual, no solo la copia de trabajo. Se conservó la configuración privada y se reinició exclusivamente el servidor de Sin Rodeos identificado, con ejecución oculta y sin abrir navegador.
+
 - 2026-11-22: publicados 43 archivos de implementación, recursos y documentación en `main`, sin forzar el remoto. Añadidos `DESIGN.md` y `.impeccable/design.json` a partir del código real, con evidencia estática y sin declarar aprobación visual.
 
 - 2026-11-22: cierre de documentación para publicación: instalación y actualización de copias existentes, privacidad real, estilos actuales, pruebas y pendientes. Se mantiene la instrucción de no manejar ventanas sin petición expresa.
@@ -142,6 +146,8 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - Para renovar el icono de Windows se usa un nombre de archivo nuevo (`icono-app.ico`) porque Explorer cachea los iconos por ruta (2026-11-20).
 
 ## 8. Pruebas verificadas
+
+- 2026-11-22, instalación habitual: `npm test` → 31/31. Versión de package.json: 1.2.0. Configuración privada ignorada por git y metadatos sin cambios. Servicio en `127.0.0.1:8000`: `/` e `/icono-192.png` → 200; `/.env` → 404. Petición real ficticia de corregir login en React, sin añadir bibliotecas ni cambiar registro y entregando archivos completos → 200; salida conserva esos elementos. Esto no completa ni sustituye la comparación de doce casos ni la revisión visual pendiente.
 
 - 2026-11-22, publicación: revisión de 43 archivos preparados sin rutas privadas ni patrones de credenciales. Push `14e7c1a..a7127ba` completado. GitHub devuelve `index.html` con SHA `94022418800e0fc9ccd95ba7e3bcedab1af65eda`, idéntico al archivo del commit local; incluye el nuevo icono y la vista previa. Referencia remota `main` verificada en `a7127ba19d1e5086364648799c3ec17cd23fa5bc`.
 
@@ -192,9 +198,11 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 1. Pendiente: revisión visual real en escritorio y móvil. No usar Computer Use ni controlar ventanas sin petición expresa.
 2. Pendiente: revisar cualitativamente el informe de comparación real y completar el par 12. No afirmar mejoras medidas sin evaluación.
-3. La instalación anterior y su acceso directo no se actualizan al publicar GitHub. Actualizarlos solo como tarea expresa; conservar configuración y datos del usuario.
+3. La instalación habitual ya se actualizó por petición de continuar. En futuras actualizaciones, mantener el avance directo y la configuración privada; reiniciar solo el servidor identificado. No modificar accesos directos ni controlar ventanas sin petición expresa.
 
 ## 11. Historial de actualizaciones
+
+- 2026-11-22 — Instalación habitual actualizada a 1.2.0; servidor reiniciado sin ventanas, 31/31 pruebas y generación real ficticia verificadas. Configuración privada conservada.
 
 - 2026-11-22 — Versión 1.2.0 y nuevo logo publicados en `main` (`a7127ba`), con commit en español, sin claves ni informes privados. Referencia y contenido de GitHub comprobados; 31/31 pruebas. Se registran por separado las verificaciones visual y comparativa aún pendientes.
 

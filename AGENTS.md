@@ -23,3 +23,5 @@ Punto de entrada del proyecto. Aplicación que convierte texto en bruto en promp
 ## Estado rápido
 
 Versión 1.2.0 publicada en `main`: interfaz oscura, nuevo logo S/flecha, instrucciones revisadas, vista previa segura, cancelación y servidor restringido al equipo local. Última verificación: 2026-11-22, 31/31 pruebas automáticas. Comparación real: 11/12 pares completados; revisión visual pendiente. Fuente del logo: `logo.png`; variantes mediante `npm run iconos` sin ventanas. Ver `memoria.md` para publicación y pendientes reales.
+
+Instalación habitual actualizada el 2026-11-22 con avance directo, configuración privada conservada y servidor reiniciado en segundo plano. Página, icono, protección de archivos internos y una generación real con datos ficticios comprobados. No se manejaron ventanas.
