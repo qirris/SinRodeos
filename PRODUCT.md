@@ -18,6 +18,12 @@ qirris. Usa la IA para hacer proyectos y necesita que entienda exactamente lo qu
 
 Convertir una petición en bruto en un prompt preciso, bien presentado y profesional, conservando literalmente todo lo pedido. El éxito es que la IA receptora cumpla la petición sin que el usuario tenga que reescribirla ni discutir con ella.
 
+## Origen y presentación pública
+
+El 2026-11-24 el autor aprobó publicar su motivación: al hacer proyectos con IA, las respuestas no siempre coincidían con lo que quería o le costaba explicar sus ideas. Investigó y pidió una herramienta para ordenar esas peticiones. La mayor parte del código se generó con IA; su aportación fue identificar la necesidad, definir el comportamiento, probar las versiones y pedir correcciones. Utilizó varios modelos mediante OmniRoute; las mejoras posteriores se trabajaron con Codex y el logo con ImageGen.
+
+El README y `docs/PROYECTO.md` presentan esa historia, una captura real y un ejemplo ficticio con respuesta real. Este relato concreto está autorizado para publicación; no se extiende a otros datos personales. No atribuir programación manual, experiencia profesional ni mejoras medidas sin evidencia. Distinguir la IA usada para desarrollar del uso de Gemini dentro de la aplicación.
+
 ## Posicionamiento
 
 La única mejora permitida es de forma, nunca de fondo: **no inventar, no omitir y no cambiar nada** de la intención original. A diferencia de la primera versión, la redacción la hace siempre un servicio de IA para que el resultado se vea bien; la conservación se vigila por dentro con una comprobación aproximada que avisa, pero no sustituye ni bloquea.
@@ -52,7 +58,10 @@ Para la barra de título, `logo-ventana.png` contiene el mismo símbolo sin bald
 
 - Entorno real verificado el 2026-11-19: git, gh (qirris), node y npm.
 - Llamada real al servicio de IA verificada el 2026-11-19 con el modelo `gemini-3.5-flash-lite`: estado 200 y prompt generado correctamente.
-- No hay capturas, testimonios ni métricas: no inventarlos.
+- Captura real facilitada por el autor, publicada en `docs/imagenes/interfaz.png` retirando solo el marco de Windows. No acredita una revisión visual completa.
+- Extracto real del caso ficticio de login, registrado el 2026-11-22: `docs/imagenes/ejemplo.json`. Composición visual identificada como tal, no como captura.
+- 2026-11-24: 31/31 pruebas automáticas. Comparación real del 2026-11-22: 11/12 pares; evaluación cualitativa y revisión visual completa pendientes.
+- No hay testimonios ni métricas de mejora o adopción: no inventarlos.
 
 ## Principios del producto
 

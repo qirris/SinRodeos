@@ -1,0 +1,17 @@
+{
+  "tipo": "Petición ficticia con respuesta real",
+  "fecha": "2026-11-22",
+  "proveedor": "Gemini",
+  "caso": "Inicio de sesión",
+  "origen": "Extracto del registro de comparación real de instrucciones; se publica únicamente este caso ficticio.",
+  "entrada": "arregla el login en React, no añadas librerías ni cambies el registro. devuélveme los archivos completos",
+  "salida": "## Objetivo\nCorrige el funcionamiento del inicio de sesión en la aplicación de React.\n\n## Restricciones\n- No añadas ninguna biblioteca nueva.\n- No modifiques la funcionalidad del registro.\n\n## Entrega\nDevuelve los archivos modificados de forma completa.",
+  "grafica": {
+    "titulo": "De la idea a las instrucciones",
+    "subtitulo": "Sin Rodeos · Un ejemplo de entrada y salida",
+    "entrada": "Tu petición",
+    "salida": "El prompt obtenido",
+    "pie": "Petición ficticia · Respuesta real de Gemini · 22/11/2026",
+    "nota": "Composición de los textos registrados; no es una captura de la aplicación."
+  }
+}

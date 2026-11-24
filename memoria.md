@@ -13,6 +13,8 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 2. Estado actual
 
+- 2026-11-24: preparación de la presentación pública aprobada para empresas. README visual y caso de estudio en `docs/PROYECTO.md`, con motivación confirmada, papel del autor y código generado mayoritariamente con IA. Diferenciados OmniRoute/Codex/ImageGen durante el desarrollo y Gemini durante el uso. Captura real recortada solo por el marco de Windows; comparativa de un caso ficticio con respuesta real, también legible en móvil. 31/31 pruebas reejecutadas. Sin cambios de funcionamiento, API, servidor en ejecución ni ventanas. Publicación y sincronización pendientes de verificar.
+
 - 2026-11-22, incidencia del icono de título: la captura del usuario muestra el logo interior actualizado y un icono oscuro en la esquina superior de Windows. Añadida variante transparente del símbolo, favicon de 16/32 px y nombres v4; manifest y lanzador renuevan sus referencias sin cambiar de origen. Archivos y 31/31 pruebas verificados; queda confirmar el icono real tras reabrir la app. No se manejan ventanas ni se reinicia el Explorador.
 
 - 2026-11-22, continuación: instalación habitual actualizada desde GitHub a la versión 1.2.0 con `git pull --ff-only`, tras comprobar que estaba limpia. `.env` conserva tamaño y fecha de modificación. Servidor anterior de Sin Rodeos identificado en el puerto 8000 y reiniciado sin ventanas; nuevo proceso `11896`, enlace exclusivo a `127.0.0.1`. Página e icono responden 200, `.env` responde 404 y una generación real ficticia responde 200. Accesos directos y ventanas del usuario no se han modificado.
@@ -47,8 +49,8 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 ## 3. Tecnologías y arquitectura
 
 - Interfaz: HTML + CSS + JavaScript (ES modules), sin frameworks ni dependencias.
-- Servidor local: `servidor.js` con módulos nativos de Node (`http`, `https`, `fs`, `path`) para servir archivos y llamar a Gemini. Lee `.env` en cada petición, así que pegar la clave no exige reiniciar.
-- IA: Gemini de Google (capa gratuita). Modelo por defecto `gemini-3.5-flash-lite`; alternativa `gemini-3.8-flash` configurable en `.env`.
+- Servidor local: `servidor.js` con módulos nativos de Node (`http`, `fs`, `path`, `url`) y `fetch` para servir archivos y llamar a Gemini. Lee `.env` en cada petición, así que pegar la clave no exige reiniciar.
+- IA: Gemini de Google. Modelo por defecto actual `gemini-3.8-flash`; se respeta `GEMINI_MODELO` en `.env`. El informe comparativo guardado no registra el modelo concreto de aquella ejecución.
 - Seguridad de la clave: la clave vive solo en `.env` local; el navegador nunca la recibe. El texto del usuario **sí se envía a Gemini**.
 - Presentación de escritorio: PWA con `manifest.webmanifest`, `service-worker.js`, iconos y `abrir.bat` que abre Edge/Chrome con `--app=` y arranca el servidor si hace falta. No se usa Electron.
 - Pruebas: `node --test` (módulo nativo de Node).
@@ -79,7 +81,7 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - Declarar de forma visible que el proyecto se desarrolló con asistencia de IA.
 - Voz pública: joven, cercana, directa y honesta, sin lenguaje de empresa. El contexto personal del usuario es solo referencia de tono, nunca dato publicado.
 - Sin secretos en archivos `.md` ni en el repositorio. `.env` ignorado por git; `.env.example` es la plantilla sin clave.
-- No decir que "todo se procesa en local": el texto sale a Gemini; solo la clave se queda en el ordenador.
+- No decir que "todo se procesa en local": el texto sale a Gemini; el servidor usa la clave para autenticarse ante Google y nunca la entrega al navegador.
 - Capa gratuita con límites: advertir que Google puede usar el contenido para mejorar productos; no pegar información sensible.
 - El comportamiento real del código manda sobre esta memoria.
 - Detalle en `instrucciones/INSTRUCCIONES_GENERALES.md`.
@@ -99,6 +101,8 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 - README y pie de interfaz con privacidad real y declaración de asistencia de IA.
 
 ## 6. Cambios realizados
+
+- 2026-11-24: README reorganizado alrededor de problema, ejemplo, aportación e IA, funcionamiento, evidencias y puesta en marcha. Añadidos caso de estudio, procedencia de imágenes y extracto público de un único caso ficticio, cotejado con el registro real. `scripts/generar-imagenes-docs.ps1` recorta la captura y compone las dos variantes del ejemplo con System.Drawing, sin navegador ni IA generativa. Logo actual reutilizado con su atribución. Reglas de contexto actualizadas para el relato expresamente autorizado; no se publica otro contexto personal.
 
 - 2026-11-22: variante `logo-ventana.png` generada con ImageGen; procedencia en `logo-ventana.png.json`. Generador extendido para `favicon-16-v4.png`, `favicon-32-v4.png` e `icono-ventana-v4.ico`. Referencias PNG con tamaños explícitos y alias `/favicon.ico`. `abrir.bat` cambia a `?v=4`; el mismo origen conserva historial y permisos. No se altera el logo dentro de la app.
 
@@ -151,6 +155,8 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 8. Pruebas verificadas
 
+- 2026-11-24: `npm test` → 31/31, 0 fallos, Node.js v24.21.0. Extracto de login cotejado literalmente con entrada y salida del registro del 2026-11-22 (11 pares completos). Archivos PNG generados e inspeccionados: interfaz 1445 × 642, comparativa 1280 × 864 y versión apilada 720 × 1260. Recorte exacto contrastado por hash con una nueva extracción de los píxeles originales tras los primeros 50 px. Validados 45 enlaces/rutas y anclas en los tres documentos públicos, textos alternativos, ejemplo literal y ausencia de rutas privadas o patrones de credenciales. Enlace de OmniRoute consultado mediante GitHub. No se ha hecho una revisión visual de la app en ejecución ni nuevas llamadas al proveedor. Publicación por comprobar antes del cierre.
+
 - 2026-11-22, favicon: variantes de 16/32 px inspeccionadas como archivos, transparencia comprobada y sin píxeles negros visibles. ICO con dos tamaños 16 y 32. `npm run iconos` genera los recursos sin ventanas; `npm test` → 31/31, con rutas de favicon incluidas en la prueba de recursos públicos. La comprobación en la barra de título real sigue pendiente del usuario.
 
 - 2026-11-22, instalación habitual: `npm test` → 31/31. Versión de package.json: 1.2.0. Configuración privada ignorada por git y metadatos sin cambios. Servicio en `127.0.0.1:8000`: `/` e `/icono-192.png` → 200; `/.env` → 404. Petición real ficticia de corregir login en React, sin añadir bibliotecas ni cambiar registro y entregando archivos completos → 200; salida conserva esos elementos. Esto no completa ni sustituye la comparación de doce casos ni la revisión visual pendiente.
@@ -181,6 +187,8 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 9. Errores y problemas pendientes
 
+- 2026-11-24: corregidas durante la revisión documental una referencia inicial al nombre inexistente `vista-previa.js` (el archivo real es `logica/vista.js`) y descripciones antiguas del modelo por defecto y módulos del servidor en esta memoria. No se modifica el código. Siguen pendientes la evaluación semántica del conjunto y la revisión visual completa de la app; las nuevas imágenes no las sustituyen.
+
 - **Corrección preparada; confirmación visual pendiente**: icono pequeño oscuro en la barra de título pese al logo de cabecera correcto. Se separan el favicon transparente y el icono con baldosa de la app y se versionan los recursos y la URL de arranque. No afirmar que se ha visto corregido en Windows hasta recibir confirmación del usuario.
 
 - **Supérsedido por rediseño expreso**: el mero reencuadre del logo anterior no satisfizo al usuario. Sustituido el dibujo por un logo S/flecha; se conserva el recurso anterior y la nueva fuente se identifica explícitamente.
@@ -204,11 +212,15 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 10. Próximos pasos
 
+0. Cerrar la entrega documental del 2026-11-24: verificar enlaces, privacidad, publicación en `main` y sincronización de la instalación habitual. No reiniciar el servidor por cambios solo documentales.
+
 1. Pendiente: revisión visual real en escritorio y móvil. No usar Computer Use ni controlar ventanas sin petición expresa.
 2. Pendiente: revisar cualitativamente el informe de comparación real y completar el par 12. No afirmar mejoras medidas sin evaluación.
 3. La instalación habitual ya se actualizó por petición de continuar. En futuras actualizaciones, mantener el avance directo y la configuración privada; reiniciar solo el servidor identificado. No modificar accesos directos ni controlar ventanas sin petición expresa.
 
 ## 11. Historial de actualizaciones
+
+- 2026-11-24 — Presentación pública preparada con historia autorizada, contribución real, usos de IA diferenciados, captura real y muestra de respuesta. 31/31 pruebas. Sin manejar ventanas; publicación y sincronización todavía por verificar.
 
 - 2026-11-22 — Corrección del icono de título: favicon transparente de 16/32 px, referencias y arranque v4, con el logo interior conservado. 31/31 pruebas; sin controlar ventanas.
 

@@ -2,6 +2,8 @@
 
 ## Completadas
 
+- [x] 2026-11-24: preparar README visual, caso de estudio, captura real recortada y comparativa de entrada/salida registrada. Relato personal aprobado y atribución de IA visibles; 31/31 pruebas reejecutadas. La revisión de enlaces y publicación se registra aparte.
+
 - [x] 2026-11-22: sustituir el logo a petición expresa del usuario; integrar S/flecha en cabecera, favicon y variantes PNG/ICO. Fuente `logo.png`, procedencia y prompts en `logo.png.json`. Conversión sin ventanas; dimensiones y transparencia verificadas; 31/31 pruebas.
 
 - [x] Implementar `index.html`, `estilos.css` y `app.js`.
@@ -21,6 +23,8 @@
 - [x] Actualizar `memoria.md`, `AGENTS.md` y las instrucciones internas al estado Gemini-only.
 
 ## Pendientes
+
+- [ ] 2026-11-24: verificar enlaces, privacidad, publicación de la presentación documental en `main` y sincronización de la instalación habitual, sin reiniciar el servidor ni manejar ventanas.
 
 - [ ] Confirmar con el usuario el favicon transparente v4 en la barra de título tras cerrar y volver a abrir; archivos y 31/31 pruebas ya verificados, sin controlar ventanas.
 

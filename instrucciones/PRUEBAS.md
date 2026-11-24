@@ -15,7 +15,7 @@ Usa el test runner nativo de Node (`node --test`). Cubre:
 - Eventos de interfaz con un DOM mínimo: ejemplo, copiar y alternativa manual, historial, errores y listas Markdown con numeración y anidación.
 - Servidor HTTP real con configuración y generación ficticias: lista de archivos públicos, Host/origen, JSON, límite en bytes, ausencia de clave, tiempo máximo y respuestas parciales o bloqueadas.
 
-Estado verificado el 2026-11-22: 31/31 en verde. Las pruebas no usan claves reales ni consultan Gemini.
+Estado verificado el 2026-11-24: 31/31 en verde, con Node.js v24.21.0. Las pruebas no usan claves reales ni consultan Gemini. Esta ejecución acompaña una entrega documental; no se ha cambiado el código de la aplicación.
 
 ## Detector de diseño
 
@@ -44,5 +44,7 @@ Toda prueba ejecutada se registra en `memoria.md` con fecha y resultado real.
 El 2026-11-22 se completaron 11/12 pares; el último falló por disponibilidad del proveedor. Pendiente revisar cualitativamente el informe y completar el caso restante. No afirmar una mejora medida sin esa revisión.
 
 ## Límites de la verificación
+
+Presentación documental del 2026-11-24: se comprobaron 45 enlaces/rutas y anclas de README, caso de estudio y procedencia de imágenes; textos alternativos; coincidencia literal del ejemplo con el registro real; dimensiones y lectura de PNG. El recorte coincide con los píxeles originales a partir de la fila 50. Imágenes inspeccionadas como archivos, sin abrir ventanas. Esto verifica los recursos documentales, no la interfaz en ejecución.
 
 La revisión independiente de código detectó y confirmó la corrección de la numeración/anidación de listas. La comprobación visual en escritorio y móvil sigue pendiente: el navegador integrado no alcanzó localhost y Computer Use se detuvo por no poder verificar la URL de Chrome. El usuario pidió que no se manejaran sus ventanas; no reintentar sin petición expresa.
