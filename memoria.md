@@ -13,7 +13,7 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 2. Estado actual
 
-- 2026-11-24: preparación de la presentación pública aprobada para empresas. README visual y caso de estudio en `docs/PROYECTO.md`, con motivación confirmada, papel del autor y código generado mayoritariamente con IA. Diferenciados OmniRoute/Codex/ImageGen durante el desarrollo y Gemini durante el uso. Captura real recortada solo por el marco de Windows; comparativa de un caso ficticio con respuesta real, también legible en móvil. 31/31 pruebas reejecutadas. Sin cambios de funcionamiento, API, servidor en ejecución ni ventanas. Publicación y sincronización pendientes de verificar.
+- 2026-11-24: presentación pública aprobada para empresas publicada en `main`, commit `c2b90e6da5314fb1e3d5a72bde2ae97aedd4d5b0`. README visual y caso de estudio en `docs/PROYECTO.md`, con motivación confirmada, papel del autor y código generado mayoritariamente con IA. Diferenciados OmniRoute/Codex/ImageGen durante el desarrollo y Gemini durante el uso. Captura real recortada solo por el marco de Windows; comparativa de un caso ficticio con respuesta real, también legible en móvil. 31/31 pruebas reejecutadas. Referencia remota, documentos e imágenes comprobados mediante GitHub. Instalación habitual actualizada por avance directo y limpia; configuración privada con los mismos metadatos, sin leer el contenido. Sin cambios de funcionamiento, API, servidor en ejecución ni ventanas.
 
 - 2026-11-22, incidencia del icono de título: la captura del usuario muestra el logo interior actualizado y un icono oscuro en la esquina superior de Windows. Añadida variante transparente del símbolo, favicon de 16/32 px y nombres v4; manifest y lanzador renuevan sus referencias sin cambiar de origen. Archivos y 31/31 pruebas verificados; queda confirmar el icono real tras reabrir la app. No se manejan ventanas ni se reinicia el Explorador.
 
@@ -155,7 +155,9 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 8. Pruebas verificadas
 
-- 2026-11-24: `npm test` → 31/31, 0 fallos, Node.js v24.21.0. Extracto de login cotejado literalmente con entrada y salida del registro del 2026-11-22 (11 pares completos). Archivos PNG generados e inspeccionados: interfaz 1445 × 642, comparativa 1280 × 864 y versión apilada 720 × 1260. Recorte exacto contrastado por hash con una nueva extracción de los píxeles originales tras los primeros 50 px. Validados 45 enlaces/rutas y anclas en los tres documentos públicos, textos alternativos, ejemplo literal y ausencia de rutas privadas o patrones de credenciales. Enlace de OmniRoute consultado mediante GitHub. No se ha hecho una revisión visual de la app en ejecución ni nuevas llamadas al proveedor. Publicación por comprobar antes del cierre.
+- 2026-11-24, publicación y sincronización: `git ls-remote` confirmó `main` en `c2b90e6da5314fb1e3d5a72bde2ae97aedd4d5b0`. Lectura mediante GitHub de README y caso de estudio con blobs `21080ce1c38b4a0343003819f2da3cda94ae2848` y `452535b5ed2e589151bed9ba68e457c5979f4a4f`, iguales a los del commit local. Los cinco recursos de `docs/imagenes/` coinciden por SHA con GitHub. Instalación habitual actualizada con `git pull --ff-only origin main`, mismo commit y árbol limpio. Metadatos de configuración privada conservados sin leerla. Índice revisado: 14 archivos de documentación, recursos y generador; ninguna modificación de la aplicación ni credenciales detectables; PNG sin metadatos textuales.
+
+- 2026-11-24: `npm test` → 31/31, 0 fallos, Node.js v24.21.0. Extracto de login cotejado literalmente con entrada y salida del registro del 2026-11-22 (11 pares completos). Archivos PNG generados e inspeccionados: interfaz 1445 × 642, comparativa 1280 × 864 y versión apilada 720 × 1260. Recorte exacto contrastado por hash con una nueva extracción de los píxeles originales tras los primeros 50 px. Validados 45 enlaces/rutas y anclas en los tres documentos públicos, textos alternativos, ejemplo literal y ausencia de rutas privadas o patrones de credenciales. Enlace de OmniRoute consultado mediante GitHub. No se ha hecho una revisión visual de la app en ejecución ni nuevas llamadas al proveedor.
 
 - 2026-11-22, favicon: variantes de 16/32 px inspeccionadas como archivos, transparencia comprobada y sin píxeles negros visibles. ICO con dos tamaños 16 y 32. `npm run iconos` genera los recursos sin ventanas; `npm test` → 31/31, con rutas de favicon incluidas en la prueba de recursos públicos. La comprobación en la barra de título real sigue pendiente del usuario.
 
@@ -212,15 +214,13 @@ Evolución actual: la redacción la hace siempre la API gratuita de Gemini, sin 
 
 ## 10. Próximos pasos
 
-0. Cerrar la entrega documental del 2026-11-24: verificar enlaces, privacidad, publicación en `main` y sincronización de la instalación habitual. No reiniciar el servidor por cambios solo documentales.
-
 1. Pendiente: revisión visual real en escritorio y móvil. No usar Computer Use ni controlar ventanas sin petición expresa.
 2. Pendiente: revisar cualitativamente el informe de comparación real y completar el par 12. No afirmar mejoras medidas sin evaluación.
 3. La instalación habitual ya se actualizó por petición de continuar. En futuras actualizaciones, mantener el avance directo y la configuración privada; reiniciar solo el servidor identificado. No modificar accesos directos ni controlar ventanas sin petición expresa.
 
 ## 11. Historial de actualizaciones
 
-- 2026-11-24 — Presentación pública preparada con historia autorizada, contribución real, usos de IA diferenciados, captura real y muestra de respuesta. 31/31 pruebas. Sin manejar ventanas; publicación y sincronización todavía por verificar.
+- 2026-11-24 — Presentación pública publicada y sincronizada (`c2b90e6`), con historia autorizada, contribución real, usos de IA diferenciados, captura real y muestra de respuesta. 31/31 pruebas, 45 enlaces/rutas y anclas y contenido remoto verificados. Sin manejar ventanas ni reiniciar el servidor.
 
 - 2026-11-22 — Corrección del icono de título: favicon transparente de 16/32 px, referencias y arranque v4, con el logo interior conservado. 31/31 pruebas; sin controlar ventanas.
 
